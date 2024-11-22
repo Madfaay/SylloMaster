@@ -407,6 +407,9 @@ public class Syllogisme implements Validateur{
      * Allows choosing the rule that we want to submit for validation.
      */
     public Reponse validRule(ArrayList<String> check){
+        if(check.isEmpty()) {
+            return new Reponse("No rules selected", true, null);
+        }
         invalid.clear();
         Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
 
@@ -436,7 +439,7 @@ public class Syllogisme implements Validateur{
         if (isValid) {
             message = "Every rules chosen are validated";
         }else{
-            message = "The rules that are not validated are:";
+            message = "The rules that are not validated are: ";
             for (String s : invalid) {
                 message += s + "; ";
             }
