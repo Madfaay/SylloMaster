@@ -12,7 +12,8 @@ public class Polysyllogisme implements Validateur {
     protected Proposition conclusion;
     protected List<Proposition> premises = new ArrayList<>();
     private List<String> invalid = new ArrayList<>();
-    private int taillePremisses =0 ;
+    private int taillePremisses = 0 ;
+
 
 
     public Proposition getConclusion() {
@@ -155,7 +156,7 @@ public class Polysyllogisme implements Validateur {
         int indice = 0 ;
         for (Proposition p : premises) {
             if(termesEgaux(sujet.getExpression() , p.getPremierTerme().getExpression())
-            || termesEgaux(sujet.getExpression() , p.getDeuxiemeTerme().getExpression()))
+                    || termesEgaux(sujet.getExpression() , p.getDeuxiemeTerme().getExpression()))
             {
                 this.swap(this.taillePremisses -1  , indice);
                 return true;
@@ -182,111 +183,66 @@ public class Polysyllogisme implements Validateur {
                 if(indice == 1)
                     return true ;
                 this.swap(indice -1 , i );
-                this.affichePremisse();
                 boolean next = placeProp(p , indice -1);
                 if(next)
                     return true ;
-                this.affichePremisse();
             }
         }
         return  false ;
 
     }
 
-    private void affichePremisse() {
-    }
-
     public boolean structCorrection () {
-          if(placeLast()) {
-              return placeProp(this.premises.getLast(), this.taillePremisses - 1);
-          }
-          return  false;
+        if(placeLast()) {
+            return placeProp(this.premises.getLast(), this.taillePremisses - 1);
+        }
+        return  false;
     }
 
-        /**
-         * Method that allow the user to get a pair of medium term from two premises
-         * */
-        public Pair<Terme, Terme> getMediumTerm (Proposition p1, Proposition p2){
-            Pair<Terme, Terme> mediumTerms;
-            if (p1.getPremierTermeString().equals(p2.getPremierTermeString())) { //< cas ou le moyen terme est le premier terme dans les deux.
-                mediumTerms = new Pair(p1.getPremierTerme(), p2.getPremierTerme());
-                return mediumTerms;
-            } else if (p1.getPremierTermeString().equals(p2.getDeuxiemeTermeString())) { //< cas ou le moyen terme est premier terme dans la premiere premise et deuxième dans la seconde.
-                mediumTerms = new Pair(p1.getPremierTerme(), p2.getDeuxiemeTerme());
-                return mediumTerms;
-            } else if (p1.getDeuxiemeTermeString().equals(p2.getPremierTermeString())) {
-                mediumTerms = new Pair<>(p1.getDeuxiemeTerme(), p2.getPremierTerme());
-                return mediumTerms;
-            } else if (p1.getDeuxiemeTermeString().equals(p2.getDeuxiemeTermeString())) {
-                mediumTerms = new Pair<>(p1.getDeuxiemeTerme(), p2.getDeuxiemeTerme());
-                return mediumTerms;
-            } else {
-                System.out.println("Pas de moyen terme : structure invalide");
-                return null;
-            }
-
+    /**
+     * Method that allow the user to get a pair of medium term from two premises
+     * */
+    public Pair<Terme, Terme> getMediumTerm (Proposition p1, Proposition p2){
+        Pair<Terme, Terme> mediumTerms;
+        if (p1.getPremierTermeString().equals(p2.getPremierTermeString())) { //< cas ou le moyen terme est le premier terme dans les deux.
+            mediumTerms = new Pair(p1.getPremierTerme(), p2.getPremierTerme());
+            return mediumTerms;
+        } else if (p1.getPremierTermeString().equals(p2.getDeuxiemeTermeString())) { //< cas ou le moyen terme est premier terme dans la premiere premise et deuxième dans la seconde.
+            mediumTerms = new Pair(p1.getPremierTerme(), p2.getDeuxiemeTerme());
+            return mediumTerms;
+        } else if (p1.getDeuxiemeTermeString().equals(p2.getPremierTermeString())) {
+            mediumTerms = new Pair<>(p1.getDeuxiemeTerme(), p2.getPremierTerme());
+            return mediumTerms;
+        } else if (p1.getDeuxiemeTermeString().equals(p2.getDeuxiemeTermeString())) {
+            mediumTerms = new Pair<>(p1.getDeuxiemeTerme(), p2.getDeuxiemeTerme());
+            return mediumTerms;
+        } else {
+            System.out.println("Pas de moyen terme : structure invalide");
+            return null;
         }
+
+    }
 
     //------------------------------------------------------------------//
     //--------------------------------RULES----------------------------//
     //----------------------------------------------------------------//
 
 
-        // Cela risque d'être pas ouf si on doit parcourir la liste a chaque regle
-        // TODO : essayer de faire en sorte qu'on parcourt une seul fois pour tester toutes les regles.
-
-
-        @Override
-        public void regleMoyenTerme() {
-            for (int i = 0; i < premises.size() - 1; i++) {
-                Pair<Terme, Terme> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
-                Terme firstMediumTerm = mediumTerms.getKey();
-                Terme secondMediumTerm = mediumTerms.getValue();
-
-                if (!firstMediumTerm.estUniverselle() && !secondMediumTerm.estUniverselle()) {
-                    invalid.add("Medium Term");
-                    return; //< Si on trouve que la règle est invalide on quitte la vérification.
-                }
-            }
-        }
-
-
+    // Cela risque d'être pas ouf si on doit parcourir la liste a chaque regle
+    // TODO : essayer de faire en sorte qu'on parcourt une seul fois pour tester toutes les regles.
 
 
     @Override
-    public void regleLatius() {
+    public void regleMoyenTerme() {
+        for (int i = 0; i < premises.size() - 1; i++) {
+            Pair<Terme, Terme> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
+            Terme firstMediumTerm = mediumTerms.getKey();
+            Terme secondMediumTerm = mediumTerms.getValue();
 
-
-        for (Proposition p : premises) {
-
-            if (p.getPremierTermeString().equals(conclusion.getPremierTermeString())) {
-                if (p.getPremierTerme().estUniverselle() && !conclusion.getPremierTerme().estUniverselle()) {
-                    invalid.add("Latius rule");
-                    return;
-                }
+            if (!firstMediumTerm.estUniverselle() && !secondMediumTerm.estUniverselle()) {
+                invalid.add("ENG: Medium Term Invalid / FR: Moyen Terme Invalide");
+                return; //< Si on trouve que la règle est invalide on quitte la vérification.
             }
-
-            if (p.getPremierTermeString().equals(conclusion.getDeuxiemeTermeString())) {
-                if (p.getPremierTerme().estUniverselle() && !conclusion.getDeuxiemeTerme().estUniverselle()) {
-                    invalid.add("Latius rule");
-                    return;
-                }
-            }
-
-            if (p.getDeuxiemeTermeString().equals(conclusion.getPremierTermeString())) {
-                if (p.getDeuxiemeTerme().estUniverselle() && !conclusion.getPremierTerme().estUniverselle()) {
-                    invalid.add("Latius rule");
-                    return;
-                }
-            }
-
-            if (p.getDeuxiemeTermeString().equals(conclusion.getPremierTermeString())) {
-                if (p.getPremierTerme().estUniverselle() && !conclusion.getDeuxiemeTerme().estUniverselle()) {
-                    invalid.add("Latius rule");
-                    return;
-                }
-            }
-
         }
     }
 
@@ -294,10 +250,31 @@ public class Polysyllogisme implements Validateur {
 
 
     @Override
+    public void regleLatius() {
+        if (conclusion.getPremierTerme().estUniverselle()) {
+            if (!premises.getLast().getPremierTerme().estUniverselle()) {
+                invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
+                return;
+            }
+        }
+        if (conclusion.getDeuxiemeTerme().estUniverselle()) {
+            if(!premises.getFirst().getPremierTerme().estUniverselle()) {
+                invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
+            }
+
+        }
+    }
+
+
+    @Override
     public void rNN() {
-        for (int i = 0; i < premises.size() - 1; i++) {
-            if (!premises.get(i).estAffirmative() && !premises.get(i + 1).estAffirmative() ) { //< Si les deux sont négatives la règle n'est pas réspecter
-                invalid.add("rNN rule");
+        int i = 0;
+        for (Proposition p : premises) {
+            if (!p.estAffirmative()) {
+                i++;
+            }
+            if (i >= 2) {
+                invalid.add("ENG: Rnn Invalid / FR: Rnn Invalide");
                 return;
             }
         }
@@ -307,7 +284,7 @@ public class Polysyllogisme implements Validateur {
     public void rN() {
         for(Proposition p : premises) {
             if(!p.estAffirmative() && conclusion.estAffirmative()) {
-                invalid.add("rN rule");
+                invalid.add("ENG: Rn Invalid / FR: Rn Invalide");
                 return;
             }
         }
@@ -316,14 +293,14 @@ public class Polysyllogisme implements Validateur {
     // Adnane
     @Override
     public void rAA() {
-            int i = 0;
+        int i = 0;
         for(Proposition a : premises) {
             if(a.estAffirmative()){
                 i++;
             }
         }
         if(i == premises.size() && !conclusion.estAffirmative()){
-            invalid.add("rAA");
+            invalid.add("ENG: Raa Invalid / FR: Raa Invalide");
         }
     }
 
@@ -336,7 +313,7 @@ public class Polysyllogisme implements Validateur {
             }
         }
         if(i==premises.size()) { //< Si toutes les prémises sont particulières.
-            invalid.add("rPP");
+            invalid.add("ENG: Rpp Invalid / FR: Rpp Invalide");
         }
     }
 
@@ -349,13 +326,13 @@ public class Polysyllogisme implements Validateur {
             }
         }
         if(conclusion.estUniverselle()) { //< Et si la conclusion ne l'est pas.
-                invalid.add("rP");
-            }
+            invalid.add("ENG: Rp Invalid / FR: Rp Invalide");
         }
+    }
 
     @Override
     public void rUU() {
-            int i = 0;
+        int i = 0;
         for(Proposition a : premises) {
             if(a.estUniverselle()){
                 i++;
@@ -363,27 +340,79 @@ public class Polysyllogisme implements Validateur {
         }
         if(i==premises.size()) {
             if(!conclusion.estUniverselle()) {
-                invalid.add("rUU");
+                invalid.add("ENG: Ruu Invalid / FR: Ruu Invalide");
             }
         }
     }
+
+    public boolean estIninteressant() {
+        int i = 0;
+        for(Proposition a : premises){
+            if(a.isA()){
+                i++;
+            }
+        }
+        if(i == premises.size()) {//< If all propositions are affirmative and universal.
+            if(conclusion.isI()) { //< And if the conclusion is existential negative.
+                return true; //< The syllogism is not interesting, so we return true.
+            }
+        }
+        return false;
+    }
+    public Proposition convertConclusion() {
+        if(estIninteressant()) { // If the syllogism is uninteresting, we need to change the conclusion.
+            return new Proposition(conclusion.getPremierTermeString(), conclusion.getDeuxiemeTermeString(),
+                    premises.getFirst().getQuantificateur(), conclusion.estAffirmative()); //< We return the new conclusion.
+        }
+        return null; //< If the conclusion is interesting, return null
+    }
+
     // STOP
     @Override
     public Reponse valider() {
-        return null;
+        invalid.clear();
+
+        // We apply all the rules.
+        regleMoyenTerme();
+        regleLatius();
+        rNN();
+        rN();
+        rAA();
+        rPP();
+        rP();
+        rUU();
+
+        Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
+
+        boolean isValid = invalid.isEmpty(); // If the list of invalid rules is empty, it is valid.
+
+        String message;
+        if (isValid) {
+            message = "Ok!"; //<We just return.
+        } else {
+            message = "Les règles non respectées sont :";
+            for (String s : invalid) {
+                message += s + "; ";
+            }
+        }
+        return new Reponse(message, isValid, nouvelleConclusion);
     }
 
-    Polysyllogisme() {
-            this.invalid = new ArrayList<>();
+    public Polysyllogisme() {
+        this.invalid = new ArrayList<>();
     }
 
     public void addPremise(Quantificateur quantifier,String firstTerm, String secondTerm, boolean isAffirmatif) {
-            Proposition premise = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
-            premises.add(premise);
+        Proposition premise = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
+        premises.add(premise);
 
     }
     public void addConclusion(Quantificateur quantifier,String firstTerm, String secondTerm, boolean isAffirmatif) {
-            Proposition conclusion = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
-            this.conclusion = conclusion;
+        Proposition conclusion = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
+        this.conclusion = conclusion;
+    }
+
+    public List<String> getInvalid(){
+        return invalid;
     }
 }

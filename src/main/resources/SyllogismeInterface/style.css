@@ -1,0 +1,110 @@
+/* Styling for Labels */
+.label {
+    -fx-text-fill: #4B2F22; /* Dark brown */
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+}
+
+/* Specific styling for the main title label */
+#premiereLabel {
+    -fx-font-size: 27px;
+    -fx-text-fill: #7A3B30; /* Warm brown */
+    -fx-effect: dropshadow(three-pass-box, rgba(122, 59, 48, 0.3), 10, 0.5, 0, 3);
+}
+
+/* Styling for TextFields */
+.text-field {
+    -fx-background-color: #E5C4B1; /* Light brownish beige */
+    -fx-border-color: #C49B7B; /* Soft brown */
+    -fx-padding: 5px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 1.5;
+    -fx-focus-color: #7A3B30; /* Warm brown when focused */
+    -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 5, 0.2, 0, 1);
+    -fx-font-size: 14px;
+}
+
+/* Styling for TextFields on hover */
+.text-field:hover {
+    -fx-border-color: #7A3B30; /* Warm brown on hover */
+}
+
+/* Styling for Buttons */
+.button {
+    -fx-background-color: #7A3B30; /* Warm brown */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
+    -fx-cursor: hand; /* Show hand cursor on hover */
+    -fx-transition: all 0.3s ease;
+}
+
+/* Button Hover Effect */
+.button:hover {
+    -fx-background-color: #6B2F1F; /* Slightly deeper brown */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 8, 0.6, 0, 4);
+}
+
+/* Button Pressed Effect */
+.button:pressed {
+    -fx-background-color: #5C2216; /* Even deeper brown */
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.4), 8, 0.4, 0, 2);
+    -fx-translate-y: 2px; /* Creates a slight "press" effect */
+}
+
+/* Styling for ComboBox */
+.combo-box {
+    -fx-background-color: #E5C4B1; /* Light brownish beige */
+    -fx-border-color: #C49B7B; /* Soft brown */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+}
+
+/* ComboBox hover effect */
+.combo-box:hover {
+    -fx-border-color: #7A3B30; /* Warm brown on hover */
+}
+
+/* ComboBox focus effect */
+.combo-box:focused {
+    -fx-border-color: #7A3B30; /* Warm brown on focus */
+    -fx-effect: dropshadow(three-pass-box, rgba(122, 59, 48, 0.5), 5, 0.5, 0, 2);
+}
+
+.check-box {
+    -fx-background-color: #E5C4B1; /* Light brownish beige */
+    -fx-border-color: #C49B7B; /* Soft brown */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5px;
+}
+
+/* ComboBox hover effect */
+.check-box:hover {
+    -fx-border-color: #7A3B30; /* Warm brown on hover */
+}
+
+/* ComboBox focus effect */
+.check-box:focused {
+    -fx-border-color: #7A3B30; /* Warm brown on focus */
+    -fx-effect: dropshadow(three-pass-box, rgba(122, 59, 48, 0.5), 5, 0.5, 0, 2);
+}
+
+/* Styling for the isValid Label when valid */
+#isValid.valid {
+    -fx-graphic-text-gap: 10; /* Spacing between text and icon */
+    -fx-text-fill: #2E7D32; /* Green color */
+    -fx-font-weight: bold;
+}
+
+/* Styling for the isValid Label when invalid */
+#isValid.invalid {
+    -fx-graphic-text-gap: 10; /* Spacing between text and icon */
+    -fx-text-fill: #C62828; /* Red color */
+    -fx-font-weight: bold;
+}

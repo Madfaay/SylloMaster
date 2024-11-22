@@ -21,6 +21,7 @@ public class PolyOrSyllogismeController {
 
     Parent modeContent;
     Parent acceuilContent;
+    Parent syllogismeContent;
 
     @FXML
     public Label back;
@@ -60,6 +61,9 @@ public class PolyOrSyllogismeController {
         if (clickedLabel.equals(this.syllogismeLeft)) {
             this.setMode();
         }
+        if (clickedLabel.equals(this.syllogismeRight)) {
+            this.setSyllogisme();
+        }
     }
 
 
@@ -69,6 +73,8 @@ public class PolyOrSyllogismeController {
             // Charge le fichier FXML de l'interface des paramètres
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SyllogismeRedactionSimple.fxml"));
             modeContent = fxmlLoader.load();
+            fxmlLoader = new FXMLLoader(getClass().getResource("PremissePage.fxml"));
+            syllogismeContent = fxmlLoader.load();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,6 +161,19 @@ public class PolyOrSyllogismeController {
     private void setMode() {
 
         archor.getChildren().setAll(modeContent);
+
+        // Optionnel : ajustez la position et la taille du contenu ajouté
+        AnchorPane.setTopAnchor(modeContent, 0.0);
+        AnchorPane.setBottomAnchor(modeContent, 0.0);
+        AnchorPane.setLeftAnchor(modeContent, 0.0);
+        AnchorPane.setRightAnchor(modeContent, 0.0);
+
+    }
+
+
+    private void setSyllogisme() {
+
+        archor.getChildren().setAll(syllogismeContent);
 
         // Optionnel : ajustez la position et la taille du contenu ajouté
         AnchorPane.setTopAnchor(modeContent, 0.0);
