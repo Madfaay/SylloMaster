@@ -72,7 +72,18 @@ public class HelloController {
 
     //Getters
 
-
+    /**
+     * Sets the background image for the AnchorPane.
+     *
+     * This method:
+     * 1. Converts the image path into a URI format.
+     * 2. Creates an Image object from the URI.
+     * 3. Sets the background size to cover the entire AnchorPane.
+     * 4. Ensures the image doesn't repeat and is centered.
+     * 5. Applies the background to the AnchorPane.
+     *
+     * @param chemin The file path of the image to be used as the background.
+     */
     private void setBackgroundImage(String chemin) {
         Path imagePath = Paths.get(chemin);
         String imageUrl = imagePath.toUri().toString(); // Convertir le chemin en URL
@@ -97,10 +108,10 @@ public class HelloController {
         archor.setBackground(background);
     }
 
-
-
-    protected void hideParams()
-    {
+    /**
+     * Hides the UI elements related to the application parameters.
+     */
+    protected void hideParams() {
         start.setVisible(false);
         settings.setVisible(false);
         quit.setVisible(false);
@@ -109,14 +120,29 @@ public class HelloController {
 
     }
 
-    protected void hideTitle()
-    {
+    /**
+     * Hides the title-related UI elements.
+     *
+     * This method hides the following title elements:
+     * - Syllogism Master button
+     * - Syllogism Understand button
+     */
+    protected void hideTitle() {
         sylloMaster.setVisible(false);
         sylloUnderstand.setVisible(false);
 
     }
 
-
+    /**
+     * Initializes the application interface when the class is loaded.
+     *
+     * This method:
+     * - Sets the background image from a relative path.
+     * - Loads language and effect settings from a JSON file.
+     * - Updates UI labels based on the selected language (French or English).
+     * - Sets up click event handlers for several UI elements (e.g., buttons, labels).
+     * - Adds a zoom effect to several UI elements for visual feedback.
+     */
     @FXML
     protected void initialize() {
         //String path = "\\src\\IMAGES\\background.png";
@@ -133,11 +159,6 @@ public class HelloController {
         else if(effect){
             setLabelsToEnglish();
             updateEffectInJson();}
-
-
-
-
-
 
         // Associer les labels à la méthode handleLabelClick pour les clics
         syllogismeCours.setVisible(false);
@@ -163,7 +184,6 @@ public class HelloController {
         FiguresCours.setOnMouseClicked(this::handleLabelClick);
         reglescours.setOnMouseClicked(this::handleLabelClick);
 
-
         // Associer les labels aux méthodes pour l'effet de zoom
         addZoomEffect(start);
         addZoomEffect(settings);
@@ -178,141 +198,143 @@ public class HelloController {
         addZoomEffect(FiguresCours);
         addZoomEffect(reglescours);
         addZoomEffect(back);
-
-        /*******        LANGUES            *******/
-
-        /*
-        // Configuration du ComboBox pour la sélection de la langue
-        languageComboBox.getItems().addAll("English", "French");
-        languageComboBox.setValue(LanguageManager.getLocale().getDisplayLanguage());
-
-        // Appliquer la langue courante lors de l'initialisation
-        LanguageManager.updateLabelsHello(this);
-
-        languageComboBox.setOnAction(event -> {
-            switchLanguage(languageComboBox.getValue());
-        });
-         */
-
-
     }
 
-
-
-    // Méthode unique pour gérer tous les clics sur les labels
+    /**
+     * Handles the click event for various labels in the user interface.
+     * Depending on the label clicked, different actions are performed, such as:
+     * - Changing the background image.
+     * - Showing or hiding UI elements.
+     * - Navigating to different parts of the app.
+     *
+     * @param event The MouseEvent triggered by the label click.
+     */
     private void handleLabelClick(MouseEvent event) {
-        Label clickedLabel = (Label) event.getSource(); // Obtenir le label cliqué
+        // Get the label that was clicked
+        Label clickedLabel = (Label) event.getSource();
 
         Path relativePath;
+
+        // Handle the 'start' label click
         if (clickedLabel.equals(start)) {
             System.out.println("Start label clicked!");
-            polyOrShow();
-            // Action pour 'start'
-        } else if (clickedLabel.equals(settings)) {
+            polyOrShow(); // Show the poly or syllogism options
+        }
+        // Handle the 'settings' label click
+        else if (clickedLabel.equals(settings)) {
             System.out.println("Settings label clicked!");
-            showSettingsInSamePane();
-            // Action pour 'settings'
-        } else if (clickedLabel.equals(credits)) {
+            showSettingsInSamePane(); // Show settings in the same pane
+        }
+        // Handle the 'credits' label click
+        else if (clickedLabel.equals(credits)) {
             System.out.println("Credits label clicked!");
-            this.hideParams();
-            this.hideTitle();
+            hideParams(); // Hide the parameters
+            hideTitle();  // Hide the title
+            // Set the background image for credits
             relativePath = Paths.get("src", "IMAGES", "Credits.jpg");
-            this.setBackgroundImage(relativePath.toAbsolutePath().toString());
-            back.setVisible(true);
-        } else if (clickedLabel.equals(whatsyllo)) {
-
-
-
+            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            back.setVisible(true); // Show the back button
+        }
+        // Handle the 'whatsyllo' label click
+        else if (clickedLabel.equals(whatsyllo)) {
+            System.out.println("WhatSyllo label clicked!");
             relativePath = Paths.get("src", "IMAGES", "syllocours.jpg");
             setBackgroundImage(relativePath.toAbsolutePath().toString());
-            this.syllogismeCours.setVisible(true);
-            this.polysyllogismeCours.setVisible(true);
-            this.qualiteCours.setVisible(true);
-            this.reglescours.setVisible(true);
-            this.propos.setVisible(true);
-            this.quantiteCours.setVisible(true);
-            this.FiguresCours.setVisible(true);
-            System.out.println("WhatSyllo label clicked!");
-            this.back.setVisible(true);
-
-            // Action pour 'whatsyllo'
-        } else if (clickedLabel.equals(quit)) {
+            // Show various course-related elements
+            syllogismeCours.setVisible(true);
+            polysyllogismeCours.setVisible(true);
+            qualiteCours.setVisible(true);
+            reglescours.setVisible(true);
+            propos.setVisible(true);
+            quantiteCours.setVisible(true);
+            FiguresCours.setVisible(true);
+            back.setVisible(true); // Show the back button
+        }
+        // Handle the 'quit' label click
+        else if (clickedLabel.equals(quit)) {
             System.out.println("Quit label clicked!");
-            Platform.exit(); // Quitter l'application
-        } else if (clickedLabel.equals(syllogismeCours)) {
-            hideParams();
-            hideTitle();
-            System.out.println("syllogismeCours label clicked!");
-            relativePath = Paths.get("src", "IMAGES","Cours", "Syllogisme.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
-
+            Platform.exit(); // Exit the application
         }
+        // Handle the 'syllogismeCours' label click
+        else if (clickedLabel.equals(syllogismeCours)) {
+            System.out.println("SyllogismeCours label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "Syllogisme.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for syllogism course
+        }
+        // Handle the 'polysyllogismeCours' label click
         else if (clickedLabel.equals(polysyllogismeCours)) {
-            System.out.println("pollysylogisme label clicked!");
-            hideParams();
-            hideTitle();
-            relativePath = Paths.get("src", "IMAGES","Cours", "Polysyllogisme.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            System.out.println("PolysyllogismeCours label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "Polysyllogisme.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for polysyllogism course
         }
-
+        // Handle the 'qualiteCours' label click
         else if (clickedLabel.equals(qualiteCours)) {
-            System.out.println("syllogismeCours label clicked!");
-            hideParams();
-            hideTitle();
-            relativePath = Paths.get("src", "IMAGES","Cours", "Qualite.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            System.out.println("QualiteCours label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "Qualite.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for quality course
         }
+        // Handle the 'quantiteCours' label click
         else if (clickedLabel.equals(quantiteCours)) {
-            System.out.println("syllogismeCours label clicked!");
-            hideParams();
-            hideTitle();
-            relativePath = Paths.get("src", "IMAGES","Cours", "Quantificateurs.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            System.out.println("QuantiteCours label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "Quantificateurs.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for quantity course
         }
-
+        // Handle the 'reglescours' label click
         else if (clickedLabel.equals(reglescours)) {
-            System.out.println("syllogismeCours label clicked!");
-            hideParams();
-            hideTitle();
-            relativePath = Paths.get("src", "IMAGES","Cours", "Regles.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            System.out.println("ReglesCours label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "Regles.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for rules course
         }
+        // Handle the 'propos' label click
         else if (clickedLabel.equals(propos)) {
-            System.out.println("syllogismeCours label clicked!");
-            hideParams();
-            hideTitle();
-            relativePath = Paths.get("src", "IMAGES","Cours", "TypeDeprop.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            System.out.println("Propos label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "TypeDeprop.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for propositions course
         }
-
+        // Handle the 'FiguresCours' label click
         else if (clickedLabel.equals(FiguresCours)) {
-            System.out.println("syllogismeCours label clicked!");
-            hideParams();
-            hideTitle();
-            relativePath = Paths.get("src", "IMAGES","Cours", "quatreFigures.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            System.out.println("FiguresCours label clicked!");
+            hideParams(); // Hide parameters
+            hideTitle();  // Hide title
+            relativePath = Paths.get("src", "IMAGES", "Cours", "quatreFigures.jpg");
+            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for figures course
         }
+        // Handle the 'back' label click
         else if (clickedLabel.equals(back)) {
-            System.out.println("back label clicked!");
-            recoverAcceuil();
-            // Action pour 'start'
+            System.out.println("Back label clicked!");
+            recoverAcceuil(); // Go back to the home screen
         }
     }
 
-
-
-    // Méthode pour ajouter l'effet de zoom lors du survol du curseur
+    /**
+     * Adds a zoom effect to a label when the mouse hovers over it.
+     * The label will scale up when the mouse enters, and return to its normal size when the mouse exits.
+     *
+     * @param label The label to which the zoom effect will be applied.
+     */
     private void addZoomEffect(Label label) {
-        // Quand la souris entre dans le label, on l'agrandit
+        // When the mouse enters the label, increase its size (zoom in)
         label.setOnMouseEntered(event -> {
-            label.setScaleX(1.2); // Agrandir la taille sur l'axe X
-            label.setScaleY(1.2); // Agrandir la taille sur l'axe Y
+            label.setScaleX(1.2); // Increase the size on the X axis
+            label.setScaleY(1.2); // Increase the size on the Y axis
         });
 
-        // Quand la souris quitte le label, on remet la taille d'origine
+        // When the mouse exits the label, reset its size to normal
         label.setOnMouseExited(event -> {
-            label.setScaleX(1); // Revenir à la taille normale
-            label.setScaleY(1); // Revenir à la taille normale
+            label.setScaleX(1); // Reset the size on the X axis
+            label.setScaleY(1); // Reset the size on the Y axis
         });
     }
 

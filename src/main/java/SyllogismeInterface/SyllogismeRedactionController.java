@@ -9,11 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,30 +19,21 @@ import java.util.List;
 import java.util.Map;
 
 public class SyllogismeRedactionController {
-    public Label labelTitle;
-    public Button btnBack;
-    public Button btnSwitch;
-    public Label premisse1;
-    @FXML
-    private AnchorPane pane;
+    public Label labelTitle,premisse1;
+    public Button btnBack, btnSwitch;
 
-    String quantifPremise1;
-    String subjectPremise1;
-    String predicatPremise1;
+    @FXML private AnchorPane pane;
+
+    String quantifPremise1, subjectPremise1, predicatPremise1;
     Boolean negatifPremise1;
 
-    String quantifPremise2;
-    String subjectPremise2;
-    String predicatPremise2;
+    String quantifPremise2, subjectPremise2, predicatPremise2;
     Boolean negatifPremise2;
 
-    String quantifConclusion;
-    String subjectConclusion;
-    String predicatConclusion;
+    String quantifConclusion, subjectConclusion, predicatConclusion;
     Boolean negatifConclusion;
 
-    RadioButton buttonSubject;
-    RadioButton buttonPredicat;
+    RadioButton buttonSubject, buttonPredicat;
 
     Boolean hypothesis;
 
@@ -52,79 +41,35 @@ public class SyllogismeRedactionController {
     List<String> quantiflistUniv = new ArrayList<>();
     List<String> reglelist = new ArrayList<>();
 
-    @FXML
-    MenuButton myquantifPremise1;
-    @FXML
-    TextField mysubjectPremise1;
-    @FXML
-    TextField mypredicatPremise1;
-    @FXML
-    CheckBox mynegatifPremise1;
-    @FXML
-    HBox myHBoxsubjectPremise1;
-    @FXML
-    HBox myHBoxpredicatPremise1;
+    @FXML MenuButton myquantifPremise1;
+    @FXML TextField mysubjectPremise1, mypredicatPremise1;
+    @FXML CheckBox mynegatifPremise1;
+    @FXML HBox myHBoxsubjectPremise1, myHBoxpredicatPremise1;
 
-    @FXML
-    Label myTextValid;
+    @FXML Label myTextValid;
 
-    @FXML
-    MenuButton myquantifPremise2;
-    @FXML
-    RadioButton mysubjectPremise2Subject;
-    @FXML
-    RadioButton mysubjectPremise2Predicat;
-    @FXML
-    RadioButton mysubjectPremise2New;
-    @FXML
-    TextField mysubjectPremise2;
-    @FXML
-    RadioButton mypredicatPremise2Subject;
-    @FXML
-    RadioButton mypredicatPremise2Predicat;
-    @FXML
-    RadioButton mypredicatPremise2New;
-    @FXML
-    TextField mypredicatPremise2;
-    @FXML
-    CheckBox mynegatifPremise2;
-    @FXML
-    HBox myHBoxquantifPremise2;
-    @FXML
-    HBox myHBoxsubjectPremise2;
-    @FXML
-    HBox myHBoxpredicatPremise2;
-    @FXML
-    ToggleGroup subject;
-    @FXML
-    ToggleGroup predicat;
+    @FXML MenuButton myquantifPremise2;
+    @FXML RadioButton mysubjectPremise2Subject, mysubjectPremise2Predicat, mysubjectPremise2New, mypredicatPremise2Subject, mypredicatPremise2Predicat, mypredicatPremise2New;
+    @FXML TextField mysubjectPremise2, mypredicatPremise2;
+    @FXML CheckBox mynegatifPremise2;
+    @FXML HBox myHBoxquantifPremise2, myHBoxsubjectPremise2, myHBoxpredicatPremise2;
+    @FXML ToggleGroup subject, predicat;
 
-    @FXML
-    MenuButton myquantifConclusion;
-    @FXML
-    TextField mysubjectConclusion;
-    @FXML
-    TextField mypredicatConclusion;
-    @FXML
-    CheckBox mynegatifConclusion;
-    @FXML
-    HBox myHBoxquantifConclusion;
-    @FXML
-    HBox myHBoxsubjectConclusion;
-    @FXML
-    HBox myHBoxpredicatConclusion;
+    @FXML MenuButton myquantifConclusion;
+    @FXML TextField mysubjectConclusion, mypredicatConclusion;
+    @FXML CheckBox mynegatifConclusion;
+    @FXML HBox myHBoxquantifConclusion, myHBoxsubjectConclusion, myHBoxpredicatConclusion;
 
-    @FXML
-    CheckBox myhypothesis;
-    @FXML
-    Button myverif;
-    @FXML
-    CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU;
+    @FXML Button myverif;
+    @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU, myhypothesis;
 
     private final File languageFile = new File("language.json");
 
     private String language ;
 
+    /**
+     * Method to initialize the controller and load the language settings
+     */
     @FXML
     void initialize()
     {
@@ -135,35 +80,32 @@ public class SyllogismeRedactionController {
         }
 
         retrieve();
+        populateQuantifierMenus();
 
-        int taille = quantiflistExist.size();
-        for (int i = 0; i < taille; i++) {
+    }
+
+    /**
+     * Method to populate quantifier menu items
+     */
+    private void populateQuantifierMenus() {
+        int size = quantiflistExist.size();
+        for (int i = 0; i < size; i++) {
             MenuItem quantif = new MenuItem(quantiflistExist.get(i));
             quantif.setOnAction(this::recoverPremise1);
-            MenuItem quantif2 = new MenuItem(quantiflistExist.get(i));
-            quantif2.setOnAction(this::recoverPremise2);
-            MenuItem quantif3 = new MenuItem(quantiflistExist.get(i));
-            quantif3.setOnAction(this::recoverConclusion);
             myquantifPremise1.getItems().add(quantif);
-            myquantifPremise2.getItems().add(quantif2);
-            myquantifConclusion.getItems().add(quantif3);
         }
+
         int t = quantiflistUniv.size();
         for (int i = 0; i < t; i++) {
             MenuItem quantif = new MenuItem(quantiflistUniv.get(i));
             quantif.setOnAction(this::recoverPremise1);
-            MenuItem quantif2 = new MenuItem(quantiflistUniv.get(i));
-            quantif2.setOnAction(this::recoverPremise2);
-            MenuItem quantif3 = new MenuItem(quantiflistUniv.get(i));
-            quantif3.setOnAction(this::recoverConclusion);
             myquantifPremise1.getItems().add(quantif);
-            myquantifPremise2.getItems().add(quantif2);
-            myquantifConclusion.getItems().add(quantif3);
         }
-
-
     }
 
+    /**
+     * Method to handle the action of switching to another FXML interface
+     */
     @FXML
     public void switchToSyllogismeRedactionSimple(ActionEvent event) throws IOException {
         try {
@@ -184,6 +126,11 @@ public class SyllogismeRedactionController {
         }
     }
 
+
+
+    /**
+    * Replaces the current AnchorPane content with the interface from "poly-or-syllogisme.fxml" and adjusts its layout.
+    */
     @FXML
     private void polyOrShow() {
         try {
@@ -205,6 +152,9 @@ public class SyllogismeRedactionController {
         }
     }
 
+    /**
+     * Method to handle premise 1 quantifier selection
+     */
     @FXML
     public void recoverPremise1(ActionEvent event) {
         MenuItem menuItem = (MenuItem) event.getSource();
@@ -213,18 +163,28 @@ public class SyllogismeRedactionController {
         myHBoxsubjectPremise1.setDisable(false);
     }
 
+    /**
+     * Enables the predicate input for premise 1 and retrieves the subject text entered by the user.
+     */
     @FXML
     public void nextSubjectPremise1(ActionEvent event) throws IOException {
         myHBoxpredicatPremise1.setDisable(false);
         subjectPremise1 = mysubjectPremise1.getText();
     }
 
+    /**
+     * Enables the quantifier input for premise 2 and retrieves the predicate text entered for premise 1.
+     */
     @FXML
     public void nextPredicatPremise1(ActionEvent event) throws IOException {
         myHBoxquantifPremise2.setDisable(false);
         predicatPremise1 = mypredicatPremise1.getText();
     }
 
+    /**
+     * Retrieves the selected quantifier for premise 2 from a menu item, updates the corresponding text field,
+     * and enables the input for the subject of premise 2.
+     */
     @FXML
     public void recoverPremise2(ActionEvent event) {
         MenuItem menuItem = (MenuItem) event.getSource();
@@ -233,6 +193,11 @@ public class SyllogismeRedactionController {
         myHBoxsubjectPremise2.setDisable(false);
     }
 
+    /**
+     * Handles the selection of the subject for premise 2 based on the chosen radio button.
+     * Updates the state of related input fields, adjusts the premise and conclusion values,
+     * and manages the enabling/disabling of relevant controls.
+     */
     @FXML
     public void choiceSubjectPremise2(ActionEvent event) throws IOException {
         buttonSubject = (RadioButton) event.getSource();
@@ -275,6 +240,10 @@ public class SyllogismeRedactionController {
         }
     }
 
+    /**
+     * Updates the subject and conclusion for premise 2 when the user proceeds.
+     * It also enables the predicate input for premise 2 and stores the values of the premise and conclusion.
+     */
     @FXML
     public void nextSubjectPremise2(ActionEvent event) throws IOException {
         myHBoxpredicatPremise2.setDisable(false);
@@ -283,6 +252,10 @@ public class SyllogismeRedactionController {
         subjectPremise2 = mysubjectPremise2.getText();
     }
 
+    /**
+     * Handles the selection of the predicate for premise 2. Based on the choice of the user, it updates the predicate conclusion
+     * and stores the appropriate values for premise 2. It also enables or disables the quantity input for the conclusion.
+     */
     @FXML
     public void chocePredicatPremise2(ActionEvent event) throws IOException {
         buttonPredicat = (RadioButton) event.getSource();
@@ -305,6 +278,10 @@ public class SyllogismeRedactionController {
         }
     }
 
+    /**
+     * Handles the transition to the next step for predicate in premise 2. It updates the predicate conclusion and stores the
+     * selected predicate for premise 2. It also enables the quantity input for the conclusion.
+     */
     @FXML
     public void nextPredicatPremise2(ActionEvent event) throws IOException {
         myHBoxquantifConclusion.setDisable(false);
@@ -313,6 +290,10 @@ public class SyllogismeRedactionController {
         predicatPremise2 = mypredicatPremise2.getText();
     }
 
+    /**
+     * Handles the recovery of the conclusion's quantity. It updates the quantity conclusion and enables the inputs for subject,
+     * predicate, and the verification button in the conclusion section.
+     */
     @FXML
     public void recoverConclusion(ActionEvent event) {
         MenuItem menuItem = (MenuItem) event.getSource();
@@ -325,6 +306,9 @@ public class SyllogismeRedactionController {
 
     }
 
+    /**
+     * Method to handle verification action (checking syllogism validity)
+     */
     @FXML
     public void actionVerif(){
         negatifPremise1 = mynegatifPremise1.isSelected();
@@ -403,8 +387,9 @@ public class SyllogismeRedactionController {
         myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
     }
 
-
-
+    /**
+     *  Method to load language settings from a JSON file
+     */
     private void loadLanguageFromJson() {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -426,6 +411,9 @@ public class SyllogismeRedactionController {
         }
     }
 
+    /**
+     * Method to set UI labels to French
+     */
     public void setLabelsToFrench() {
         // Titre principal
         labelTitle.setText("Rédaction d'un syllogisme");
@@ -468,7 +456,9 @@ public class SyllogismeRedactionController {
         premisse1.setText("Premisse n°1");
     }
 
-
+    /**
+     * Method to load data from a JSON file
+     */
     private List<Map<String, String>> loadData() throws IOException {
         File file = new File("data.json");
         ObjectMapper mapper = new ObjectMapper();
@@ -483,6 +473,9 @@ public class SyllogismeRedactionController {
         }
     }
 
+    /**
+     * Method to retrieve quantifier data from a JSON file
+     */
     private void retrieve() {
         try {
             // Lire les données depuis le fichier JSON
