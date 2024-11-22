@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="archor" prefHeight="608.0" prefWidth="1532.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.PolyOrSyllogismeController">
+   <children>
+      <Label fx:id="poly" textFill="#008430" layoutX="103.0" layoutY="104.0" text="Poly">
+         <font>
+            <Font name="System Bold" size="96.0" />
+         </font>
+      </Label>
+      <Label fx:id="syllogismeLeft" textFill="#eeeeee" layoutX="877.0" layoutY="552.0" text="Syllogisme" wrapText="true" prefWidth="557.197265625">
+         <font>
+            <Font name="System Bold Italic" size="110.0" />
+         </font>
+      </Label>
+      <Label fx:id="syllogismeRight" textFill="#eeeeee" layoutX="289.0" layoutY="150.0" text="Syllogisme">
+         <font>
+            <Font name="System Bold Italic" size="110.0" />
+         </font>
+      </Label>
+      <Label fx:id="back" layoutX="30.0" layoutY="730.0" text="back" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Label>
+   </children>
+
+</AnchorPane>

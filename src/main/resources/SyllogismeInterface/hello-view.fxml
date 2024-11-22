@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane fx:id="archor" prefHeight="804.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.HelloController">
+    <children>
+
+        <Label fx:id="back" layoutX="30.0" layoutY="30.0" text="back" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="35.0" />
+            </font>
+        </Label>
+        <Label fx:id="whatsyllo" layoutX="868.0" layoutY="242.0" text="What's a syllogism" textFill="#ffd800">
+            <font>
+                <Font name="System Bold Italic" size="50.0" />
+            </font>
+        </Label>
+        <Label fx:id="start" layoutX="887.0" layoutY="335.0" text="Start the adventure" textFill="#ffd800">
+            <font>
+                <Font name="System Bold Italic" size="46.0" />
+            </font>
+        </Label>
+        <Label fx:id="settings" layoutX="1008.0" layoutY="430.0" text="Settings" textFill="#ffd800">
+            <font>
+                <Font name="System Bold Italic" size="46.0" />
+            </font>
+        </Label>
+        <Label fx:id="credits" layoutX="1008.0" layoutY="515.0" text="Credits" textFill="#ffd800">
+            <font>
+                <Font name="System Bold Italic" size="46.0" />
+            </font>
+        </Label>
+        <Label fx:id="quit" layoutX="1030.0" layoutY="615.0" text="Quit" textFill="#ffd800">
+            <font>
+                <Font name="System Bold Italic" size="46.0" />
+            </font>
+        </Label>
+        <Text fx:id="sylloMaster" fill="WHITE" layoutX="855.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SylloMaster">
+            <font>
+                <Font name="Berlin Sans FB" size="120.0" />
+            </font>
+        </Text>
+        <Text fx:id="sylloUnderstand" fill="WHITE" layoutX="622.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Understand &amp; Validate Syllogism-Pollysylogism" wrappingWidth="936.8195190429688">
+            <font>
+                <Font name="System Bold Italic" size="40.0" />
+            </font>
+        </Text>
+        <Label fx:id="syllogismeCours" layoutX="182.0" layoutY="285.0" prefHeight="30.0" prefWidth="103.0" text="Syllogisme" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font></Label>
+        <Label fx:id="polysyllogismeCours" layoutX="430.0" layoutY="310.0" prefHeight="30.0" prefWidth="150.0" text="PolySyllogisme" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="15.0" />
+            </font></Label>
+
+        <Label fx:id="FiguresCours" layoutX="320.0" layoutY="290.0" prefHeight="30.0" prefWidth="150.0" text="4Figures" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font></Label>
+        <Label fx:id="quantiteCours" layoutX="270.0" layoutY="170.0" prefHeight="30.0" prefWidth="150.0" text="Quantite" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font></Label>
+
+        <Label fx:id="qualiteCours" layoutX="400.0" layoutY="170.0" prefHeight="30.0" prefWidth="150.0" text="Qualite" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font></Label>
+
+        <Label fx:id="reglescours" layoutX="380.0" layoutY="450.0" prefHeight="30.0" prefWidth="150.0" text="Regles" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font></Label>
+        <Label fx:id="propos" layoutX="150.0" layoutY="500.0" prefHeight="30.0" prefWidth="150.0" text="Propos" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font></Label>
+    </children>
+    <ImageView layoutX="820" layoutY="1"  fx:id="imageView"> </ImageView>
+</AnchorPane>

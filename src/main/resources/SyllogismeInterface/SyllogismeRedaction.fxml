@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.SyllogismeRedactionController">
+    <Label fx:id="labelTitle" text="Writing a syllogism" style="-fx-font-size: 50px; -fx-text-fill: white" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" alignment="CENTER"/>
+
+    <VBox alignment="CENTER" style="-fx-font-size: 15px;" AnchorPane.topAnchor="172" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" spacing="10" >
+        <HBox alignment="CENTER" spacing="10">
+            <Label fx:id="premisse1"  text="Premise n°1" style="-fx-text-fill: white"/>
+            <MenuButton mnemonicParsing="false" text="Quantifier" fx:id="myquantifPremise1"/>
+            <Label text="   " />
+            <CheckBox mnemonicParsing="false" text="Negative" fx:id="mynegatifPremise1" style="-fx-text-fill: white"/>
+        </HBox>
+
+        <HBox alignment="CENTER" fx:id="myHBoxsubjectPremise1" disable="true" spacing="10">
+            <Label style="-fx-text-fill: white" text="Subject" />
+            <TextField fx:id="mysubjectPremise1" onAction="#nextSubjectPremise1"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxpredicatPremise1" spacing="10">
+            <Label style="-fx-text-fill: white" text="Predicate" />
+            <TextField fx:id="mypredicatPremise1" onAction="#nextPredicatPremise1"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxquantifPremise2" spacing="10">
+            <Label style="-fx-text-fill: white" text="Premise n°2" />
+            <MenuButton mnemonicParsing="false" text="Quantifier" fx:id="myquantifPremise2"/>
+            <Label text="   " />
+            <CheckBox style="-fx-text-fill: white" mnemonicParsing="false" text="Negative" fx:id="mynegatifPremise2"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxsubjectPremise2" spacing="10">
+            <Label style="-fx-text-fill: white" text="Subject" />
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Subject" fx:id="mysubjectPremise2Subject" toggleGroup="$subject" onAction="#choiceSubjectPremise2">
+                <toggleGroup>
+                    <ToggleGroup fx:id="subject" />
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Predicate" fx:id="mysubjectPremise2Predicat" toggleGroup="$subject" onAction="#choiceSubjectPremise2"/>
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="New" fx:id="mysubjectPremise2New" toggleGroup="$subject" onAction="#choiceSubjectPremise2"/>
+            <TextField fx:id="mysubjectPremise2" disable="true" onAction="#nextSubjectPremise2"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxpredicatPremise2" spacing="10">
+            <Label style="-fx-text-fill: white" text="Predicate" />
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Subject" fx:id="mypredicatPremise2Subject" toggleGroup="$predicat" onAction="#chocePredicatPremise2">
+                <toggleGroup>
+                    <ToggleGroup fx:id="predicat" />
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false"  text="Predicate" fx:id="mypredicatPremise2Predicat" toggleGroup="$predicat" onAction="#chocePredicatPremise2"/>
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false"  text="New" fx:id="mypredicatPremise2New" toggleGroup="$predicat" onAction="#chocePredicatPremise2"/>
+            <TextField  fx:id="mypredicatPremise2" disable="true" onAction="#nextPredicatPremise2"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxquantifConclusion" spacing="10">
+            <Label style="-fx-text-fill: white"  text="Conclusion" />
+            <MenuButton mnemonicParsing="false"  text="Quantifier" fx:id="myquantifConclusion"/>
+            <Label text="   " />
+            <CheckBox style="-fx-text-fill: white" mnemonicParsing="false" text="Negative" fx:id="mynegatifConclusion"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxsubjectConclusion" spacing="10">
+            <Label style="-fx-text-fill: white" text="Subject" />
+            <TextField fx:id="mysubjectConclusion" editable="false"/>
+        </HBox>
+
+        <HBox alignment="CENTER" disable="true" fx:id="myHBoxpredicatConclusion" spacing="10">
+            <Label style="-fx-text-fill: white" text="Predicate" />
+            <TextField fx:id="mypredicatConclusion" editable="false"/>
+        </HBox>
+
+
+        <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="600" spacing="20.0">
+            <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: white" selected="true" text="regleMoyenTerme" fx:id="myregleMediumTerm" />
+            <CheckBox mnemonicParsing="false" style="-fx-text-fill: white" selected="true" text="regleLatus" fx:id="myregleLatus"/>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="500" spacing="20.0">
+            <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: white" selected="true" text="rNN" fx:id="myrNN"/>
+            <CheckBox mnemonicParsing="false" style="-fx-text-fill: white" selected="true" text="rN" fx:id="myrN"/>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="500" spacing="20.0">
+            <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: white" selected="true" text="rPP" fx:id="myrPP"/>
+            <CheckBox mnemonicParsing="false" style="-fx-text-fill: white" selected="true" text="rP" fx:id="myrP"/>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="500" spacing="20.0">
+            <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: white" selected="true" text="rAA" fx:id="myrAA"/>
+            <CheckBox mnemonicParsing="false" style="-fx-text-fill: white" selected="true" text="rUU" fx:id="myrUU"/>
+        </HBox>
+    </VBox>
+
+    <HBox alignment="CENTER" spacing="25" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="600.0">
+        <Label style="-fx-text-fill: white" text=" " fx:id="myTextValid"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10" style="-fx-font-size: 15px;">
+        <Button mnemonicParsing="false" text="Verification" onAction="#actionVerif" disable="true" fx:id="myverif"/>
+        <CheckBox style="-fx-text-fill: white" mnemonicParsing="false" text="Existence hypothesis" fx:id="myhypothesis"/>
+    </HBox>
+
+
+
+    <Button fx:id="btnBack" text="Back" mnemonicParsing="false" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" style="-fx-font-size: 15px" onAction="#polyOrShow"/>
+    <Button fx:id="btnSwitch" mnemonicParsing="false" text="-&gt;" onAction="#switchToSyllogismeRedactionSimple" style="-fx-font-size: 15px;" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10"/>
+</AnchorPane>
