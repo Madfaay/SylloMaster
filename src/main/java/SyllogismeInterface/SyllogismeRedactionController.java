@@ -39,7 +39,7 @@ public class SyllogismeRedactionController {
 
     List<String> quantiflistExist = new ArrayList<>();
     List<String> quantiflistUniv = new ArrayList<>();
-    List<String> reglelist = new ArrayList<>();
+    ArrayList<String> reglelist = new ArrayList<>();
 
     @FXML MenuButton myquantifPremise1;
     @FXML TextField mysubjectPremise1, mypredicatPremise1;
@@ -311,6 +311,9 @@ public class SyllogismeRedactionController {
      */
     @FXML
     public void actionVerif(){
+        reglelist.clear();
+        myTextValid.setText("");
+
         negatifPremise1 = mynegatifPremise1.isSelected();
         negatifPremise2 = mynegatifPremise2.isSelected();
         negatifConclusion = mynegatifConclusion.isSelected();
@@ -379,7 +382,7 @@ public class SyllogismeRedactionController {
                 q2,subjectPremise2,predicatPremise2, !negatifPremise2,
                 qC, subjectConclusion, predicatConclusion, !negatifConclusion );
 
-        Reponse r = syllo.valider();
+        Reponse r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
             myTextValid.setText(r.getMessage());
         else

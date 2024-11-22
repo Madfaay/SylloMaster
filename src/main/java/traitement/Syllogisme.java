@@ -409,7 +409,7 @@ public class Syllogisme implements Validateur{
     public Reponse validRule(ArrayList<String> check){
         invalid.clear();
         Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
-        boolean isValid = invalid.isEmpty();
+
 
         for(String isCheck : check){
             if("regleMoyenTerme".equals(isCheck)){
@@ -431,6 +431,7 @@ public class Syllogisme implements Validateur{
             }
 
         }
+        boolean isValid = invalid.isEmpty();
         String message;
         if (isValid) {
             message = "Every rules chosen are validated";

@@ -44,7 +44,7 @@ public class SyllogismeRedactionSimpleController {
     List<String> quantiflistUniv = new ArrayList<>();
     List<String> quantiflistExist = new ArrayList<>();
 
-    List<Boolean> reglelist = new ArrayList<>();
+    ArrayList<String> reglelist = new ArrayList<>();
 
     @FXML MenuButton textPremise1;
     @FXML MenuButton textPremise2;
@@ -228,6 +228,9 @@ public class SyllogismeRedactionSimpleController {
      */
     @FXML
     public void actionVerif(ActionEvent event) throws IOException {
+        reglelist.clear();
+        myTextValid.setText("");
+
         negatifPremise1 = mynegatifPremise1.isSelected();
         negatifPremise2 = mynegatifPremise2.isSelected();
         negatifConclusion = mynegatifConclusion.isSelected();
@@ -311,14 +314,30 @@ public class SyllogismeRedactionSimpleController {
 
         System.out.println("Hypothesis " + hypothesis);
 
-        reglelist.add(myregleMediumTerm.isSelected());
-        reglelist.add(myregleLatus.isSelected());
-        reglelist.add(myrNN.isSelected());
-        reglelist.add(myrN.isSelected());
-        reglelist.add(myrAA.isSelected());
-        reglelist.add(myrPP.isSelected());
-        reglelist.add(myrP.isSelected());
-        reglelist.add(myrUU.isSelected());
+        if(myregleMediumTerm.isSelected()) {
+            reglelist.add("regleMoyenTerme");
+        }
+        if(myregleLatus.isSelected()) {
+            reglelist.add("regleLatus");
+        }
+        if(myrNN.isSelected()) {
+            reglelist.add("rNN");
+        }
+        if(myrN.isSelected()) {
+            reglelist.add("rN");
+        }
+        if(myrAA.isSelected()) {
+            reglelist.add("rAA");
+        }
+        if(myrPP.isSelected()) {
+            reglelist.add("rPP");
+        }
+        if(myrP.isSelected()) {
+            reglelist.add("rP");
+        }
+        if(myrUU.isSelected()) {
+            reglelist.add("rUU");
+        }
 
         boolean q1univ = false ;
         for (String quantif : quantiflistUniv){
@@ -349,7 +368,7 @@ public class SyllogismeRedactionSimpleController {
 
         Syllogisme syllo = new Syllogisme(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure );
 
-        Reponse r = syllo.valider();
+        Reponse r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
             myTextValid.setText(r.getMessage());
         else
