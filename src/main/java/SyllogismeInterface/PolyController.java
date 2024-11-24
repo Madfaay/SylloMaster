@@ -34,7 +34,7 @@ public class PolyController {
     private Button validateStructure;
     @FXML
     private Label titre;
-    //Pour stocker les valeurs entré par l'utilisateur
+
     @FXML
     private TextField premierterme;
     @FXML
@@ -60,26 +60,43 @@ public class PolyController {
     private ArrayList<String> second = new ArrayList<>();
     private ArrayList<String> quant = new ArrayList<>();
 
-    // Compteur pour créer des fichiers uniques
     private int pageCounter = 1;
 
 
+    /**
+     * This method is called when the controller is initialized.
+     * It sets the initial values for the number label and the ComboBoxes.
+     */
     @FXML
     public void initialize() {
-        /////////////////////////////////////////////////////////////////////////////////
+        // Set the number label text to the current premise number and increment it
         if (this.number != null)
             number.setText(Integer.toString(nbpremise++));
-        if(this.quantificateurs != null)
-            quantificateurs.getItems().addAll("Option 1", "Option 2", "Option 3");
-        if(this.quantifConclusion != null)
-            quantifConclusion.getItems().addAll("Option 1", "Option 2", "Option 3");
-        ///////////////////////////////////////////////////////////////////////////////////
-    }
-    // Méthode pour afficher les prémisses et la conclusion
 
+        // Add options to the 'quantificateurs' ComboBox
+        if (this.quantificateurs != null)
+            quantificateurs.getItems().addAll("Option 1", "Option 2", "Option 3");
+
+        // Add options to the 'quantifConclusion' ComboBox
+        if (this.quantifConclusion != null)
+            quantifConclusion.getItems().addAll("Option 1", "Option 2", "Option 3");
+    }
+
+    /**
+     * This method generates and displays a new page showing premises and conclusion
+     * for the current logical argument. It creates a dynamic FXML file, populates it with data,
+     * and displays it in a new window.
+     *
+     * The method:
+     * 1. Prepares lists of premises and conclusion.
+     * 2. Generates a dynamic FXML layout and writes it to a file.
+     * 3. Loads the FXML and displays it in a new window.
+     * 4. Provides the option to go back to the previous page.
+     * 5. Displays whether the polysyllogism is valid or not based on a boolean check.
+     */
     private void displayPremissesAndConclusion() {
         try {
-            // Prepare the premises and conclusion content
+            // Prepare premises and conclusion lists
             ArrayList<String> premisses = new ArrayList<>();
             ArrayList<String> conclusion = new ArrayList<>();
 
@@ -90,7 +107,7 @@ public class PolyController {
                 premisses.add(premisseText);
             }
 
-            // Add conclusion to the list
+            // Add conclusion to the list if applicable
             if (!first.isEmpty() && !second.isEmpty()) {
                 String conclusionText = String.format("Conclusion: %s %s %s",
                         first.get(first.size() - 1),
@@ -99,7 +116,7 @@ public class PolyController {
                 conclusion.add(conclusionText);
             }
 
-            // Create dynamic FXML content for the new page
+            // Create dynamic FXML content
             String fxmlContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                     "<?import javafx.scene.control.*?>\n" +
                     "<?import javafx.scene.layout.*?>\n" +
@@ -115,14 +132,13 @@ public class PolyController {
                     "    </children>\n" +
                     "</AnchorPane>";
 
-            // Specify the destination directory for the new FXML
+            // Write FXML to a file
             String pathToResources = "src/main/resources/org/example/pollyinterface";
             File directory = new File(pathToResources);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            // Create a unique FXML file for this page
             String fxmlFileName = "PremisseConclusionPage.fxml";
             File fxmlFile = new File(directory, fxmlFileName);
             BufferedWriter writer = new BufferedWriter(new FileWriter(fxmlFile));
@@ -136,41 +152,38 @@ public class PolyController {
             // Get elements from the FXML
             VBox premisesBox = (VBox) fxmlLoader.getNamespace().get("premisesBox");
             Label conclusionLabel = (Label) fxmlLoader.getNamespace().get("conclusionLabel");
-            Label isValid = (Label)fxmlLoader.getNamespace().get("isValid");
+            Label isValid = (Label) fxmlLoader.getNamespace().get("isValid");
             Button backButton = (Button) fxmlLoader.getNamespace().get("backButton");
             Button validationPoly = (Button) fxmlLoader.getNamespace().get("validationPoly");
-            Label structureValid = (Label)fxmlLoader.getNamespace().get("structureValid");
+            Label structureValid = (Label) fxmlLoader.getNamespace().get("structureValid");
 
+            // Check validity of the argument
             boolean valid = false;
 
             if (valid) {
                 isValid.setText("The polysyllogism is valid");
-                // Ajouter la classe CSS pour l'état valide
-                isValid.getStyleClass().removeAll("invalid"); // Supprime l'ancien style (le cas échéant)
-                isValid.getStyleClass().add("valid");        // Ajoute le style "valid"
+                isValid.getStyleClass().removeAll("invalid"); // Remove old invalid style
+                isValid.getStyleClass().add("valid");        // Add valid style
             } else {
                 String rules = "The rules: -----";
                 isValid.setText("The polysyllogism is not valid\n" + rules);
-                // Ajouter la classe CSS pour l'état invalide
-                isValid.getStyleClass().removeAll("valid"); // Supprime l'ancien style (le cas échéant)
-                isValid.getStyleClass().add("invalid");     // Ajoute le style "invalid"
+                isValid.getStyleClass().removeAll("valid"); // Remove old valid style
+                isValid.getStyleClass().add("invalid");     // Add invalid style
             }
 
-
-            // Populate the premises list in the VBox
+            // Populate the VBox with premises
             for (String premisse : premisses) {
                 premisesBox.getChildren().add(new Label(premisse));
             }
 
-            // Display the conclusion
+            // Display conclusion
             if (!conclusion.isEmpty()) {
                 conclusionLabel.setText(conclusion.get(0));
             }
 
-            // Add a back button event to load the previous page
+            // Handle back button event
             backButton.setOnAction(event -> {
                 try {
-                    // Load the PremissePage.fxml and show it
                     FXMLLoader premissePageLoader = new FXMLLoader(getClass().getResource("PremissePage.fxml"));
                     Parent premissePageRoot = premissePageLoader.load();
                     Stage stage = new Stage();
@@ -194,20 +207,27 @@ public class PolyController {
         }
     }
 
-
+    /**
+     * This method prints the contents of three lists: the first terms, the second terms,
+     * and the quantifiers. Each list is displayed in the format:
+     * [item1 item2 item3 ...] with each list shown on a new line.
+     */
     private void afficherListes() {
+        // Print the list of first terms
         System.out.print("Liste des premiers termes: [");
         for (String terme : first) {
             System.out.print(terme + " ");
         }
         System.out.print("]\n\n");
 
+        // Print the list of second terms
         System.out.print("Liste des deuxièmes termes: [");
         for (String terme : second) {
             System.out.print(terme + " ");
         }
         System.out.print("]\n\n");
 
+        // Print the list of quantifiers
         System.out.print("Liste des quantificateurs: [");
         for (String quantificateur : quant) {
             System.out.print(quantificateur + " ");
@@ -216,9 +236,20 @@ public class PolyController {
     }
 
 
+
+    /**
+     * This method handles the action when the "New Premise" button is clicked.
+     * It validates the input fields (first term, second term, and quantifier).
+     * If any field is empty, it highlights the corresponding field with a red border.
+     * If all fields are valid, it adds the terms and quantifier to the lists,
+     * updates the premise number, and clears the input fields.
+     * It also prints the updated lists to the console.
+     */
     @FXML
     private void actionButtonNewPremisse(){
         boolean valid = true;
+
+        // Validate the first term input field
         if(premierterme.getText().isEmpty()){
             premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
@@ -226,6 +257,8 @@ public class PolyController {
         else {
             premierterme.setStyle(null);
         }
+
+        // Validate the second term input field
         if(deuxiemeterme.getText().isEmpty()){
             deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
@@ -233,6 +266,8 @@ public class PolyController {
         else{
             deuxiemeterme.setStyle(null);
         }
+
+        // Validate the quantifier ComboBox
         if (quantificateurs.getValue().isEmpty()){
             quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
@@ -241,70 +276,82 @@ public class PolyController {
             quantificateurs.setStyle(null);
         }
 
+        // If all fields are valid
         if (valid) {
+            // Update premise number and page counter
             number.setText(Integer.toString(nbpremise++));
             pageCounter++;
+
+            // Enable "Go to Last One" button if page counter is 3 or more
             if (pageCounter >= 3) {
                 goToLastOne.setDisable(false);
-
             }
+
             // Get text from the TextFields
             String premierTermeText = premierterme.getText();
             String deuxiemeTermeText = deuxiemeterme.getText();
 
-            // Get the selected item from the ComboBox
+            // Get the selected quantifier
             String selectedQuantificateur = quantificateurs.getValue();
 
-            // Ajouter les prémisses dans les listes
+            // Add premise data to the lists
             first.add(premierTermeText);
             second.add(deuxiemeTermeText);
             quant.add(selectedQuantificateur);
 
-            // Effacer les champs après ajout
+            // Clear the input fields after adding
             premierterme.clear();
             deuxiemeterme.clear();
             quantificateurs.setValue(null);
 
-            // Afficher les listes après ajout
+            // Print the updated lists to the console
             System.out.println("*********************************");
             afficherListes();
             System.out.println("*********************************");
         }
     }
 
-
-    /****************************************************************************************************/
-
-    /*** Methode generique pour la redirection de page par un boutton ***/
-
+    /**
+     * This method loads a new page when a button is clicked.
+     * It loads the FXML file of the new page, retrieves its controller,
+     * and sets the new page's scene to be the same size as the current scene.
+     * The new page is then displayed on the current stage.
+     *
+     * @param path The path to the FXML file of the new page.
+     * @param actionButton The button that triggered the page change.
+     */
     private void loadNewPageByButton(String path, Button actionButton) {
         try {
-            // Charger la deuxième page à partir de depart
+            // Load the new page from the specified path
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent page2Parent = loader.load();
 
-            // Obtenir le contrôleur associé à la page courante
+            // Get the controller for the new page
             PolyController page2Controller = loader.getController();
 
-            // Obtenir la scène actuelle et sa taille
+            // Get the current stage and its scene size
             Stage stage = (Stage) actionButton.getScene().getWindow();
             Scene currentScene = stage.getScene();
             double currentWidth = currentScene.getWidth();
             double currentHeight = currentScene.getHeight();
 
-            // Afficher la scène de la deuxième page avec la taille actuelle
+            // Set the new page's scene with the current size and show it
             Scene newScene = new Scene(page2Parent, currentWidth, currentHeight);
             stage.setScene(newScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Gérer les erreurs de chargement de la page
+            e.printStackTrace(); // Handle any errors in loading the page
         }
     }
 
-    /******************************************************************************/
-
+    /**
+     * This method is triggered when the "Last" button is clicked. It handles the validation of input fields,
+     * updates the interface for showing the conclusion, and processes the input data by adding it to the lists.
+     * It also hides certain UI elements and disables the button to prevent further modifications.
+     */
     @FXML
     private void handleButtonLast() {
+        // Show structure validation label and hide the premise input section
         structureValid.setVisible(true);
         premisse.setVisible(false);
         titre.setText("Conclusion");
@@ -312,137 +359,164 @@ public class PolyController {
         premisse.setDisable(true);
         goToLastOne.setDisable(true);
 
+        // Validate input fields
         boolean valid = true;
         if(premierterme.getText().isEmpty()){
-            premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;"); // Set red border if empty
             valid = false;
-        }
-        else {
-            premierterme.setStyle(null);
+        } else {
+            premierterme.setStyle(null); // Clear the red border
         }
         if(deuxiemeterme.getText().isEmpty()){
             deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
-        }
-        else{
+        } else {
             deuxiemeterme.setStyle(null);
         }
         if (quantificateurs.getValue().isEmpty()){
             quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
-        }
-        else{
+        } else {
             quantificateurs.setStyle(null);
         }
 
+        // If the inputs are valid, process the data
         if (valid) {
             // Get text from the TextFields
             String premierTermeText = premierterme.getText();
             String deuxiemeTermeText = deuxiemeterme.getText();
 
-            // Get the selected item from the ComboBox
+            // Get the selected quantifier from the ComboBox
             String selectedQuantificateur = quantificateurs.getValue();
 
-            // Ajouter les prémisses dans les listes
+            // Add the premise data to the lists
             first.add(premierTermeText);
             second.add(deuxiemeTermeText);
             quant.add(selectedQuantificateur);
 
-            // Effacer les champs après ajout
+            // Clear input fields after adding the premise
             premierterme.clear();
             deuxiemeterme.clear();
             quantificateurs.setValue(null);
 
-            // Afficher les listes après ajout
+            // Print the lists after adding the premise
             System.out.println("*********************************");
             afficherListes();
             System.out.println("*********************************");
         }
 
-        // Effacer les champs après ajout
+        // Clear the input fields again (redundant after the above logic)
         premierterme.clear();
         deuxiemeterme.clear();
         quantificateurs.setValue(null);
 
-        // Afficher les listes après ajout
+        // Print the lists again (redundant as it has already been done)
         System.out.println("*********************************");
         afficherListes();
         System.out.println("*********************************");
     }
 
-    @FXML
-    private void handleButtonBack(){
 
+    /**
+     * This method is triggered when the "Back" button is clicked. It loads the previous page (PremissePage.fxml)
+     * and displays it by calling the loadNewPageByButton method.
+     */
+    @FXML
+    private void handleButtonBack() {
+        // Define the path to the previous page's FXML
         String path = "PremissePage.fxml";
-        loadNewPageByButton(path,goToBack);
+
+        // Load and display the previous page using the helper method
+        loadNewPageByButton(path, goToBack);
     }
 
+    /**
+     * This method is triggered when the "Back" button is clicked on the summary page.
+     * It loads the conclusion page (Conclusion.fxml) and displays it by calling the loadNewPageByButton method.
+     */
     @FXML
-    private void handleButtonBackSum(){
+    private void handleButtonBackSum() {
+        // Define the path to the conclusion page's FXML
         String path = "Conclusion.fxml";
-        loadNewPageByButton(path,goToBackSum);
+
+        // Load and display the conclusion page using the helper method
+        loadNewPageByButton(path, goToBackSum);
     }
 
-    //Bouton de validation de la structure du polysyllogisme
+    /**
+     * This method is triggered when the "Done" button is clicked to validate the input.
+     * It checks if all the required fields (premierterme, deuxiemeterme, and quantificateurs) are filled.
+     * If any field is empty, it highlights the field with a red border.
+     * If all fields are valid, the input data is added to the lists and the fields are cleared.
+     * After validation, the current page is closed, and the premises and conclusion are displayed together.
+     */
     @FXML
-    private void handleValidation(){
+    private void handleValidation() {
+        // Flag to check if all inputs are valid
         boolean valid = true;
-        if(premierterme.getText().isEmpty()){
+
+        // Check if the first term is empty, highlight if invalid
+        if (premierterme.getText().isEmpty()) {
             premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
-        }
-        else {
+        } else {
             premierterme.setStyle(null);
         }
-        if(deuxiemeterme.getText().isEmpty()){
+
+        // Check if the second term is empty, highlight if invalid
+        if (deuxiemeterme.getText().isEmpty()) {
             deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
-        }
-        else{
+        } else {
             deuxiemeterme.setStyle(null);
         }
-        if (quantificateurs.getValue().isEmpty()){
+
+        // Check if the quantifier is selected, highlight if invalid
+        if (quantificateurs.getValue().isEmpty()) {
             quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
-        }
-        else{
+        } else {
             quantificateurs.setStyle(null);
         }
 
+        // If all fields are valid, process the data
         if (valid) {
-            // Get text from the TextFields
+            // Get text from the TextFields and the selected quantifier
             String premierTermeText = premierterme.getText();
             String deuxiemeTermeText = deuxiemeterme.getText();
-
-            // Get the selected item from the ComboBox
             String selectedQuantificateur = quantificateurs.getValue();
 
-            // Ajouter les prémisses dans les listes
+            // Add the premise data to the lists
             first.add(premierTermeText);
             second.add(deuxiemeTermeText);
             quant.add(selectedQuantificateur);
 
-            // Effacer les champs après ajout
+            // Clear the input fields after adding the data
             premierterme.clear();
             deuxiemeterme.clear();
             quantificateurs.setValue(null);
         }
 
-        //On ferme la page de saisie
+        // Close the current input page (stage)
         Stage currentStage = (Stage) doneButton.getScene().getWindow();
         currentStage.close();
-        // Afficher les prémisses et la conclusion ensemble
+
+        // Display the premises and conclusion together on a new page
         displayPremissesAndConclusion();
     }
 
+    /**
+     * This method is triggered when the "Validate Structure" button is clicked.
+     * It enables the "Done" button and disables the "Validate Structure" button.
+     * This allows the user to proceed with submitting the valid structure.
+     */
     @FXML
-    private void handleValidStructure(){
+    private void handleValidStructure() {
+        // Log message indicating that the structure validation button was clicked
         System.out.println("bouton validation structure");
+
+        // Enable the "Done" button and disable the "Validate Structure" button
         doneButton.setDisable(false);
         structureValid.setDisable(true);
-
     }
-
-
-
 }
