@@ -94,36 +94,37 @@ public class PolysyllogismeTest {
     }
 
 
-    /*
+
     @Test
     void fonctionalTestConclusionRespected()
     {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition prop1 = new Proposition("mammifère" , "animal" ,new Quantificateur("" , true), true);
-        Proposition prop2 = new Proposition("fox à poils durs" , "fox" ,new Quantificateur("" , true), true);
-        Proposition prop3 = new Proposition("vélo" , "animal" ,new Quantificateur("" , true), true);
-        Proposition prop4 = new Proposition("mini-vélo" , "vélo" ,new Quantificateur("" , true), true);
-        Proposition prop5 = new Proposition("fox" , "chien" ,new Quantificateur("" , true), true);
-        Proposition prop6 = new Proposition("chien" , "mammifère" ,new Quantificateur("" , true), true);
-        Proposition conclusion = new Proposition("mini-vélo" , "fox à poil durs" ,new Quantificateur("" , true), true);
+        Proposition prop1 = new Proposition("a" , "b" ,new Quantificateur("" , true), true);
+        Proposition prop2 = new Proposition("b" , "c" ,new Quantificateur("" , true), true);
+        Proposition prop3 = new Proposition("c" , "d" ,new Quantificateur("" , true), true);
+        Proposition prop4 = new Proposition("d" , "vélo" ,new Quantificateur("" , true), true);
 
-        List<Proposition> propositions = new ArrayList<Proposition>();
-        propositions.add(prop2);
-        propositions.add(prop5);
+        Proposition conclusion = new Proposition("a" , "vélo",new Quantificateur("" , true), true);
+
+        List<Proposition> propositions = new ArrayList<>();
         propositions.add(prop1);
-        propositions.add(prop6);
+        propositions.add(prop2);
         propositions.add(prop3);
         propositions.add(prop4);
 
 
-        poly.setPremises(propositions);
         poly.setConclusion(conclusion);
+        poly.setPremises(propositions);
+
+         conclusion = new Proposition("vélo" , "a",new Quantificateur("" , true), true);
+        poly.setConclusion(conclusion);
+
         assertTrue(poly.conclusionRespected());
 
     }
 
 
-*/
+
     @Test
     void fonctionalTestConclusionUnRespected()
     {
