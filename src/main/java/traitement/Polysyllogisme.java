@@ -8,6 +8,42 @@ import java.util.List;
 public class Polysyllogisme implements Validateur {
 
 
+    public static void main(String[] args) {
+        Polysyllogisme poly = new Polysyllogisme();
+        Proposition p1 = new Proposition("mammifère" , "animal" , new Quantificateur("test" , true ) , true);
+        Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantificateur("test" , true ) , true);
+        Proposition p3 = new Proposition("vélo" , "animal" , new Quantificateur("test" , true ) , true);
+        Proposition p4 = new Proposition("fox" , "chien" , new Quantificateur("test" , true ) , true);
+        Proposition p5 = new Proposition("mini-vélo" , "vélo" , new Quantificateur("test" , true ) , true);
+        Proposition p6 = new Proposition("chien" , "mammifère" , new Quantificateur("test" , true ) , true);
+
+        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantificateur("test" , true ) , true);
+
+        List<Proposition> propositions = new ArrayList<>();
+        propositions.add(p1);
+        propositions.add(p2);
+        propositions.add(p3);
+        propositions.add(p4);
+        propositions.add(p5);
+        propositions.add(p6);
+
+        poly.setPremises(propositions);
+
+        poly.setConclusion(conclusion);
+
+
+        System.out.println(poly.structCorrection());
+
+        System.out.println(poly.conclusionRespected());
+
+
+
+
+
+
+
+
+    }
 
     protected Proposition conclusion;
     protected List<Proposition> premises = new ArrayList<>();
