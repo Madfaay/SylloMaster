@@ -16,19 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Generator256 {
-    private Syllogisme syllogisme;
+    private Syllogism syllogisme;
     private String[] types = {"A", "E", "I", "O"};
     private int[] figures = {1, 2, 3, 4};
 
     // Attributs pour stocker les résultats
-    private final List<Syllogisme> syllogismes = new ArrayList<>();
+    private final List<Syllogism> syllogismes = new ArrayList<>();
     private List<List<String>> syllogismesDetails = new ArrayList<>();
 
     private int valideCount = 0;
     private int interessantCount = 0;
 
 
-    public Generator256(Syllogisme s) {
+    public Generator256(Syllogism s) {
         syllogisme = s;
         int nombre = 0;
 
@@ -70,7 +70,7 @@ public class Generator256 {
 
 
                         // Création du nouveau syllogisme
-                        Syllogisme nouveau = new Syllogisme(maj, min, c);
+                        Syllogism nouveau = new Syllogism(maj, min, c);
                         syllogismes.add(nouveau);
 
                         // Vérifications supplémentaires
@@ -148,7 +148,7 @@ public class Generator256 {
      * @param type Le type de la proposition ("A", "E", "I", "O").
      * @return Une nouvelle proposition.
      */
-    private Proposition createProposition(String type, Terme premierTerme, Terme deuxiemeTerme) {
+    private Proposition createProposition(String type, Term premierTerme, Term deuxiemeTerme) {
         Proposition p = null;
         Quantifier quantificateur;
 
@@ -214,10 +214,10 @@ public class Generator256 {
         Proposition conclusion = new Proposition(sujetConclusion, predicatConclusion, quantifConclusion, false); // Négative (n'est pas un chat)
 
         // Création du syllogisme avec les propositions
-        Syllogisme syllogisme1 = new Syllogisme(majeur, mineur, conclusion);
+        Syllogism syllogisme1 = new Syllogism(majeur, mineur, conclusion);
 
         // Création du syllogisme avec les paramètres directement
-        Syllogisme s = new Syllogisme(
+        Syllogism s = new Syllogism(
                 quantifMajeur, sujetMajeur, predicatMajeur, true,
                 quantifMineur, sujetMineur, predicatMineur, false,
                 quantifConclusion, sujetConclusion, predicatConclusion, false

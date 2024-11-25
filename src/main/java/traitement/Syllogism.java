@@ -142,7 +142,7 @@ public class Syllogism implements Validator {
         this.invalid = new ArrayList<>();
     }
 
-    Syllogisme(Proposition maj, Proposition min, Proposition conclusion) {
+    Syllogism(Proposition maj, Proposition min, Proposition conclusion) {
         this.conclusion = conclusion;
         this.major = maj;
         this.minor = min;
