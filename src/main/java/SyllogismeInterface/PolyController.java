@@ -6,22 +6,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import traitement.Polysyllogisme;
+import traitement.Polysyllogism;
 import traitement.Proposition;
 import traitement.Quantifier;
-import traitement.Reponse;
+import traitement.Response;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +87,7 @@ public class PolyController {
 
     private String language ;
 
-    private Polysyllogisme poly ;
+    private Polysyllogism poly ;
 
 
     /**
@@ -378,7 +374,7 @@ public class PolyController {
      */
     @FXML
     private void handleValidation() {
-        Reponse rep = this.poly.valider();
+        Response rep = this.poly.valider();
         this.resultStruct.setText(rep.getMessage());
 
     }
@@ -464,7 +460,7 @@ public class PolyController {
         doneButton.setDisable(true);
         structureValid.setDisable(true);
 
-        Polysyllogisme poly = new Polysyllogisme(this.language);
+        Polysyllogism poly = new Polysyllogism(this.language);
         int length = this.first.size() ;
         System.out.println("LE LENGTH  : "+ length);
 
@@ -579,7 +575,7 @@ public class PolyController {
 
     @FXML
     public void back(ActionEvent actionEvent) {
-        if(this.nbpremise >=1)
+        if(this.nbpremise >1)
         {
             if(this.titre.getText().equals("Conclusion" )) {
                 this.titre.setText("Prémisse");
@@ -600,9 +596,9 @@ public class PolyController {
             second.removeLast();
             quant.removeLast();
             booleans.removeLast();
-            this.nbpremise-- ;
+            this.nbpremise-=1 ;
             System.out.println(this.nbpremise);
-            number.setText(Integer.toString(nbpremise--));
+            number.setText(Integer.toString(nbpremise));
 
 
         }

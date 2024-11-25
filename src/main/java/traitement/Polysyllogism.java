@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Polysyllogisme implements Validateur {
+public class Polysyllogism implements Validator {
 
 
     public static void main(String[] args) {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         Proposition p1 = new Proposition("mammifère" , "animal" , new Quantifier("test" , true ) , true);
         Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantifier("test" , true ) , true);
         Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , true);
@@ -127,9 +127,9 @@ public class Polysyllogisme implements Validateur {
      *
      * @param p1 the first proposition.
      * @param p2 the second proposition.
-     * @return the isolated term as a {@link Terme}, or {@code null} if no isolated term is found.
+     * @return the isolated term as a {@link Term}, or {@code null} if no isolated term is found.
      */
-    public Terme getIsolatedTerm(Proposition p1, Proposition p2) {
+    public Term getIsolatedTerm(Proposition p1, Proposition p2) {
         String one = p1.getFirstTerm().getExpression();
         String two = p1.getSecondTerm().getExpression();
         String Three = p2.getFirstTerm().getExpression();
@@ -157,9 +157,9 @@ public class Polysyllogisme implements Validateur {
     /**
      * Retrieves the first isolated term from the premises.
      *
-     * @return the isolated term as a {@link Terme}, or {@code null} if there are fewer than two premises.
+     * @return the isolated term as a {@link Term}, or {@code null} if there are fewer than two premises.
      */
-    public Terme getFstIsolated() {
+    public Term getFstIsolated() {
         if (premises.size() < 2) return null;
         return getIsolatedTerm(premises.get(0), premises.get(1));
     }
@@ -168,9 +168,9 @@ public class Polysyllogisme implements Validateur {
     /**
      * Retrieves the last isolated term from the premises.
      *
-     * @return the isolated term as a {@link Terme}, or {@code null} if there are fewer than two premises.
+     * @return the isolated term as a {@link Term}, or {@code null} if there are fewer than two premises.
      */
-    public Terme getLstIsolated() {
+    public Term getLstIsolated() {
         if (premises.size() < 2) return null;
         Proposition last = premises.removeLast();
         Proposition secondLast = premises.removeLast();
@@ -189,8 +189,8 @@ public class Polysyllogisme implements Validateur {
      * @return {@code true} if the conclusion is respected, {@code false} otherwise.
      */
     public boolean conclusionRespected() {
-        Terme predicat = getFstIsolated();
-        Terme sujet = getLstIsolated();
+        Term predicat = getFstIsolated();
+        Term sujet = getLstIsolated();
         System.out.println(predicat);
         System.out.println(sujet);
 
@@ -237,9 +237,9 @@ public class Polysyllogisme implements Validateur {
     /**
      * Retrieves the predicate of the conclusion.
      *
-     * @return the predicate as a {@link Terme}.
+     * @return the predicate as a {@link Term}.
      */
-    public Terme getPredicatConclusion()
+    public Term getPredicatConclusion()
     {
         return this.conclusion.getSecondTerm();
     }
@@ -247,9 +247,9 @@ public class Polysyllogisme implements Validateur {
     /**
      * Retrieves the subject of the conclusion.
      *
-     * @return the subject as a {@link Terme}.
+     * @return the subject as a {@link Term}.
      */
-    public Terme getSujetConclusion()
+    public Term getSujetConclusion()
     {
         return this.conclusion.getFirstTerm();
     }
@@ -276,7 +276,7 @@ public class Polysyllogisme implements Validateur {
      * @return {@code true} if the operation was successful, {@code false} otherwise.
      */
     public boolean placeLast() {
-        Terme sujet = getSujetConclusion();
+        Term sujet = getSujetConclusion();
         int indice = 0 ;
         for (Proposition p : premises) {
             if(EqualTerms(sujet.getExpression() , p.getFirstTerm().getExpression())
@@ -339,8 +339,8 @@ public class Polysyllogisme implements Validateur {
     /**
      * Method that allow the user to get a pair of medium term from two premises
      * */
-    public Pair<Terme, Terme> getMediumTerm (Proposition p1, Proposition p2){
-        Pair<Terme, Terme> mediumTerms;
+    public Pair<Term, Term> getMediumTerm (Proposition p1, Proposition p2){
+        Pair<Term, Term> mediumTerms;
         if (p1.getFirstTermString().equals(p2.getFirstTermString())) { //< cas ou le moyen terme est le premier terme dans les deux.
             mediumTerms = new Pair(p1.getFirstTerm(), p2.getFirstTerm());
             return mediumTerms;
@@ -377,9 +377,9 @@ public class Polysyllogisme implements Validateur {
     @Override
     public void MiddleTermRule() {
         for (int i = 0; i < premises.size() - 1; i++) {
-            Pair<Terme, Terme> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
-            Terme firstMediumTerm = mediumTerms.getKey();
-            Terme secondMediumTerm = mediumTerms.getValue();
+            Pair<Term, Term> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
+            Term firstMediumTerm = mediumTerms.getKey();
+            Term secondMediumTerm = mediumTerms.getValue();
 
             if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
                 if(Objects.equals(language, "English")){
@@ -560,11 +560,11 @@ public class Polysyllogisme implements Validateur {
      * Validates the syllogism by applying all the verification rules.
      * If all the rules are followed correctly, the syllogism is valid.
      *
-     * @return a {@link Reponse} object with the result of validation and any new conclusion if required.
+     * @return a {@link Response} object with the result of validation and any new conclusion if required.
      */
     // STOP
     @Override
-    public Reponse valider() {
+    public Response valider() {
         invalid.clear();
 
         // We apply all the rules.
@@ -598,10 +598,10 @@ public class Polysyllogisme implements Validateur {
                     }
             }
     }
-        return new Reponse(message, isValid, nouvelleConclusion);
+        return new Response(message, isValid, nouvelleConclusion);
     }
 
-    public Polysyllogisme(String language) {
+    public Polysyllogism(String language) {
 
         this.invalid = new ArrayList<>();
         this.language = language;

@@ -6,7 +6,7 @@ package traitement;
  * and a conclusion in the form of a Proposition (which can be null).
  *
  */
-public class Reponse {
+public class Response {
     private String message;
     private boolean result;
     private Proposition conclusion;
@@ -18,7 +18,7 @@ public class Reponse {
      * @param result The result of the response (true for valid, false for invalid).
      * @param conclusion The proposition concluding the response (can be null if no conclusion is provided).
      */
-    public Reponse(String message, boolean result, Proposition conclusion) {
+    public Response(String message, boolean result, Proposition conclusion) {
         this.message = message;
         this.result = result;
     }

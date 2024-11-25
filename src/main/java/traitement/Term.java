@@ -5,7 +5,7 @@ package traitement;
  * This class allows defining and managing the term,
  * as well as its quantity (universal or particular).
  */
-public class Terme {
+public class Term {
     /**
      * Name or content of the term, such as "human", "animal", etc.
      */
@@ -22,7 +22,7 @@ public class Terme {
      * @param expression the name or content of the term.
      * @param isUniversal boolean indicating if the term is universal.
      */
-    public Terme(String expression, boolean isUniversal) {
+    public Term(String expression, boolean isUniversal) {
         this.expression = expression;
         this.isUniversal = isUniversal;
     }

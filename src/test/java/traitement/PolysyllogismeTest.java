@@ -20,7 +20,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void dynamicTestgGetIsolatedCondition() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         assertNull(poly.getFstIsolated());
         assertNull(poly.getLstIsolated());
     }
@@ -31,7 +31,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void dynamicTestGetIsolatedTermNoIsolated() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         Proposition p1 = new Proposition("terme", "terme2", new Quantifier("quantif", true), true);
         Proposition p2 = new Proposition("terme3", "terme4", new  Quantifier("quantif", true), true);
         assertNull(poly.getIsolatedTerm(p1, p2));
@@ -43,7 +43,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestTermeEgauxFalse() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         assertFalse(poly.EqualTerms("mm", "nn"));
     }
 
@@ -53,7 +53,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestTermeEgauxTrue() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         assertTrue(poly.EqualTerms("mm", "mm"));
     }
 
@@ -63,7 +63,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalPropValidAllTermsPos() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         // Test with various valid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun3", new Quantifier("commun", true), true);
@@ -78,7 +78,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalPropInvalidAllTermsPos() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         // Test with various invalid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
@@ -93,7 +93,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestConclusionRespected() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         // Setup valid premises and conclusion
         Proposition prop1 = new Proposition("a", "b", new Quantifier("", true), true);
         Proposition prop2 = new Proposition("b", "c", new Quantifier("", true), true);
@@ -116,7 +116,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestConclusionUnRespected() {
-        Polysyllogisme poly = new Polysyllogisme("English");
+        Polysyllogism poly = new Polysyllogism("English");
         // Setup premises and an invalid conclusion
         Proposition prop1 = new Proposition("mammifère", "animal", new Quantifier("", true), true);
         Proposition prop2 = new Proposition("fox à poils durs", "fox", new Quantifier("", true), true);
@@ -152,22 +152,22 @@ public class PolysyllogismeTest {
  */
     @Test
     void testMediumTerm() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n'est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n'est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.MiddleTermRule();
+        polysyllogism.MiddleTermRule();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "Medium Term rule must be respected.");
+        assertEquals(0, polysyllogism.getInvalid().size(), "Medium Term rule must be respected.");
 
     }
 
@@ -178,26 +178,26 @@ public class PolysyllogismeTest {
      */
     @Test
     void testMediumTermInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Aucun fox est un chien.
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Aucun fox est un chien.
 
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
         // here animal is the medium is existential in both premise so it's false.
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",true); //< Tout vélo est un animal
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",true); //< Tout vélo est un animal
         //------------------
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo n'est pas un vélo
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo n'est pas un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.MiddleTermRule();
+        polysyllogism.MiddleTermRule();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "Medium Term rule must be not respected");
+        assertEquals(1, polysyllogism.getInvalid().size(), "Medium Term rule must be not respected");
 
     }
 
@@ -210,26 +210,26 @@ public class PolysyllogismeTest {
      */
     @Test
     void testLatius() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
         // 2. In this premise, the term "fox à poils durs" is universal so the rule is respected
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
 
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Aucun fox est un chien.
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",false); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Aucun fox est un chien.
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
 
         // 1. In the conclusion, the term 'fox à poils durs' is universal, so it must be universal in the premise
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.LatiusRule();
+        polysyllogism.LatiusRule();
         System.out.println();
-        assertEquals(0, polysyllogisme.getInvalid().size(), "Medium Term rule must be not respected");
+        assertEquals(0, polysyllogism.getInvalid().size(), "Medium Term rule must be not respected");
 
     }
 
@@ -241,27 +241,27 @@ public class PolysyllogismeTest {
      */
     @Test
     void testLatiusInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
         Quantifier certain = new Quantifier("Certain", false);
 
         //2. The term "fox à poils dur" is not universal here so the rule is not respected
-        polysyllogisme.addPremise(certain,"fox à poils durs", "fox",true); //< Certain fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
+        polysyllogism.addPremise(certain,"fox à poils durs", "fox",true); //< Certain fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
 
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",false); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
 
         //1. The term "fox à poil dur" is universal so it must also be in the premise.
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs.
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs.
 
-        polysyllogisme.LatiusRule();
+        polysyllogism.LatiusRule();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "Latius hos rule should not be respected ");
+        assertEquals(1, polysyllogism.getInvalid().size(), "Latius hos rule should not be respected ");
 
     }
     //Test rNN
@@ -274,21 +274,21 @@ public class PolysyllogismeTest {
      */
     @Test
     void testRnn() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Aucun fox à poils durs n'est un fox.
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère.
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal.
-        polysyllogisme.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal.
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo.
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Aucun fox à poils durs n'est un fox.
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère.
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal.
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal.
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo.
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rNN();
+        polysyllogism.rNN();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "The rule (rNN) must be respected. ");
+        assertEquals(0, polysyllogism.getInvalid().size(), "The rule (rNN) must be respected. ");
     }
 
     /**
@@ -298,21 +298,21 @@ public class PolysyllogismeTest {
      */
     @Test
     void testRnnInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
-        polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",false); //< Aucun fox à poils durs n'est un fox.
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère.
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal.
-        polysyllogisme.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal.
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo.
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(aucun,"fox à poils durs", "fox",false); //< Aucun fox à poils durs n'est un fox.
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère.
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal.
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal.
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo.
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rNN();
+        polysyllogism.rNN();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "The rule (rNN) must not be respected. ");
+        assertEquals(1, polysyllogism.getInvalid().size(), "The rule (rNN) must not be respected. ");
     }
     // Test rN
 
@@ -324,25 +324,25 @@ public class PolysyllogismeTest {
      */
     @Test
     void testrN() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
 
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
         // There are one negative premise so the conclusion must be negative
-        polysyllogisme.addPremise(aucun,"vélo", "animal",true); //< Aucun vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addPremise(aucun,"vélo", "animal",true); //< Aucun vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
         // The conclusion is negative so rN is respected.
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rN();
+        polysyllogism.rN();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "The rule (rN) must be respected ");
+        assertEquals(0, polysyllogism.getInvalid().size(), "The rule (rN) must be respected ");
     }
 
 
@@ -353,25 +353,25 @@ public class PolysyllogismeTest {
      */
     @Test
     void testrNInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
 
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
         // There are one negative premise so the conclusion must be negative
-        polysyllogisme.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
         // The conclusion is negative so rN is respected.
-        polysyllogisme.addConclusion(tout,"mini-vélo", "fox à poil dur",true); //< Tout mini-vélo n’est un fox à poil durs
+        polysyllogism.addConclusion(tout,"mini-vélo", "fox à poil dur",true); //< Tout mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rN();
+        polysyllogism.rN();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "The rule (rN) must no be respected.");
+        assertEquals(1, polysyllogism.getInvalid().size(), "The rule (rN) must no be respected.");
     }
 
 
@@ -384,21 +384,21 @@ public class PolysyllogismeTest {
      */
     @Test
     void testrAA() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",true); //< Aucun vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",true); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",true); //< Aucun vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",true); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rAA();
+        polysyllogism.rAA();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être correcte.");
+        assertEquals(0, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être correcte.");
     }
 
 
@@ -410,21 +410,21 @@ public class PolysyllogismeTest {
     @Test
     void testrAAInvalid() {
         // Toutes les premises sont universelles mais la conclusion est particulière.
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(tout,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(tout,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rAA();
+        polysyllogism.rAA();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(1, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
 
@@ -437,21 +437,21 @@ public class PolysyllogismeTest {
     @Test
     void testrPP() {
 
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
-        polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(aucun,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(aucun,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(aucun,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(aucun,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(aucun,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(aucun,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rPP();
+        polysyllogism.rPP();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(0, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
 
@@ -463,20 +463,20 @@ public class PolysyllogismeTest {
     @Test
     void testrPPInvalid() {
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier aucun = new Quantifier("il n'existe", false);
 
-        polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(aucun,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(aucun,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(aucun,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(aucun,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(aucun,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(aucun,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(aucun,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(aucun,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(aucun,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rPP();
+        polysyllogism.rPP();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(1, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
     /**
@@ -487,21 +487,21 @@ public class PolysyllogismeTest {
     @Test
     void testrP(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
-        polysyllogisme.addPremise(nexiste,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(nexiste,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(nexiste,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(nexiste,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(nexiste,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(nexiste,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(nexiste,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(nexiste,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(nexiste,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(nexiste,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(nexiste,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(nexiste,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rP();
+        polysyllogism.rP();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(0, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
     /**
      * Test the rP rule with invalid premises or conclusions.
@@ -512,21 +512,21 @@ public class PolysyllogismeTest {
     @Test
     void testrPInvalid(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
-        polysyllogisme.addPremise(nexiste,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(nexiste,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(nexiste,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(nexiste,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(nexiste,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(tout,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(nexiste,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(nexiste,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(nexiste,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(nexiste,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(nexiste,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(tout,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rP();
+        polysyllogism.rP();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(1, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
 
@@ -539,21 +539,21 @@ public class PolysyllogismeTest {
     @Test
     void testRuu(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(tout,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(tout,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(tout,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(tout,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rUU();
+        polysyllogism.rUU();
 
-        assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(0, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
     /**
@@ -565,21 +565,21 @@ public class PolysyllogismeTest {
     @Test
     void testRuuInvalid(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
+        Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
-        polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
-        polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
-        polysyllogisme.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
-        polysyllogisme.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
-        polysyllogisme.addPremise(tout,"vélo", "animal",true); //< Tout vélo n’est un animal
-        polysyllogisme.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
-        polysyllogisme.addConclusion(nexiste,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(tout,"vélo", "animal",true); //< Tout vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",false); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(nexiste,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        polysyllogisme.rUU();
+        polysyllogism.rUU();
 
-        assertEquals(1, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
+        assertEquals(1, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
 

@@ -11,7 +11,7 @@ import java.util.Objects;
  * and determine the validity of the syllogism by applying logical rules.
  * It also includes mechanisms to manage interesting and uninteresting conclusions.
  */
-public class Syllogisme implements Validateur{
+public class Syllogism implements Validator {
     private Proposition major;
     private Proposition minor;
     private Proposition conclusion;
@@ -51,7 +51,7 @@ public class Syllogisme implements Validateur{
      *
      * Initializes the list of invalid rules.
      */
-    public Syllogisme(){
+    public Syllogism(){
         this.invalid = new ArrayList<>();
     }
 
@@ -71,9 +71,9 @@ public class Syllogisme implements Validateur{
      * @param ConclusionPredicate Predicate of the conclusion.
      * @param isConclusionAffirmative Boolean indicating if the conclusion is affirmative.
      */
-    public Syllogisme(Quantifier MajorQuantif, String MajorSubject, String MajorPredicat, boolean isMajorAffirmative,
-                      Quantifier MinorQuantif, String MinorSubject, String MinorPredicat, boolean isMinorAffirmative,
-                      Quantifier ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative
+    public Syllogism(Quantifier MajorQuantif, String MajorSubject, String MajorPredicat, boolean isMajorAffirmative,
+                     Quantifier MinorQuantif, String MinorSubject, String MinorPredicat, boolean isMinorAffirmative,
+                     Quantifier ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative
                       ) {
 
 
@@ -104,10 +104,10 @@ public class Syllogisme implements Validateur{
      * @param FigureNum Figure number of the syllogism (must be between 1 and 4).
      * @throws IllegalArgumentException if the figure number is outside the range [1, 4].
      */
-    public Syllogisme(Quantifier quantifPremise1, Quantifier quantifPremise2, Quantifier quantifConclusion,
-                      String Subject, String predicat, String MiddleTerm,
-                      boolean isAffirmativePremis1, boolean isAffirmativePremiss2, boolean isAffirmativeConclusion,
-                      int FigureNum) {
+    public Syllogism(Quantifier quantifPremise1, Quantifier quantifPremise2, Quantifier quantifConclusion,
+                     String Subject, String predicat, String MiddleTerm,
+                     boolean isAffirmativePremis1, boolean isAffirmativePremiss2, boolean isAffirmativeConclusion,
+                     int FigureNum) {
 
 
         if (FigureNum < 1 || FigureNum > 4) {
@@ -185,7 +185,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the middle term in the major premise based on the figure.
      */
-    public Terme getMajorMiddleTerm() {
+    public Term getMajorMiddleTerm() {
         if(FigureNum == 1 || FigureNum == 3){
             return (getMajor()).getFirstTerm();}
         else{
@@ -195,7 +195,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the middle term in the minor premise based on the figure.
      */
-    public Terme getMinorMiddleterm(){
+    public Term getMinorMiddleterm(){
         if(FigureNum == 1 || FigureNum == 2){
             return getMinor().getSecondTerm();}
         else{
@@ -205,7 +205,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the predicate based on the figure of the syllogism.
      */
-    public Terme getPredicat() {
+    public Term getPredicat() {
         if(FigureNum == 1 || FigureNum == 3){
             return getMajor().getSecondTerm();
         }
@@ -217,7 +217,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the subject based on the figure of the syllogism.
      */
-    public Terme getSujet() {
+    public Term getSujet() {
         if(FigureNum == 1 || FigureNum == 2){
             return getMinor().getFirstTerm();
         }
@@ -378,7 +378,7 @@ public class Syllogisme implements Validateur{
      * Validates the syllogism by applying logical rules and determines if the conclusion is interesting.
      */
      @Override
-    public Reponse valider() {
+    public Response valider() {
         // The list of invalid rules is cleared (in case you want to test multiple times after modifications).
          invalid.clear();
 
@@ -405,16 +405,16 @@ public class Syllogisme implements Validateur{
                 message += s + "; ";
             }
         }
-        return new Reponse(message, isValid, nouvelleConclusion);
+        return new Response(message, isValid, nouvelleConclusion);
 
     }
 /*****************************************************************************************************/
     /**
      * Allows choosing the rule that we want to submit for validation.
      */
-    public Reponse validRule(ArrayList<String> check){
+    public Response validRule(ArrayList<String> check){
         if(check.isEmpty()) {
-            return new Reponse("No rules selected", true, null);
+            return new Response("No rules selected", true, null);
         }
         invalid.clear();
         Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
@@ -450,7 +450,7 @@ public class Syllogisme implements Validateur{
                 message += s + "; ";
             }
         }
-        return new Reponse(message, isValid, nouvelleConclusion);
+        return new Response(message, isValid, nouvelleConclusion);
     }
 
     //------------------------------------------------------------------//

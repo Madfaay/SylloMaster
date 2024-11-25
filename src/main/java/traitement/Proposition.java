@@ -14,8 +14,8 @@ package traitement;
 public class Proposition {
 
     private boolean isAffirmative;
-    private Terme FirstTerm;
-    private Terme SecondTerm;
+    private Term FirstTerm;
+    private Term SecondTerm;
     private Quantifier quantifier;
 
     /**
@@ -28,11 +28,11 @@ public class Proposition {
      */
     public Proposition(String FirstTerm, String SecondTerm, Quantifier quantifier, boolean isAffirmative) {
         if(isAffirmative){
-            this.SecondTerm = new Terme(SecondTerm,false);
+            this.SecondTerm = new Term(SecondTerm,false);
         } else {
-            this.SecondTerm = new Terme(SecondTerm,true);
+            this.SecondTerm = new Term(SecondTerm,true);
         }
-        this.FirstTerm = new Terme(FirstTerm, quantifier.isUniversal());
+        this.FirstTerm = new Term(FirstTerm, quantifier.isUniversal());
 
         this.quantifier = quantifier;
         this.isAffirmative = isAffirmative;
@@ -43,7 +43,7 @@ public class Proposition {
      *
      * @return the first term (premierTerme) of the proposition.
      */
-    public Terme getFirstTerm() {
+    public Term getFirstTerm() {
         return FirstTerm;
     }
 
@@ -52,7 +52,7 @@ public class Proposition {
      *
      * @return the second term (deuxiemeTerme) of the proposition.
      */
-    public Terme getSecondTerm() {
+    public Term getSecondTerm() {
         return SecondTerm;
     }
 

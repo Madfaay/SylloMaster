@@ -1,8 +1,8 @@
 package SyllogismeInterface;
 
 import traitement.Quantifier;
-import traitement.Reponse;
-import traitement.Syllogisme;
+import traitement.Response;
+import traitement.Syllogism;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
@@ -379,9 +379,9 @@ public class SyllogismeRedactionSimpleController {
         }
         Quantifier qC = new Quantifier(quantifConclusion, q1univ);
 
-        Syllogisme syllo = new Syllogisme(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure );
+        Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure );
 
-        Reponse r = syllo.validRule(reglelist);
+        Response r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
             myTextValid.setText(r.getMessage());
         else

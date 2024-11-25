@@ -4,7 +4,7 @@ package traitement;
  * Interface for validating logical rules in a syllogism.
  * This interface defines methods to apply various logical rules and validate the syllogism.
  */
-public interface Validateur {
+public interface Validator {
 
     /**
      * Applies the "Moyen Terme" rule.
@@ -59,5 +59,5 @@ public interface Validateur {
      *
      * @return a response indicating whether the syllogism is valid or not.
      */
-    Reponse valider();
+    Response valider();
 }

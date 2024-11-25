@@ -3,8 +3,8 @@ package SyllogismeInterface;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import traitement.Quantifier;
-import traitement.Reponse;
-import traitement.Syllogisme;
+import traitement.Response;
+import traitement.Syllogism;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
@@ -419,11 +419,11 @@ public class SyllogismeRedactionController {
         }
         Quantifier qC = new Quantifier(quantifConclusion, q1univ);
 
-        Syllogisme syllo = new Syllogisme(  q1,subjectPremise1,predicatPremise1, !negatifPremise1,
+        Syllogism syllo = new Syllogism(  q1,subjectPremise1,predicatPremise1, !negatifPremise1,
                 q2,subjectPremise2,predicatPremise2, !negatifPremise2,
                 qC, subjectConclusion, predicatConclusion, !negatifConclusion );
 
-        Reponse r = syllo.validRule(reglelist);
+        Response r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
             myTextValid.setText(r.getMessage());
         else
