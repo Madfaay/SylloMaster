@@ -247,7 +247,7 @@ public class Syllogisme implements Validateur{
      *         - 4: If the second term of the major premise equals the first term of the minor premise.
      *         Returns 0 if no match is found.
      */
-    public int FigureDetect(){
+    public int figureDetect(){
         if(Objects.equals(major.getFirstTerm().getExpression(), minor.getSecondTerm().getExpression())){
             return 1;
         }

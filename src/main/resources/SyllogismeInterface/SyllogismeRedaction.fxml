@@ -110,8 +110,7 @@
         <CheckBox style="-fx-text-fill: white" mnemonicParsing="false" text="Existence hypothesis" fx:id="myhypothesis"/>
     </HBox>
 
-
-
+    <Button fx:id="btnArray" text="Array"  AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" style="-fx-font-size: 15px" onAction="#array"/>
     <Button fx:id="btnBack" text="Back" mnemonicParsing="false" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" style="-fx-font-size: 15px" onAction="#polyOrShow"/>
     <Button fx:id="btnSwitch" mnemonicParsing="false" text="-&gt;" onAction="#switchToSyllogismeRedactionSimple" style="-fx-font-size: 15px;" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10"/>
 </AnchorPane>
