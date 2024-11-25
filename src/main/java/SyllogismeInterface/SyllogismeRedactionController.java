@@ -1,5 +1,7 @@
 package SyllogismeInterface;
 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import traitement.Quantifier;
 import traitement.Reponse;
 import traitement.Syllogisme;
@@ -179,24 +181,16 @@ public class SyllogismeRedactionController {
     }
 
     @FXML
-    private void array() {
-        try {
-            // Charge le fichier FXML de l'interface des paramètres
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
-            Parent polyorsylloContent = fxmlLoader.load();
+    private void array(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Tableau.fxml"));
 
-            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-            pane.getChildren().setAll(polyorsylloContent);
+        Stage stage = new Stage();
+        stage.setTitle("Tableau");
 
-            // Optionnel : ajustez la position et la taille du contenu ajouté
-            AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
+        Scene scene = new Scene(root);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
