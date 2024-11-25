@@ -114,7 +114,7 @@ public class Proposition {
      * Method to check if the proposition is universal negative.
      * **/
     public boolean isE() {
-        return isAffirmative && isUniversal();
+        return !isAffirmative && isUniversal();
     }
 
     /**
