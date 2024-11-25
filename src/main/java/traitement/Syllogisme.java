@@ -195,7 +195,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the middle term in the minor premise based on the figure.
      */
-    public Terme getMinorMiddleterm() {
+    public Terme getMinorMiddleterm(){
         if(FigureNum == 1 || FigureNum == 2){
             return getMinor().getSecondTerm();}
         else{
