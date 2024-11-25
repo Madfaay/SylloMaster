@@ -69,7 +69,7 @@
 
         <RadioButton fx:id="existentiel" layoutX="1229.0" layoutY="291.0" mnemonicParsing="false" style="-fx-font-size: 20; -fx-text-fill: #333;" text="Existentiel" toggleGroup="$group" />
 
-        <Text fx:id="titleText" layoutX="968.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #444444; -fx-font-size: 45; -fx-font-weight: bold;" text="Ajouter un quantificateur" wrappingWidth="646.3999877929687">
+        <Text fx:id="titleText" layoutX="968.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #444444; -fx-font-size: 45; -fx-font-weight: bold;" text="Ajouter un quantifier" wrappingWidth="646.3999877929687">
             <font>
                 <Font size="59.0" />
             </font></Text>

@@ -13,18 +13,18 @@ public class Terme {
     /**
      * Indicates the quantity of the term, whether the term is universal (true) or particular (false).
      */
-    private boolean estUniverselle;
+    private boolean isUniversal;
 
 
     /**
      * Constructor of the Term class.
      *
      * @param expression the name or content of the term.
-     * @param estUniverselle boolean indicating if the term is universal.
+     * @param isUniversal boolean indicating if the term is universal.
      */
-    public Terme(String expression, boolean estUniverselle) {
+    public Terme(String expression, boolean isUniversal) {
         this.expression = expression;
-        this.estUniverselle = estUniverselle;
+        this.isUniversal = isUniversal;
     }
 
 
@@ -33,8 +33,8 @@ public class Terme {
      *
      * @return true if the term is universal, false otherwise.
      */
-    public boolean estUniverselle(){
-        return estUniverselle;
+    public boolean isUniversal(){
+        return isUniversal;
     }
 
     /**
@@ -59,10 +59,10 @@ public class Terme {
     /**
      * Allows modifying the scope of the term, indicating if it is universal.
      *
-     * @param universelle boolean indicating if the term is universal or particular.
+     * @param universal boolean indicating if the term is universal or particular.
      */
-    public void setUniversal(boolean universelle) {
-        estUniverselle = universelle;
+    public void setUniversal(boolean universal) {
+        isUniversal = universal;
     }
 
     /**
