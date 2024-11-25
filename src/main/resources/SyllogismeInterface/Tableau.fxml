@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600"  style="-fx-background-color: black;" fx:controller="SyllogismeInterface.TableauController">
+    <TableView fx:id="tableView" layoutX="20" layoutY="20" prefWidth="1430" prefHeight="560" >
+        <columns>
+            <TableColumn fx:id="Universal1" text="Universal 1" prefWidth="85"/>
+            <TableColumn fx:id="Affirmative1" text="Affirmative 1" prefWidth="85"/>
+            <TableColumn fx:id="Major" text="Major" prefWidth="85"/>
+            <TableColumn fx:id="Universal2" text="Universal 2" prefWidth="85"/>
+            <TableColumn fx:id="Affirmative2" text="Affirmative 2" prefWidth="85"/>
+            <TableColumn fx:id="Minor" text="Minor" prefWidth="85"/>
+            <TableColumn fx:id="UniversalC" text="Universal C" prefWidth="85"/>
+            <TableColumn fx:id="AffirmativeC" text="Affirmative C" prefWidth="85"/>
+            <TableColumn fx:id="Conclusion" text="Conclusion" prefWidth="85"/>
+            <TableColumn fx:id="Figure" text="Figure" prefWidth="85"/>
+            <TableColumn fx:id="RMT" text="RMT" prefWidth="55"/>
+            <TableColumn fx:id="RLH" text="RLH" prefWidth="55"/>
+            <TableColumn fx:id="RNN" text="RNN" prefWidth="55"/>
+            <TableColumn fx:id="RN" text="RN" prefWidth="55"/>
+            <TableColumn fx:id="RAA" text="RAA" prefWidth="55"/>
+            <TableColumn fx:id="RPP" text="RPP" prefWidth="55"/>
+            <TableColumn fx:id="RP" text="RP" prefWidth="55"/>
+            <TableColumn fx:id="Valide" text="Valide" prefWidth="85"/>
+            <TableColumn fx:id="RUU" text="RUU" prefWidth="55"/>
+            <TableColumn fx:id="RI" text="RI" prefWidth="55"/>
+        </columns>
+    </TableView>
+</AnchorPane>
+
