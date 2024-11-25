@@ -126,9 +126,7 @@ public class SettingsController {
 
         // Load the "ear.png" image into the ear ImageView
         setImageView(this.ear, "ear.png");
-
-        // Play the heartbeat sound
-        playHeartbeatSound();
+        startHeartbeatAnimation();
 
         // Optionally, start a heartbeat animation (commented out)
         // startHeartbeatAnimation();

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.CheckBox?>
 <AnchorPane fx:id="anchor" prefHeight="850.0" prefWidth="1549.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.PolyController">
     <children>
         <!-- Title Label -->
@@ -47,9 +47,9 @@
         <Button fx:id="goToLastOne" disable="true" layoutX="779.0" layoutY="483.0" onAction="#handleButtonLast" text="Add conclusion" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="779.0" />
         <Button fx:id="doneButton" disable="true" layoutX="619.0" layoutY="556.0" onAction="#handleValidation" text="Validation" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="619.0" />
         <Button fx:id="structureValid" layoutX="786.0" layoutY="556.0" onAction="#handleValidStructure" text="Validation Structure" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="786.0" />
-        <CheckBox mnemonicParsing="false" layoutX="786.0" layoutY="600.0" text="Negative" fx:id="Negative" style="-fx-text-fill: white"/>
+        <CheckBox fx:id="Negative" layoutX="786.0" layoutY="600.0" mnemonicParsing="false" style="-fx-text-fill: white" text="Negative" />
 
-        <Label fx:id="resultStruct" layoutX="350.0" layoutY="584.0" textFill="WHITE">
+        <Label fx:id="resultStruct" layoutX="421.0" layoutY="675.0" prefHeight="34.0" prefWidth="1013.0" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="23.0" />
          </font>

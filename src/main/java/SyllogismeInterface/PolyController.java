@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import traitement.Polysyllogisme;
 import traitement.Proposition;
 import traitement.Quantificateur;
+import traitement.Reponse;
 
 import java.awt.*;
 import java.io.BufferedWriter;
@@ -87,6 +88,8 @@ public class PolyController {
 
     private String language ;
 
+    private Polysyllogisme poly ;
+
 
     /**
      * This method is called when the controller is initialized.
@@ -97,7 +100,7 @@ public class PolyController {
         loadLanguageFromJson();
         retrieve();
 
-
+        structureValid.setDisable(true);
         // Set the number label text to the current premise number and increment it
         if (this.number != null)
             number.setText(Integer.toString(nbpremise++));
@@ -461,6 +464,8 @@ public class PolyController {
 
         // If the inputs are valid, process the data
         if (valid) {
+            this.booleans.add(this.Negative.isSelected());
+
             // Get text from the TextFields
             String premierTermeText = premierterme.getText();
             String deuxiemeTermeText = deuxiemeterme.getText();
@@ -482,6 +487,7 @@ public class PolyController {
             System.out.println("*********************************");
             afficherListes();
             System.out.println("*********************************");
+            this.structureValid.setDisable(false);
         }
 
         // Clear the input fields again (redundant after the above logic)
@@ -531,57 +537,9 @@ public class PolyController {
      */
     @FXML
     private void handleValidation() {
-        // Flag to check if all inputs are valid
-        boolean valid = true;
+        Reponse rep = this.poly.valider();
+        this.resultStruct.setText(rep.getMessage());
 
-        // Check if the first term is empty, highlight if invalid
-        if (premierterme.getText().isEmpty()) {
-            //premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
-            valid = false;
-        } else {
-            premierterme.setStyle(null);
-        }
-
-        // Check if the second term is empty, highlight if invalid
-        if (deuxiemeterme.getText().isEmpty()) {
-            //deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
-            valid = false;
-        } else {
-            deuxiemeterme.setStyle(null);
-        }
-
-        // Check if the quantifier is selected, highlight if invalid
-        if (quantificateurs.getValue().isEmpty()) {
-            //quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
-            valid = false;
-        } else {
-            quantificateurs.setStyle(null);
-        }
-
-        // If all fields are valid, process the data
-        if (valid) {
-            // Get text from the TextFields and the selected quantifier
-            String premierTermeText = premierterme.getText();
-            String deuxiemeTermeText = deuxiemeterme.getText();
-            String selectedQuantificateur = quantificateurs.getValue();
-
-            // Add the premise data to the lists
-            first.add(premierTermeText);
-            second.add(deuxiemeTermeText);
-            quant.add(selectedQuantificateur);
-
-            // Clear the input fields after adding the data
-            premierterme.clear();
-            deuxiemeterme.clear();
-            quantificateurs.setValue(null);
-        }
-
-        // Close the current input page (stage)
-        Stage currentStage = (Stage) doneButton.getScene().getWindow();
-        currentStage.close();
-
-        // Display the premises and conclusion together on a new page
-        displayPremissesAndConclusion();
     }
 
 
@@ -630,6 +588,7 @@ public class PolyController {
             premierterme.clear();
             deuxiemeterme.clear();
             quantificateurs.setValue(null);
+            this.structureValid.setDisable(false);
         }
 
 
@@ -695,12 +654,14 @@ public class PolyController {
 
         poly.setPremises(propositions);
         poly.setConclusion(conclusion);
-        if(poly.structValid())
+        this.poly = poly;
+        if(this.poly.structValid())
         {
+            this.doneButton.setDisable(false);
             this.resultStruct.setText("La structure est correcte ! Nous pouvons maintenant procéder à la validation des règles.");
         }
         else {
-            if(poly.structCorrection()) {
+            if(this.poly.structCorrection()) {
                 this.resultStruct.setText("Nous avons corrigé votre structure Visualiser le résultat à gauche ! Nous pouvons maintenant procéder à la validation des règles.");
                 Double x = 5.0;
                 Double y = 190.0;
@@ -710,8 +671,7 @@ public class PolyController {
                     y+=30.0;
                 }
                 this.createLabelBelow(this.anchor , x , y , poly.getConclusion().toString());
-
-
+                this.doneButton.setDisable(false);
 
 
             }
