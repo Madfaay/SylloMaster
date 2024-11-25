@@ -380,7 +380,7 @@ public class Polysyllogisme implements Validateur {
             Terme firstMediumTerm = mediumTerms.getKey();
             Terme secondMediumTerm = mediumTerms.getValue();
 
-            if (!firstMediumTerm.estUniverselle() && !secondMediumTerm.estUniverselle()) {
+            if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
                 invalid.add("ENG: Medium Term Invalid / FR: Moyen Terme Invalide");
                 return; //< Si on trouve que la règle est invalide on quitte la vérification.
             }
@@ -396,14 +396,14 @@ public class Polysyllogisme implements Validateur {
      */
     @Override
     public void regleLatius() {
-        if (conclusion.getFirstTerm().estUniverselle()) {
-            if (!premises.getLast().getFirstTerm().estUniverselle()) {
+        if (conclusion.getFirstTerm().isUniversal()) {
+            if (!premises.getLast().getFirstTerm().isUniversal()) {
                 invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
                 return;
             }
         }
-        if (conclusion.getSecondTerm().estUniverselle()) {
-            if(!premises.getFirst().getFirstTerm().estUniverselle()) {
+        if (conclusion.getSecondTerm().isUniversal()) {
+            if(!premises.getFirst().getFirstTerm().isUniversal()) {
                 invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
             }
 

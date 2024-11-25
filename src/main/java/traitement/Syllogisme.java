@@ -264,7 +264,7 @@ public class Syllogisme implements Validateur{
     @Override
     public void regleMoyenTerme() {
 
-        if (!getMoyenTermeMajeur().estUniverselle() && !getMoyenTermeMineur().estUniverselle()) { //<If the middle term is particular in both premises, it is false.
+        if (!getMoyenTermeMajeur().isUniversal() && !getMoyenTermeMineur().isUniversal()) { //<If the middle term is particular in both premises, it is false.
             (this.invalid).add("Moyen Terme");
         }
     }
@@ -277,14 +277,14 @@ public class Syllogisme implements Validateur{
     @Override
     public void regleLatius() {
 
-        if (conclusion.getFirstTerm().estUniverselle()) { //< If the subject of the conclusion is universal,
-            if (!getSujet().estUniverselle()) { //< The subject in the premise must also be universal.
+        if (conclusion.getFirstTerm().isUniversal()) { //< If the subject of the conclusion is universal,
+            if (!getSujet().isUniversal()) { //< The subject in the premise must also be universal.
                 invalid.add("Regle Latius");
             }
         }
 
-        if (conclusion.getSecondTerm().estUniverselle()) { //< If the predicate of the conclusion is universal,
-            if (!getPredicat().estUniverselle()) { //< The predicate in the premise must also be universal.
+        if (conclusion.getSecondTerm().isUniversal()) { //< If the predicate of the conclusion is universal,
+            if (!getPredicat().isUniversal()) { //< The predicate in the premise must also be universal.
                 invalid.add("Regle Latius");
             }
         }
