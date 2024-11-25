@@ -2,6 +2,7 @@ package SyllogismeInterface;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,6 +31,9 @@ import java.util.Map;
 public class PolyController {
     public AnchorPane anchor;
     public CheckBox Negative;
+    public Button btnBack;
+    public Label labelDeuxieme;
+    public Label labelPremier;
     @FXML
     private Button goToLastOne;
     @FXML
@@ -100,6 +104,10 @@ public class PolyController {
         loadLanguageFromJson();
         retrieve();
 
+        if(this.language.equals("English")){
+            System.out.println("language 106");
+            translateLabelsToEnglish();
+        }
         structureValid.setDisable(true);
         // Set the number label text to the current premise number and increment it
         if (this.number != null)
@@ -108,14 +116,31 @@ public class PolyController {
         // Add options to the 'quantificateurs' ComboBox
         if (this.quantificateurs != null) {
             for(String quantif : quantiflistUniv)
-            quantificateurs.getItems().add(quantif);
+                quantificateurs.getItems().add(quantif);
             for(String quantif : quantiflistExist ){
                 quantificateurs.getItems().add(quantif);
             }
 
         }
 
+
+
         // Add options to the 'quantifConclusion' ComboBox
+    }
+
+    public void translateLabelsToEnglish() {
+        // Traduction des Labels
+        if (titre != null) titre.setText("Premise");
+        labelPremier.setText("First term");
+        labelDeuxieme.setText("Second term");
+
+        // Traduction des Buttons
+        if (premisse != null) premisse.setText("Add one more");
+        if (goToLastOne != null) goToLastOne.setText("Add conclusion");
+        if (doneButton != null) doneButton.setText("Validation of rules");
+        if (structureValid != null) structureValid.setText("Structure Validation");
+        if (btnBack != null) btnBack.setText("Back");
+        this.Negative.setText("negatif");
     }
 
     private List<Map<String, String>> loadData() throws IOException {
@@ -153,130 +178,6 @@ public class PolyController {
         }
     }
 
-    /**
-     * This method generates and displays a new page showing premises and conclusion
-     * for the current logical argument. It creates a dynamic FXML file, populates it with data,
-     * and displays it in a new window.
-     *
-     * The method:
-     * 1. Prepares lists of premises and conclusion.
-     * 2. Generates a dynamic FXML layout and writes it to a file.
-     * 3. Loads the FXML and displays it in a new window.
-     * 4. Provides the option to go back to the previous page.
-     * 5. Displays whether the polysyllogism is valid or not based on a boolean check.
-     */
-    private void displayPremissesAndConclusion() {
-        try {
-            // Prepare premises and conclusion lists
-            ArrayList<String> premisses = new ArrayList<>();
-            ArrayList<String> conclusion = new ArrayList<>();
-
-            // Add premises to the list
-            for (int i = 0; i < first.size() - 1; i++) {
-                String premisseText = String.format("Premisse %d: %s %s %s",
-                        i + 1, first.get(i), quant.get(i), second.get(i));
-                premisses.add(premisseText);
-            }
-
-            // Add conclusion to the list if applicable
-            if (!first.isEmpty() && !second.isEmpty()) {
-                String conclusionText = String.format("Conclusion: %s %s %s",
-                        first.get(first.size() - 1),
-                        quant.get(quant.size() - 1),
-                        second.get(second.size() - 1));
-                conclusion.add(conclusionText);
-            }
-
-            // Create dynamic FXML content
-            String fxmlContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                    "<?import javafx.scene.control.*?>\n" +
-                    "<?import javafx.scene.layout.*?>\n" +
-                    "<AnchorPane stylesheets=\"@style.css\" xmlns=\"http://javafx.com/javafx/21\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"org.example.pollyinterface.PolyController\">\n" +
-                    "    <children>\n" +
-                    "        <Label layoutX=\"20.0\" layoutY=\"20.0\" text=\"Premises:\" />\n" +
-                    "        <VBox fx:id=\"premisesBox\" layoutX=\"20.0\" layoutY=\"50.0\" spacing=\"10.0\" />\n" +
-                    "        <Label fx:id=\"conclusionLabel\" layoutX=\"20.0\" layoutY=\"180.0\" />\n" +
-                    "        <Label fx:id=\"isValid\" layoutX=\"20.0\" layoutY=\"280.0\" />\n" +
-                    "        <Button fx:id=\"backButton\" layoutX=\"20.0\" layoutY=\"220.0\" text=\"Back\" />\n" +
-                    "        <Button fx:id=\"validationPoly\" layoutX=\"120.0\" layoutY=\"220.0\" text=\"Structure VALIDATION\" />\n" +
-                    "        <Label fx:id=\"structureValid\" layoutX=\"20.0\" layoutY=\"280.0\" />\n" +
-                    "    </children>\n" +
-                    "</AnchorPane>";
-
-            // Write FXML to a file
-            String pathToResources = "src/main/resources/org/example/pollyinterface";
-            File directory = new File(pathToResources);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            String fxmlFileName = "PremisseConclusionPage.fxml";
-            File fxmlFile = new File(directory, fxmlFileName);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fxmlFile));
-            writer.write(fxmlContent);
-            writer.close();
-
-            // Load the generated FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(fxmlFile.toURI().toURL());
-            Parent pageRoot = fxmlLoader.load();
-
-            // Get elements from the FXML
-            VBox premisesBox = (VBox) fxmlLoader.getNamespace().get("premisesBox");
-            Label conclusionLabel = (Label) fxmlLoader.getNamespace().get("conclusionLabel");
-            Label isValid = (Label) fxmlLoader.getNamespace().get("isValid");
-            Button backButton = (Button) fxmlLoader.getNamespace().get("backButton");
-            Button validationPoly = (Button) fxmlLoader.getNamespace().get("validationPoly");
-            Label structureValid = (Label) fxmlLoader.getNamespace().get("structureValid");
-
-            // Check validity of the argument
-            boolean valid = false;
-
-            if (valid) {
-                isValid.setText("The polysyllogism is valid");
-                isValid.getStyleClass().removeAll("invalid"); // Remove old invalid style
-                isValid.getStyleClass().add("valid");        // Add valid style
-            } else {
-                String rules = "The rules: -----";
-                isValid.setText("The polysyllogism is not valid\n" + rules);
-                isValid.getStyleClass().removeAll("valid"); // Remove old valid style
-                isValid.getStyleClass().add("invalid");     // Add invalid style
-            }
-
-            // Populate the VBox with premises
-            for (String premisse : premisses) {
-                premisesBox.getChildren().add(new Label(premisse));
-            }
-
-            // Display conclusion
-            if (!conclusion.isEmpty()) {
-                conclusionLabel.setText(conclusion.get(0));
-            }
-
-            // Handle back button event
-            backButton.setOnAction(event -> {
-                try {
-                    FXMLLoader premissePageLoader = new FXMLLoader(getClass().getResource("PremissePage.fxml"));
-                    Parent premissePageRoot = premissePageLoader.load();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(premissePageRoot));
-                    stage.setTitle("Premisse Page");
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            // Show the new page with premises and conclusion
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(pageRoot));
-            newStage.setTitle("Premises and Conclusion");
-
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * This method prints the contents of three lists: the first terms, the second terms,
@@ -395,39 +296,6 @@ public class PolyController {
     }
 
     /**
-     * This method loads a new page when a button is clicked.
-     * It loads the FXML file of the new page, retrieves its controller,
-     * and sets the new page's scene to be the same size as the current scene.
-     * The new page is then displayed on the current stage.
-     *
-     * @param path The path to the FXML file of the new page.
-     * @param actionButton The button that triggered the page change.
-     */
-    private void loadNewPageByButton(String path, Button actionButton) {
-        try {
-            // Load the new page from the specified path
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-            Parent page2Parent = loader.load();
-
-            // Get the controller for the new page
-            PolyController page2Controller = loader.getController();
-
-            // Get the current stage and its scene size
-            Stage stage = (Stage) actionButton.getScene().getWindow();
-            Scene currentScene = stage.getScene();
-            double currentWidth = currentScene.getWidth();
-            double currentHeight = currentScene.getHeight();
-
-            // Set the new page's scene with the current size and show it
-            Scene newScene = new Scene(page2Parent, currentWidth, currentHeight);
-            stage.setScene(newScene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle any errors in loading the page
-        }
-    }
-
-    /**
      * This method is triggered when the "Last" button is clicked. It handles the validation of input fields,
      * updates the interface for showing the conclusion, and processes the input data by adding it to the lists.
      * It also hides certain UI elements and disables the button to prevent further modifications.
@@ -499,33 +367,6 @@ public class PolyController {
         System.out.println("*********************************");
         afficherListes();
         System.out.println("*********************************");
-    }
-
-
-    /**
-     * This method is triggered when the "Back" button is clicked. It loads the previous page (PremissePage.fxml)
-     * and displays it by calling the loadNewPageByButton method.
-     */
-    @FXML
-    private void handleButtonBack() {
-        // Define the path to the previous page's FXML
-        String path = "PremissePage.fxml";
-
-        // Load and display the previous page using the helper method
-        loadNewPageByButton(path, goToBack);
-    }
-
-    /**
-     * This method is triggered when the "Back" button is clicked on the summary page.
-     * It loads the conclusion page (Conclusion.fxml) and displays it by calling the loadNewPageByButton method.
-     */
-    @FXML
-    private void handleButtonBackSum() {
-        // Define the path to the conclusion page's FXML
-        String path = "Conclusion.fxml";
-
-        // Load and display the conclusion page using the helper method
-        loadNewPageByButton(path, goToBackSum);
     }
 
     /**
@@ -736,4 +577,54 @@ public class PolyController {
     }
 
 
+    @FXML
+    public void back(ActionEvent actionEvent) {
+        if(this.nbpremise > 2)
+        {
+            if(this.titre.getText().equals("Conclusion" )) {
+                this.titre.setText("Prémisse");
+                if(this.language.equals("English")) {
+                    translateLabelsToEnglish();
+                }
+            }
+            String terme1 = this.first.getLast();
+            String terme2 = this.second.getLast();
+            String quantif = this.quant.getLast();
+            boolean boolo = this.booleans.getLast();
+            premierterme.setText(terme1);
+            deuxiemeterme.setText(terme2);
+            quantificateurs.setValue(quantif);
+            Negative.setSelected(boolo);
+
+            first.removeLast();
+            second.removeLast();
+            quant.removeLast();
+            booleans.removeLast();
+            this.nbpremise-= 1 ;
+            number.setText(Integer.toString(nbpremise--));
+
+
+        }
+
+        else
+        {
+            try {
+                // Charge le fichier FXML de l'interface des paramètres
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
+                Parent polyorsylloContent = fxmlLoader.load();
+
+                // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
+                anchor.getChildren().setAll(polyorsylloContent);
+
+                // Optionnel : ajustez la position et la taille du contenu ajouté
+                AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
+                AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
+                AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
+                AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
