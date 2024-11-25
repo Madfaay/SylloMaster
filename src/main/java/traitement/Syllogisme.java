@@ -146,7 +146,7 @@ public class Syllogisme implements Validateur{
         this.conclusion = conclusion;
         this.major = maj;
         this.minor = min;
-        this.FigureNum = FigureDetect();
+        this.FigureNum = figureDetect();
         this.invalid = new ArrayList<>();
     }
     //----------------------------------------------------------------//
