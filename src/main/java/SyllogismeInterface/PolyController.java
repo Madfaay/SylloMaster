@@ -536,7 +536,7 @@ public class PolyController {
      */
     @FXML
     private void handleValidation() {
-        Reponse rep = this.poly.valider();
+        Reponse rep = this.poly.valider(language); //modifié ici
         this.resultStruct.setText(rep.getMessage());
 
     }

@@ -262,7 +262,7 @@ public class Syllogisme implements Validateur{
      * If the rule is not valid, it is added to the list of invalid rules.
      * */
     @Override
-    public void MiddleTermRule() {
+    public void MiddleTermRule(String Language) {
 
         if (!getMajorMiddleTerm().isUniversal() && !getMinorMiddleterm().isUniversal()) { //<If the middle term is particular in both premises, it is false.
             (this.invalid).add("Moyen Terme");
@@ -279,13 +279,13 @@ public class Syllogisme implements Validateur{
 
         if (conclusion.getFirstTerm().isUniversal()) { //< If the subject of the conclusion is universal,
             if (!getSujet().isUniversal()) { //< The subject in the premise must also be universal.
-                invalid.add("Regle Latius");
+                invalid.add("Latius");
             }
         }
 
         if (conclusion.getSecondTerm().isUniversal()) { //< If the predicate of the conclusion is universal,
             if (!getPredicat().isUniversal()) { //< The predicate in the premise must also be universal.
-                invalid.add("Regle Latius");
+                invalid.add("Latius");
             }
         }
 

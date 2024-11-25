@@ -4,6 +4,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Polysyllogisme implements Validateur {
 
@@ -374,14 +375,17 @@ public class Polysyllogisme implements Validateur {
      * If the rule is invalid, an error message is added to the invalid list.
      */
     @Override
-    public void MiddleTermRule() {
+    public void MiddleTermRule(String language) {
         for (int i = 0; i < premises.size() - 1; i++) {
             Pair<Terme, Terme> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
             Terme firstMediumTerm = mediumTerms.getKey();
             Terme secondMediumTerm = mediumTerms.getValue();
 
             if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
-                invalid.add("ENG: Medium Term Invalid / FR: Moyen Terme Invalide");
+                if(Objects.equals(language, "English")){
+                invalid.add("Middle Term");}
+                if(Objects.equals(language, "French")){
+                    invalid.add("Moyen Terme");}
                 return; //< Si on trouve que la règle est invalide on quitte la vérification.
             }
         }
@@ -424,7 +428,7 @@ public class Polysyllogisme implements Validateur {
                 i++;
             }
             if (i >= 2) {
-                invalid.add("ENG: Rnn Invalid / FR: Rnn Invalide");
+                invalid.add("rNN");
                 return;
             }
         }
@@ -438,7 +442,7 @@ public class Polysyllogisme implements Validateur {
     public void rN() {
         for(Proposition p : premises) {
             if(!p.isAffirmative() && conclusion.isAffirmative()) {
-                invalid.add("ENG: Rn Invalid / FR: Rn Invalide");
+                invalid.add("rN");
                 return;
             }
         }
@@ -459,7 +463,7 @@ public class Polysyllogisme implements Validateur {
             }
         }
         if(i == premises.size() && !conclusion.isAffirmative()){
-            invalid.add("ENG: Raa Invalid / FR: Raa Invalide");
+            invalid.add("rAA");
         }
     }
 
@@ -476,7 +480,7 @@ public class Polysyllogisme implements Validateur {
             }
         }
         if(i==premises.size()) { //< Si toutes les prémises sont particulières.
-            invalid.add("ENG: Rpp Invalid / FR: Rpp Invalide");
+            invalid.add("rPP");
         }
     }
 
@@ -493,7 +497,7 @@ public class Polysyllogisme implements Validateur {
             }
         }
         if(conclusion.isUniversal()) { //< Et si la conclusion ne l'est pas.
-            invalid.add("ENG: Rp Invalid / FR: Rp Invalide");
+            invalid.add("rP");
         }
     }
 
@@ -511,7 +515,7 @@ public class Polysyllogisme implements Validateur {
         }
         if(i==premises.size()) {
             if(!conclusion.isUniversal()) {
-                invalid.add("ENG: Ruu Invalid / FR: Ruu Invalide");
+                invalid.add("rUU");
             }
         }
     }
@@ -560,11 +564,12 @@ public class Polysyllogisme implements Validateur {
      */
     // STOP
     @Override
-    public Reponse valider() {
+    public Reponse valider(String Language) {
         invalid.clear();
 
         // We apply all the rules.
-        MiddleTermRule();
+        String language = "English";
+        MiddleTermRule(language);
         LatiusRule();
         rNN();
         rN();
@@ -577,15 +582,23 @@ public class Polysyllogisme implements Validateur {
 
         boolean isValid = invalid.isEmpty(); // If the list of invalid rules is empty, it is valid.
 
-        String message;
+        String message = "";
         if (isValid) {
             message = "Ok!"; //<We just return.
         } else {
-            message = "Les règles non respectées sont :";
+            if(Objects.equals(Language, "English")){
+            message = "These Rules are not respected :";
             for (String s : invalid) {
                 message += s + "; ";
             }
-        }
+           }
+            else{
+                    message = "Les règles non respectées sont :";
+                    for (String s : invalid) {
+                        message += s + "; ";
+                    }
+            }
+    }
         return new Reponse(message, isValid, nouvelleConclusion);
     }
 
