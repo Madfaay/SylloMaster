@@ -1,4 +1,5 @@
 package traitement;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ public class PolysyllogismeTest {
     @Test
     void dynamicTestGetIsolatedTermNoIsolated() {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition p1 = new Proposition("terme", "terme2", new Quantificator("quantif", true), true);
-        Proposition p2 = new Proposition("terme3", "terme4", new Quantificator("quantif", true), true);
+        Proposition p1 = new Proposition("terme", "terme2", new Quantificateur("quantif", true), true);
+        Proposition p2 = new Proposition("terme3", "terme4", new Quantificateur("quantif", true), true);
         assertNull(poly.getIsolatedTerm(p1, p2));
     }
 
@@ -59,10 +60,10 @@ public class PolysyllogismeTest {
     void fonctionalPropValidAllTermsPos() {
         Polysyllogisme poly = new Polysyllogisme();
         // Test with various valid configurations of propositions
-        Proposition p1 = new Proposition("commun", "commun2", new Quantificator("commun", true), true);
-        Proposition p2 = new Proposition("commun", "commun3", new Quantificator("commun", true), true);
-        assertTrue(poly.deuxPropsValide(p1.getFirstTerm().getExpression(), p1.getSecondTerm().getExpression(),
-                p2.getFirstTerm().getExpression(), p2.getSecondTerm().getExpression()));
+        Proposition p1 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
+        Proposition p2 = new Proposition("commun", "commun3", new Quantificateur("commun", true), true);
+        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
+                p2.getPremierTerme().getExpression(), p2.getDeuxiemeTerme().getExpression()));
         // Additional cases are also validated below
     }
 
@@ -74,10 +75,10 @@ public class PolysyllogismeTest {
     void fonctionalPropInvalidAllTermsPos() {
         Polysyllogisme poly = new Polysyllogisme();
         // Test with various invalid configurations of propositions
-        Proposition p1 = new Proposition("commun", "commun2", new Quantificator("commun", true), true);
-        Proposition p2 = new Proposition("commun", "commun2", new Quantificator("commun", true), true);
-        assertFalse(poly.deuxPropsValide(p1.getFirstTerm().getExpression(), p1.getSecondTerm().getExpression(),
-                p2.getFirstTerm().getExpression(), p2.getSecondTerm().getExpression()));
+        Proposition p1 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
+        Proposition p2 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
+        assertFalse(poly.deuxPropsValide(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
+                p2.getPremierTerme().getExpression(), p2.getDeuxiemeTerme().getExpression()));
         // Additional cases are also validated below
     }
 
@@ -89,11 +90,11 @@ public class PolysyllogismeTest {
     void fonctionalTestConclusionRespected() {
         Polysyllogisme poly = new Polysyllogisme();
         // Setup valid premises and conclusion
-        Proposition prop1 = new Proposition("a", "b", new Quantificator("", true), true);
-        Proposition prop2 = new Proposition("b", "c", new Quantificator("", true), true);
-        Proposition prop3 = new Proposition("c", "d", new Quantificator("", true), true);
-        Proposition prop4 = new Proposition("d", "vélo", new Quantificator("", true), true);
-        Proposition conclusion = new Proposition("a", "vélo", new Quantificator("", true), true);
+        Proposition prop1 = new Proposition("a", "b", new Quantificateur("", true), true);
+        Proposition prop2 = new Proposition("b", "c", new Quantificateur("", true), true);
+        Proposition prop3 = new Proposition("c", "d", new Quantificateur("", true), true);
+        Proposition prop4 = new Proposition("d", "vélo", new Quantificateur("", true), true);
+        Proposition conclusion = new Proposition("a", "vélo", new Quantificateur("", true), true);
         List<Proposition> propositions = new ArrayList<>();
         propositions.add(prop1);
         propositions.add(prop2);
@@ -112,13 +113,13 @@ public class PolysyllogismeTest {
     void fonctionalTestConclusionUnRespected() {
         Polysyllogisme poly = new Polysyllogisme();
         // Setup premises and an invalid conclusion
-        Proposition prop1 = new Proposition("mammifère", "animal", new Quantificator("", true), true);
-        Proposition prop2 = new Proposition("fox à poils durs", "fox", new Quantificator("", true), true);
-        Proposition prop3 = new Proposition("vélo", "animal", new Quantificator("", true), true);
-        Proposition prop4 = new Proposition("mini-vélo", "vélo", new Quantificator("", true), true);
-        Proposition prop5 = new Proposition("fox", "chien", new Quantificator("", true), true);
-        Proposition prop6 = new Proposition("chien", "mammifère", new Quantificator("", true), true);
-        Proposition conclusion = new Proposition("mini-vélo", "fox à poil durs", new Quantificator("", true), true);
+        Proposition prop1 = new Proposition("mammifère", "animal", new Quantificateur("", true), true);
+        Proposition prop2 = new Proposition("fox à poils durs", "fox", new Quantificateur("", true), true);
+        Proposition prop3 = new Proposition("vélo", "animal", new Quantificateur("", true), true);
+        Proposition prop4 = new Proposition("mini-vélo", "vélo", new Quantificateur("", true), true);
+        Proposition prop5 = new Proposition("fox", "chien", new Quantificateur("", true), true);
+        Proposition prop6 = new Proposition("chien", "mammifère", new Quantificateur("", true), true);
+        Proposition conclusion = new Proposition("mini-vélo", "fox à poil durs", new Quantificateur("", true), true);
         List<Proposition> propositions = new ArrayList<>();
         propositions.add(prop1);
         propositions.add(prop2);
@@ -148,8 +149,8 @@ public class PolysyllogismeTest {
     void testMediumTerm() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
 
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
@@ -174,8 +175,8 @@ public class PolysyllogismeTest {
     void testMediumTermInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
 
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
@@ -206,8 +207,8 @@ public class PolysyllogismeTest {
     void testLatius() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
 
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         // 2. In this premise, the term "fox à poils durs" is universal so the rule is respected
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
@@ -237,9 +238,9 @@ public class PolysyllogismeTest {
     void testLatiusInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
 
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
-        Quantificator certain = new Quantificator("Certain", false);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
+        Quantificateur certain = new Quantificateur("Certain", false);
 
         //2. The term "fox à poils dur" is not universal here so the rule is not respected
         polysyllogisme.addPremise(certain,"fox à poils durs", "fox",true); //< Certain fox à poils durs est un fox
@@ -269,8 +270,8 @@ public class PolysyllogismeTest {
     @Test
     void testRnn() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Aucun fox à poils durs n'est un fox.
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
@@ -293,8 +294,8 @@ public class PolysyllogismeTest {
     @Test
     void testRnnInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",false); //< Aucun fox à poils durs n'est un fox.
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien.
@@ -319,8 +320,8 @@ public class PolysyllogismeTest {
     @Test
     void testrN() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
 
 
@@ -348,8 +349,8 @@ public class PolysyllogismeTest {
     @Test
     void testrNInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("Tout", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
 
 
@@ -379,8 +380,8 @@ public class PolysyllogismeTest {
     @Test
     void testrAA() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
@@ -405,8 +406,8 @@ public class PolysyllogismeTest {
     void testrAAInvalid() {
         // Toutes les premises sont universelles mais la conclusion est particulière.
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
@@ -432,8 +433,8 @@ public class PolysyllogismeTest {
     void testrPP() {
 
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator aucun = new Quantificator("Aucun", true);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur aucun = new Quantificateur("Aucun", true);
 
         polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(aucun,"fox", "chien",true); //< Tout fox est un chien
@@ -458,7 +459,7 @@ public class PolysyllogismeTest {
     void testrPPInvalid() {
         // Toutes les premises sont particulières.
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator aucun = new Quantificator("il n'existe", false);
+        Quantificateur aucun = new Quantificateur("il n'existe", false);
 
         polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(aucun,"fox", "chien",true); //< Tout fox est un chien
@@ -482,8 +483,8 @@ public class PolysyllogismeTest {
     void testrP(){
         // Toutes les premises sont particulières.
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator nexiste = new Quantificator("il n'existe", false);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur nexiste = new Quantificateur("il n'existe", false);
 
         polysyllogisme.addPremise(nexiste,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(nexiste,"fox", "chien",true); //< Tout fox est un chien
@@ -507,8 +508,8 @@ public class PolysyllogismeTest {
     void testrPInvalid(){
         // Toutes les premises sont particulières.
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator nexiste = new Quantificator("il n'existe", false);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur nexiste = new Quantificateur("il n'existe", false);
 
         polysyllogisme.addPremise(nexiste,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(nexiste,"fox", "chien",true); //< Tout fox est un chien
@@ -534,8 +535,8 @@ public class PolysyllogismeTest {
     void testRuu(){
         // Toutes les premises sont particulières.
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator nexiste = new Quantificator("il n'existe", false);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur nexiste = new Quantificateur("il n'existe", false);
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
@@ -560,8 +561,8 @@ public class PolysyllogismeTest {
     void testRuuInvalid(){
         // Toutes les premises sont particulières.
         Polysyllogisme polysyllogisme = new Polysyllogisme();
-        Quantificator tout = new Quantificator("TouT", true);
-        Quantificator nexiste = new Quantificator("il n'existe", false);
+        Quantificateur tout = new Quantificateur("TouT", true);
+        Quantificateur nexiste = new Quantificateur("il n'existe", false);
 
         polysyllogisme.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
         polysyllogisme.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
