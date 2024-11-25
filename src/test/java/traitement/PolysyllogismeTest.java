@@ -1,5 +1,4 @@
 package traitement;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class PolysyllogismeTest {
     @Test
     void fonctionalTestTermeEgauxFalse() {
         Polysyllogisme poly = new Polysyllogisme();
-        assertFalse(poly.termesEgaux("mm", "nn"));
+        assertFalse(poly.equalsTerms("mm", "nn"));
     }
 
     /**
@@ -49,7 +48,7 @@ public class PolysyllogismeTest {
     @Test
     void fonctionalTestTermeEgauxTrue() {
         Polysyllogisme poly = new Polysyllogisme();
-        assertTrue(poly.termesEgaux("mm", "mm"));
+        assertTrue(poly.equalsTerms("mm", "mm"));
     }
 
     /**
@@ -62,7 +61,7 @@ public class PolysyllogismeTest {
         // Test with various valid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun3", new Quantificateur("commun", true), true);
-        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
+        assertTrue(poly.twoPropositionsValid(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
                 p2.getPremierTerme().getExpression(), p2.getDeuxiemeTerme().getExpression()));
         // Additional cases are also validated below
     }
@@ -77,7 +76,7 @@ public class PolysyllogismeTest {
         // Test with various invalid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
-        assertFalse(poly.deuxPropsValide(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
+        assertFalse(poly.twoPropositionsValid(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
                 p2.getPremierTerme().getExpression(), p2.getDeuxiemeTerme().getExpression()));
         // Additional cases are also validated below
     }
