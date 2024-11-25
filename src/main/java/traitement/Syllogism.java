@@ -17,7 +17,7 @@ public class Syllogism implements Validator {
     private Proposition conclusion;
     private int FigureNum;
     private ArrayList<String> invalid;
-    private  String language ;
+    private  String language = "English" ;
 
     /**
      * Returns the major proposition.
@@ -142,6 +142,17 @@ public class Syllogism implements Validator {
         this.invalid = new ArrayList<>();
     }
 
+    Syllogisme(Proposition maj, Proposition min, Proposition conclusion) {
+        this.conclusion = conclusion;
+        this.major = maj;
+        this.minor = min;
+        this.FigureNum = figureDetect();
+        this.invalid = new ArrayList<>();
+    }
+    //----------------------------------------------------------------//
+    //---------------------GETTERS-----------------------------------//
+    //--------------------------------------------------------------//
+
     public Proposition getConclusion() {
         return conclusion;
     }
@@ -189,7 +200,7 @@ public class Syllogism implements Validator {
         if(FigureNum == 1 || FigureNum == 3){
             return (getMajor()).getFirstTerm();}
         else{
-            return (getMinor()).getSecondTerm();}
+            return (getMajor()).getSecondTerm();}
     }
 
     /**
@@ -199,7 +210,7 @@ public class Syllogism implements Validator {
         if(FigureNum == 1 || FigureNum == 2){
             return getMinor().getSecondTerm();}
         else{
-            return getMajor().getFirstTerm();}
+            return getMinor().getFirstTerm();}
     }
 
     /**
@@ -390,7 +401,7 @@ public class Syllogism implements Validator {
         rAA();
         rPP();
         rP();
-        rUU();
+        //rUU();
 
         Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
 
@@ -463,29 +474,23 @@ public class Syllogism implements Validator {
      * **/
 
     public boolean estIninteressant() {
-        if(major.isA() && minor.isA()) {//< If both propositions are affirmative and universal.
-            if (conclusion.isA()) { //< And if the conclusion is also universal.
-                return false; //< The syllogism is interesting, so we return false.
-            }
+
+        if (major.isUniversal() && minor.isUniversal() && !conclusion.isUniversal()) {
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     /**
      * Method that returns an interesting conclusion if it is not interesting by default.
      * **/
     public Proposition convertConclusion() {
-        if(estIninteressant()) { // If the syllogism is uninteresting, we need to change the conclusion.
-
-            // Here we call the constructor to create a new proposition with the quantifier from the major premise.
-            // Why don't we return a modified version of the conclusion with just the quantifier changed?
-            // Because the terms have quantities, and since we are changing the quantifier, the quantity of the term (subject)
-            // is also modified. If you want, you can create a new constructor that allows us to copy a proposition
-            // while only modifying the quantifier. Otherwise, you can leave it as is.
+        if(estIninteressant()) {
             return new Proposition(conclusion.getFirstTermString(), conclusion.getSecondTermString(),
-                    major.getQuantificator(), conclusion.isAffirmative()); //< We return the new conclusion.
+                    major.getQuantificator(), conclusion.isAffirmative());
         }
-        return null; //< If the conclusion is not interesting, return null
+        return null;
     }
 
 
