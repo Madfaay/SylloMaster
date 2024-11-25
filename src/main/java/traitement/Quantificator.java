@@ -5,7 +5,7 @@ package traitement;
  * This class allows defining and managing a quantifier,
  * with its quantity and its name.
  */
-public class Quantificateur {
+public class Quantificator {
     /**
      * Name of the quantifier, such as "all" or "some".
      */
@@ -21,7 +21,7 @@ public class Quantificateur {
      * @param estUniverselle boolean indicating if the quantifier is universal.
      * @param nom name of the quantifier.
      */
-    public Quantificateur(String nom, boolean estUniverselle) {
+    public Quantificator(String nom, boolean estUniverselle) {
         this.nom = nom;
         this.estUniverselle = estUniverselle;
     }

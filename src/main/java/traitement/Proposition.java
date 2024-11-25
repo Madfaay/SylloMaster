@@ -13,29 +13,29 @@ package traitement;
  */
 public class Proposition {
 
-    private boolean estAffirmative;
-    private Terme premierTerme;
-    private Terme deuxiemeTerme;
-    private Quantificateur quantificateur;
+    private boolean isAffirmative;
+    private Terme FirstTerm;
+    private Terme SecondTerm;
+    private Quantificator quantificator;
 
     /**
      * Constructor to create a new proposition.
      *
-     * @param premierTerme The string representing the first term of the proposition.
-     * @param deuxiemeTerme The string representing the second term of the proposition.
-     * @param quantificateur The quantifier associated with the proposition (for example, universal or existential).
-     * @param estAffirmative Indicates if the proposition is affirmative (true) or negative (false).
+     * @param FirstTerm The string representing the first term of the proposition.
+     * @param SecondTerm The string representing the second term of the proposition.
+     * @param quantificator The quantifier associated with the proposition (for example, universal or existential).
+     * @param isAffirmative Indicates if the proposition is affirmative (true) or negative (false).
      */
-    public Proposition(String premierTerme, String deuxiemeTerme, Quantificateur quantificateur, boolean estAffirmative) {
-        if(estAffirmative){
-            this.deuxiemeTerme = new Terme(deuxiemeTerme,false);
+    public Proposition(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean isAffirmative) {
+        if(isAffirmative){
+            this.SecondTerm = new Terme(SecondTerm,false);
         } else {
-            this.deuxiemeTerme = new Terme(deuxiemeTerme,true);
+            this.SecondTerm = new Terme(SecondTerm,true);
         }
-        this.premierTerme = new Terme(premierTerme,quantificateur.estUniverselle());
+        this.FirstTerm = new Terme(FirstTerm, quantificator.estUniverselle());
 
-        this.quantificateur = quantificateur;
-        this.estAffirmative = estAffirmative;
+        this.quantificator = quantificator;
+        this.isAffirmative = isAffirmative;
     }
 
     /**
@@ -43,8 +43,8 @@ public class Proposition {
      *
      * @return the first term (premierTerme) of the proposition.
      */
-    public Terme getPremierTerme() {
-        return premierTerme;
+    public Terme getFirstTerm() {
+        return FirstTerm;
     }
 
     /**
@@ -52,8 +52,8 @@ public class Proposition {
      *
      * @return the second term (deuxiemeTerme) of the proposition.
      */
-    public Terme getDeuxiemeTerme() {
-        return deuxiemeTerme;
+    public Terme getSecondTerm() {
+        return SecondTerm;
     }
 
     /**
@@ -61,8 +61,8 @@ public class Proposition {
      *
      * @return a string representation of the first term.
      */
-    public String getPremierTermeString() {
-        return premierTerme.toString();
+    public String getFirstTermString() {
+        return FirstTerm.toString();
     }
 
     /**
@@ -70,8 +70,8 @@ public class Proposition {
      *
      * @return a string representation of the second term.
      */
-    public String getDeuxiemeTermeString() {
-        return deuxiemeTerme.toString();
+    public String getSecondTermString() {
+        return SecondTerm.toString();
     }
 
     /**
@@ -79,8 +79,8 @@ public class Proposition {
      *
      * @return the quantifier (Quantificateur) of the proposition.
      */
-    public Quantificateur getQuantificateur() {
-        return quantificateur;
+    public Quantificator getQuantificator() {
+        return quantificator;
     }
 
     /**
@@ -88,8 +88,8 @@ public class Proposition {
      *
      * @return true if the proposition is affirmative, false otherwise.
      */
-    public boolean estAffirmative() {
-        return estAffirmative;
+    public boolean isAffirmative() {
+        return isAffirmative;
     }
 
     /**
@@ -97,8 +97,8 @@ public class Proposition {
      *
      * @return true if the quantifier is universal, false if it is existential.
      */
-    public boolean estUniverselle() {
-        return quantificateur.estUniverselle();
+    public boolean isUniversal() {
+        return quantificator.estUniverselle();
     }
 
     // Methods to recognize the form of the proposition.
@@ -107,35 +107,35 @@ public class Proposition {
      * Method to check if the proposition is universal affirmative.
      * **/
     boolean isA() {
-        return estAffirmative && estUniverselle();
+        return isAffirmative && isUniversal();
     }
 
     /**
      * Method to check if the proposition is universal negative.
      * **/
     public boolean isE() {
-        return estAffirmative && estUniverselle();
+        return isAffirmative && isUniversal();
     }
 
     /**
      * Method to check if the proposition is existential affirmative.
      * **/
     public boolean isI() {
-        return estAffirmative && !estUniverselle();
+        return isAffirmative && !isUniversal();
     }
     /**
      * Method to check if the proposition is existential negative.
      * **/
     public boolean isO() {
-        return !estAffirmative && !estUniverselle();
+        return !isAffirmative && !isUniversal();
     }
 
     @Override
     public String toString()
     {
-        return ("Premier Terme : " + this.getPremierTermeString()
-                + " Deuxième terme : " + this.getDeuxiemeTermeString() +
-                " Quantificateur : " + this.getQuantificateur().getNom()
+        return ("First Term : " + this.getFirstTermString()
+                + " Second Term : " + this.getSecondTermString() +
+                " Quantificator : " + this.getQuantificator().getNom()
 
         );
     }

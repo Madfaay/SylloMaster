@@ -12,10 +12,10 @@ import java.util.Objects;
  * It also includes mechanisms to manage interesting and uninteresting conclusions.
  */
 public class Syllogisme implements Validateur{
-    private Proposition majeur;
-    private Proposition mineur;
+    private Proposition major;
+    private Proposition minor;
     private Proposition conclusion;
-    private int numFigure;
+    private int FigureNum;
     private ArrayList<String> invalid;
 
     /**
@@ -23,8 +23,8 @@ public class Syllogisme implements Validateur{
      *
      * @return the major proposition.
      */
-    public Proposition getMajeur() {
-        return majeur;
+    public Proposition getMajor() {
+        return major;
     }
 
     /**
@@ -32,8 +32,8 @@ public class Syllogisme implements Validateur{
      *
      * @return the minor proposition.
      */
-    public Proposition getMineur() {
-        return mineur;
+    public Proposition getMinor() {
+        return minor;
     }
 
     /**
@@ -57,29 +57,29 @@ public class Syllogisme implements Validateur{
     /**
      * Constructor to create a syllogism with detailed information for each proposition (major, minor, conclusion).
      *
-     * @param quantifMajeur Quantifier of the major premise.
-     * @param sujetMajeur Subject of the major premise.
-     * @param predicatMajeur Predicate of the major premise.
-     * @param estAffirmativeMajeur Boolean indicating if the major premise is affirmative.
-     * @param quantifMineur Quantifier of the minor premise.
-     * @param sujetMineur Subject of the minor premise.
-     * @param predicatMineur Predicate of the minor premise.
-     * @param estAffirmativeMineur Boolean indicating if the minor premise is affirmative.
-     * @param quantifConclusion Quantifier of the conclusion.
-     * @param sujetConclusion Subject of the conclusion.
-     * @param predicatConclusion Predicate of the conclusion.
-     * @param estAffirmativeConclusion Boolean indicating if the conclusion is affirmative.
+     * @param MajorQuantif Quantifier of the major premise.
+     * @param MajorSubject Subject of the major premise.
+     * @param MajorPredicat Predicate of the major premise.
+     * @param isMajorAffirmative Boolean indicating if the major premise is affirmative.
+     * @param MinorQuantif Quantifier of the minor premise.
+     * @param MinorSubject Subject of the minor premise.
+     * @param MinorPredicat Predicate of the minor premise.
+     * @param isMinorAffirmative Boolean indicating if the minor premise is affirmative.
+     * @param ConclusionQuantif Quantifier of the conclusion.
+     * @param ConclusionSubject Subject of the conclusion.
+     * @param ConclusionPredicate Predicate of the conclusion.
+     * @param isConclusionAffirmative Boolean indicating if the conclusion is affirmative.
      */
-    public Syllogisme(Quantificateur quantifMajeur, String sujetMajeur, String predicatMajeur, boolean estAffirmativeMajeur,
-                      Quantificateur quantifMineur, String sujetMineur, String predicatMineur, boolean estAffirmativeMineur,
-                      Quantificateur quantifConclusion, String sujetConclusion, String predicatConclusion, boolean estAffirmativeConclusion
+    public Syllogisme(Quantificator MajorQuantif, String MajorSubject, String MajorPredicat, boolean isMajorAffirmative,
+                      Quantificator MinorQuantif, String MinorSubject, String MinorPredicat, boolean isMinorAffirmative,
+                      Quantificator ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative
                       ) {
 
 
 
-        this.majeur = new Proposition(sujetMajeur, predicatMajeur, quantifMajeur, estAffirmativeMajeur);
-        this.mineur = new Proposition(sujetMineur, predicatMineur, quantifMineur, estAffirmativeMineur);
-        this.conclusion = new Proposition(sujetConclusion, predicatConclusion, quantifConclusion, estAffirmativeConclusion);
+        this.major = new Proposition(MajorSubject, MajorPredicat, MajorQuantif, isMajorAffirmative);
+        this.minor = new Proposition(MinorSubject, MinorPredicat, MinorQuantif, isMinorAffirmative);
+        this.conclusion = new Proposition(ConclusionSubject, ConclusionPredicate, ConclusionQuantif, isConclusionAffirmative);
 
 
 
@@ -94,48 +94,48 @@ public class Syllogisme implements Validateur{
      * @param quantifPremise1 Quantifier of the major premise.
      * @param quantifPremise2 Quantifier of the minor premise.
      * @param quantifConclusion Quantifier of the conclusion.
-     * @param sujet Subject of the conclusion.
+     * @param Subject Subject of the conclusion.
      * @param predicat Predicate of the conclusion.
-     * @param termeMoyen Middle term between the premises.
-     * @param estAffirmativePremise1 Boolean indicating if the major premise is affirmative.
-     * @param estAffirmativePremise2 Boolean indicating if the minor premise is affirmative.
-     * @param estAffirmativeConclusion Boolean indicating if the conclusion is affirmative.
-     * @param numFigure Figure number of the syllogism (must be between 1 and 4).
+     * @param MiddleTerm Middle term between the premises.
+     * @param isAffirmativePremis1 Boolean indicating if the major premise is affirmative.
+     * @param isAffirmativePremiss2 Boolean indicating if the minor premise is affirmative.
+     * @param isAffirmativeConclusion Boolean indicating if the conclusion is affirmative.
+     * @param FigureNum Figure number of the syllogism (must be between 1 and 4).
      * @throws IllegalArgumentException if the figure number is outside the range [1, 4].
      */
-    public Syllogisme(Quantificateur quantifPremise1, Quantificateur quantifPremise2, Quantificateur quantifConclusion,
-                      String sujet, String predicat, String termeMoyen,
-                      boolean estAffirmativePremise1, boolean estAffirmativePremise2, boolean estAffirmativeConclusion,
-                      int numFigure) {
+    public Syllogisme(Quantificator quantifPremise1, Quantificator quantifPremise2, Quantificator quantifConclusion,
+                      String Subject, String predicat, String MiddleTerm,
+                      boolean isAffirmativePremis1, boolean isAffirmativePremiss2, boolean isAffirmativeConclusion,
+                      int FigureNum) {
 
 
-        if (numFigure < 1 || numFigure > 4) {
+        if (FigureNum < 1 || FigureNum > 4) {
             throw new IllegalArgumentException("Le numéro de figure doit être entre 1 et 4.");
         }
-        this.numFigure = numFigure;
+        this.FigureNum = FigureNum;
 
 
         // Creation of the premises based on the figure.
-        switch (numFigure) {
+        switch (FigureNum) {
             case 1:
-                this.majeur = new Proposition(termeMoyen, predicat, quantifPremise1, estAffirmativePremise1);
-                this.mineur = new Proposition(sujet, termeMoyen, quantifPremise2, estAffirmativePremise2);
+                this.major = new Proposition(MiddleTerm, predicat, quantifPremise1, isAffirmativePremis1);
+                this.minor = new Proposition(Subject, MiddleTerm, quantifPremise2, isAffirmativePremiss2);
                 break;
             case 2:
-                this.majeur = new Proposition(predicat, termeMoyen, quantifPremise1, estAffirmativePremise1);
-                this.mineur = new Proposition(sujet, termeMoyen, quantifPremise2, estAffirmativePremise2);
+                this.major = new Proposition(predicat, MiddleTerm, quantifPremise1, isAffirmativePremis1);
+                this.minor = new Proposition(Subject, MiddleTerm, quantifPremise2, isAffirmativePremiss2);
                 break;
             case 3:
-                this.majeur = new Proposition(termeMoyen, predicat, quantifPremise1, estAffirmativePremise1);
-                this.mineur = new Proposition(termeMoyen, sujet, quantifPremise2, estAffirmativePremise2);
+                this.major = new Proposition(MiddleTerm, predicat, quantifPremise1, isAffirmativePremis1);
+                this.minor = new Proposition(MiddleTerm, Subject, quantifPremise2, isAffirmativePremiss2);
                 break;
             case 4:
-                this.majeur = new Proposition(predicat, termeMoyen, quantifPremise1, estAffirmativePremise1);
-                this.mineur = new Proposition(termeMoyen, sujet, quantifPremise2, estAffirmativePremise2);
+                this.major = new Proposition(predicat, MiddleTerm, quantifPremise1, isAffirmativePremis1);
+                this.minor = new Proposition(MiddleTerm, Subject, quantifPremise2, isAffirmativePremiss2);
                 break;
         }
 
-        this.conclusion = new Proposition(sujet, predicat, quantifConclusion, estAffirmativeConclusion);
+        this.conclusion = new Proposition(Subject, predicat, quantifConclusion, isAffirmativeConclusion);
 
 
         this.invalid = new ArrayList<>();
@@ -152,29 +152,29 @@ public class Syllogisme implements Validateur{
     /**
      * Defines the major premise of the syllogism.
      */
-    public void setMajeur(String premierTerme, String deuxiemeTerme, Quantificateur quantificateur, boolean estAffirmative) {
-        this.majeur = new Proposition(premierTerme, deuxiemeTerme, quantificateur, estAffirmative);
+    public void setMajeur(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean isAffirmative) {
+        this.major = new Proposition(FirstTerm, SecondTerm, quantificator, isAffirmative);
     }
 
     /**
      * Defines the minor premise of the syllogism.
      */
-    public void setMineur(String premierTerme, String deuxiemeTerme, Quantificateur quantificateur, boolean estAffirmative) {
-        this.mineur = new Proposition(premierTerme, deuxiemeTerme, quantificateur, estAffirmative);
+    public void setMineur(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean estAffirmative) {
+        this.minor = new Proposition(FirstTerm, SecondTerm, quantificator, estAffirmative);
     }
 
     /**
      * Defines the conclusion of the syllogism.
      */
-    public void setConclusion(String premierTerme, String deuxiemeTerme, Quantificateur quantificateur, boolean estAffirmative) {
-        this.conclusion = new Proposition(premierTerme, deuxiemeTerme, quantificateur, estAffirmative);
+    public void setConclusion(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean isAffirmative) {
+        this.conclusion = new Proposition(FirstTerm, SecondTerm, quantificator, isAffirmative);
     }
 
     /**
      * Defines the figure number of the syllogism.
      */
-    public void setNumFigure(int numFigure) {
-        this.numFigure = numFigure;
+    public void setFigureNum(int figureNum) {
+        this.FigureNum = figureNum;
     }
 
     //-----------------------------------------------------------------//
@@ -185,31 +185,31 @@ public class Syllogisme implements Validateur{
      * Returns the middle term in the major premise based on the figure.
      */
     public Terme getMoyenTermeMajeur() {
-        if(numFigure == 1 || numFigure == 3){
-            return (getMajeur()).getPremierTerme();}
+        if(FigureNum == 1 || FigureNum == 3){
+            return (getMajor()).getFirstTerm();}
         else{
-            return (getMineur()).getDeuxiemeTerme();}
+            return (getMinor()).getSecondTerm();}
     }
 
     /**
      * Returns the middle term in the minor premise based on the figure.
      */
     public Terme getMoyenTermeMineur() {
-        if(numFigure == 1 || numFigure == 2){
-            return getMineur().getDeuxiemeTerme();}
+        if(FigureNum == 1 || FigureNum == 2){
+            return getMinor().getSecondTerm();}
         else{
-            return getMajeur().getPremierTerme();}
+            return getMajor().getFirstTerm();}
     }
 
     /**
      * Returns the predicate based on the figure of the syllogism.
      */
     public Terme getPredicat() {
-        if(numFigure == 1 || numFigure == 3){
-            return getMajeur().getDeuxiemeTerme();
+        if(FigureNum == 1 || FigureNum == 3){
+            return getMajor().getSecondTerm();
         }
         else{
-            return getMajeur().getPremierTerme();
+            return getMajor().getFirstTerm();
         }
     }
 
@@ -217,11 +217,11 @@ public class Syllogisme implements Validateur{
      * Returns the subject based on the figure of the syllogism.
      */
     public Terme getSujet() {
-        if(numFigure == 1 || numFigure == 2){
-            return getMineur().getPremierTerme();
+        if(FigureNum == 1 || FigureNum == 2){
+            return getMinor().getFirstTerm();
         }
         else{
-            return getMineur().getDeuxiemeTerme();
+            return getMinor().getSecondTerm();
         }
     }
 
@@ -236,16 +236,16 @@ public class Syllogisme implements Validateur{
      *         Returns 0 if no match is found.
      */
     public int DetecterFigure(){
-        if(Objects.equals(majeur.getPremierTerme().getExpression(), mineur.getDeuxiemeTerme().getExpression())){
+        if(Objects.equals(major.getFirstTerm().getExpression(), minor.getSecondTerm().getExpression())){
             return 1;
         }
-        if(Objects.equals(majeur.getDeuxiemeTerme().getExpression(), mineur.getDeuxiemeTerme().getExpression())){
+        if(Objects.equals(major.getSecondTerm().getExpression(), minor.getSecondTerm().getExpression())){
             return 2;
         }
-        if(Objects.equals(majeur.getPremierTerme().getExpression(), mineur.getPremierTerme().getExpression())){
+        if(Objects.equals(major.getFirstTerm().getExpression(), minor.getFirstTerm().getExpression())){
             return 3;
         }
-        if(Objects.equals(majeur.getDeuxiemeTerme().getExpression(), mineur.getPremierTerme().getExpression())){
+        if(Objects.equals(major.getSecondTerm().getExpression(), minor.getFirstTerm().getExpression())){
             return 4;
         }
         return 0;
@@ -277,13 +277,13 @@ public class Syllogisme implements Validateur{
     @Override
     public void regleLatius() {
 
-        if (conclusion.getPremierTerme().estUniverselle()) { //< If the subject of the conclusion is universal,
+        if (conclusion.getFirstTerm().estUniverselle()) { //< If the subject of the conclusion is universal,
             if (!getSujet().estUniverselle()) { //< The subject in the premise must also be universal.
                 invalid.add("Regle Latius");
             }
         }
 
-        if (conclusion.getDeuxiemeTerme().estUniverselle()) { //< If the predicate of the conclusion is universal,
+        if (conclusion.getSecondTerm().estUniverselle()) { //< If the predicate of the conclusion is universal,
             if (!getPredicat().estUniverselle()) { //< The predicate in the premise must also be universal.
                 invalid.add("Regle Latius");
             }
@@ -297,7 +297,7 @@ public class Syllogisme implements Validateur{
      */
     @Override
     public void rNN() {
-        if(!majeur.estAffirmative() && !mineur.estAffirmative()){
+        if(!major.isAffirmative() && !minor.isAffirmative()){
             invalid.add("rNN");
         }
     }
@@ -308,12 +308,12 @@ public class Syllogisme implements Validateur{
      */
     @Override
     public void rN() {
-        if (majeur.estAffirmative() && mineur.estAffirmative()) {
+        if (major.isAffirmative() && minor.isAffirmative()) {
             return; //< Both premises are affirmative, so the rN rule does not apply.
         }
 
         // Checks if the conclusion is affirmative when it should be negative.
-        if (conclusion.estAffirmative()) {
+        if (conclusion.isAffirmative()) {
             invalid.add("rN");
         }
     }
@@ -324,8 +324,8 @@ public class Syllogisme implements Validateur{
      */
     @Override
     public void rAA() {
-        if(majeur.estAffirmative() && mineur.estAffirmative()) {
-            if(!conclusion.estAffirmative()) {
+        if(major.isAffirmative() && minor.isAffirmative()) {
+            if(!conclusion.isAffirmative()) {
                 invalid.add("rAA");
             }
         }
@@ -337,7 +337,7 @@ public class Syllogisme implements Validateur{
      */
     @Override
     public void rPP() {
-        if(!majeur.estUniverselle() && !mineur.estUniverselle()) { //<If both are particular.
+        if(!major.isUniversal() && !minor.isUniversal()) { //<If both are particular.
             invalid.add("rPP");
         }
     }
@@ -348,8 +348,8 @@ public class Syllogisme implements Validateur{
      */
     @Override
     public void rP() {
-        if(!majeur.estUniverselle() || !mineur.estUniverselle()) { //< If one of the premises is particular.
-            if(conclusion.estUniverselle()) { //< And if the conclusion is not particular.
+        if(!major.isUniversal() || !minor.isUniversal()) { //< If one of the premises is particular.
+            if(conclusion.isUniversal()) { //< And if the conclusion is not particular.
                 invalid.add("rP");
             }
         }
@@ -361,8 +361,8 @@ public class Syllogisme implements Validateur{
      */
     @Override
     public void rUU() {
-        if(majeur.estUniverselle() && mineur.estUniverselle()) {
-            if(!conclusion.estUniverselle()) {
+        if(major.isUniversal() && minor.isUniversal()) {
+            if(!conclusion.isUniversal()) {
                 invalid.add("rUU");
             }
         }
@@ -457,7 +457,7 @@ public class Syllogisme implements Validateur{
      * **/
 
     public boolean estIninteressant() {
-        if(majeur.isA() && mineur.isA()) {//< If both propositions are affirmative and universal.
+        if(major.isA() && minor.isA()) {//< If both propositions are affirmative and universal.
             if (conclusion.isA()) { //< And if the conclusion is also universal.
                 return false; //< The syllogism is interesting, so we return false.
             }
@@ -476,8 +476,8 @@ public class Syllogisme implements Validateur{
             // Because the terms have quantities, and since we are changing the quantifier, the quantity of the term (subject)
             // is also modified. If you want, you can create a new constructor that allows us to copy a proposition
             // while only modifying the quantifier. Otherwise, you can leave it as is.
-            return new Proposition(conclusion.getPremierTermeString(), conclusion.getDeuxiemeTermeString(),
-                    majeur.getQuantificateur(), conclusion.estAffirmative()); //< We return the new conclusion.
+            return new Proposition(conclusion.getFirstTermString(), conclusion.getSecondTermString(),
+                    major.getQuantificator(), conclusion.isAffirmative()); //< We return the new conclusion.
         }
         return null; //< If the conclusion is not interesting, return null
     }
