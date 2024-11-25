@@ -11,7 +11,7 @@
 <AnchorPane fx:id="anchor" prefHeight="850.0" prefWidth="1549.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.PolyController">
     <children>
         <!-- Title Label -->
-        <Label fx:id="titre" layoutX="642.0" layoutY="131.0" prefHeight="58.0" prefWidth="173.0" text="Premisse" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="642.0" AnchorPane.rightAnchor="313.20000000000005" AnchorPane.topAnchor="131.0">
+        <Label fx:id="titre" layoutX="642.0" layoutY="131.0" prefHeight="58.0" prefWidth="173.0" text="Prémisse" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="642.0" AnchorPane.rightAnchor="313.20000000000005" AnchorPane.topAnchor="131.0">
             <font>
                 <Font name="System Bold Italic" size="38.0" />
             </font>
@@ -24,7 +24,7 @@
         </Label>
 
         <!-- Premier Terme Label and TextField -->
-        <Label alignment="CENTER_RIGHT" layoutX="434.0" layoutY="215.0" prefWidth="200.0" text=" Premier terme" textFill="WHITE" AnchorPane.leftAnchor="434.0" AnchorPane.topAnchor="215.0">
+        <Label fx:id="labelPremier" alignment="CENTER_RIGHT" layoutX="434.0" layoutY="215.0" prefWidth="200.0" text=" Premier terme" textFill="WHITE" AnchorPane.leftAnchor="434.0" AnchorPane.topAnchor="215.0">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -32,7 +32,7 @@
         <TextField fx:id="premierterme" layoutX="658.0" layoutY="211.0" prefHeight="33.0" prefWidth="238.0" AnchorPane.leftAnchor="658.0" AnchorPane.topAnchor="211.0" />
 
         <!-- Deuxieme Terme Label and TextField -->
-        <Label alignment="CENTER_RIGHT" layoutX="442.0" layoutY="279.0" prefWidth="200.0" text="Deuxiéme terme" textFill="WHITE" AnchorPane.leftAnchor="442.0" AnchorPane.topAnchor="279.0">
+        <Label fx:id="labelDeuxieme" alignment="CENTER_RIGHT" layoutX="442.0" layoutY="279.0" prefWidth="200.0" text="Deuxiéme terme" textFill="WHITE" AnchorPane.leftAnchor="442.0" AnchorPane.topAnchor="279.0">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -43,16 +43,17 @@
         <ComboBox fx:id="quantificateurs" layoutX="678.0" layoutY="335.0" prefWidth="200.0" promptText="Quantifier" AnchorPane.leftAnchor="678.0" AnchorPane.topAnchor="335.0" />
 
         <!-- Buttons at the bottom -->
-        <Button fx:id="premisse" layoutX="614.0" layoutY="483.0" onAction="#actionButtonNewPremisse" text="ADD one more" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="614.0" />
-        <Button fx:id="goToLastOne" disable="true" layoutX="779.0" layoutY="483.0" onAction="#handleButtonLast" text="Add conclusion" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="779.0" />
-        <Button fx:id="doneButton" disable="true" layoutX="619.0" layoutY="556.0" onAction="#handleValidation" text="Validation" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="619.0" />
-        <Button fx:id="structureValid" layoutX="786.0" layoutY="556.0" onAction="#handleValidStructure" text="Validation Structure" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="786.0" />
-        <CheckBox fx:id="Negative" layoutX="786.0" layoutY="600.0" mnemonicParsing="false" style="-fx-text-fill: white" text="Negative" />
+        <Button fx:id="premisse" layoutX="614.0" layoutY="483.0" onAction="#actionButtonNewPremisse" text="Ajouter encore une" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="614.0" />
+        <Button fx:id="goToLastOne" disable="true" layoutX="779.0" layoutY="483.0" onAction="#handleButtonLast" text="Ajouter une conclusion" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="779.0" />
+        <Button fx:id="doneButton" disable="true" layoutX="619.0" layoutY="556.0" onAction="#handleValidation" text="Valider les régles" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="619.0" />
+        <Button fx:id="structureValid" layoutX="786.0" layoutY="556.0" onAction="#handleValidStructure" text="Validation de Structure" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="786.0" />
+        <CheckBox fx:id="Negative" layoutX="786.0" layoutY="600.0" mnemonicParsing="false" style="-fx-text-fill: white" text="Négative" />
 
         <Label fx:id="resultStruct" layoutX="421.0" layoutY="675.0" prefHeight="34.0" prefWidth="1013.0" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="23.0" />
          </font>
       </Label>
+        <Button fx:id="btnBack" text="Back" mnemonicParsing="false" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" style="-fx-font-size: 15px" onAction="#back"/>
     </children>
 </AnchorPane>
