@@ -63,6 +63,8 @@ public class SyllogismeRedactionController {
     @FXML Button myverif;
     @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU, myhypothesis;
 
+    @FXML Button btnArray;
+
     private final File languageFile = new File("language.json");
 
     private String language ;
@@ -101,6 +103,30 @@ public class SyllogismeRedactionController {
             quantif.setOnAction(this::recoverPremise1);
             myquantifPremise1.getItems().add(quantif);
         }
+
+        for (int i = 0; i < quantiflistExist.size(); i++) {
+            MenuItem quantif = new MenuItem(quantiflistExist.get(i));
+            quantif.setOnAction(this::recoverPremise2);
+            myquantifPremise2.getItems().add(quantif);
+        }
+
+        for (int i = 0; i < quantiflistUniv.size(); i++) {
+            MenuItem quantif = new MenuItem(quantiflistUniv.get(i));
+            quantif.setOnAction(this::recoverPremise2);
+            myquantifPremise2.getItems().add(quantif);
+        }
+
+        for (int i = 0; i < quantiflistExist.size(); i++) {
+            MenuItem quantif = new MenuItem(quantiflistExist.get(i));
+            quantif.setOnAction(this::recoverConclusion);
+            myquantifConclusion.getItems().add(quantif);
+        }
+
+        for (int i = 0; i < quantiflistUniv.size(); i++) {
+            MenuItem quantif = new MenuItem(quantiflistUniv.get(i));
+            quantif.setOnAction(this::recoverConclusion);
+            myquantifConclusion.getItems().add(quantif);
+        }
     }
 
     /**
@@ -133,6 +159,27 @@ public class SyllogismeRedactionController {
     */
     @FXML
     private void polyOrShow() {
+        try {
+            // Charge le fichier FXML de l'interface des paramètres
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
+            Parent polyorsylloContent = fxmlLoader.load();
+
+            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
+            pane.getChildren().setAll(polyorsylloContent);
+
+            // Optionnel : ajustez la position et la taille du contenu ajouté
+            AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
+            AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
+            AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
+            AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void array() {
         try {
             // Charge le fichier FXML de l'interface des paramètres
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));

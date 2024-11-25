@@ -23,7 +23,7 @@ import java.util.Map;
 public class SyllogismeRedactionSimpleController {
     public AnchorPane pane;
     public Label labelTitle, labelTypeFigure, labelSubject, labelConclusion, labelPremise2, labelPremise1;
-    public Button actionVerif, btnBack, btnSwitch;
+    public Button actionVerif, btnBack, btnSwitch, btnArray;
     public MenuItem menuItemConclusion_2,menuItemConclusion_1, menuItemPremise2_2, menuItemPremise2_1, menuItemPremise1_1, menuItemPremise1_2;
     public Label mypredicateConclusionLabel;
     public Label mymediumTermLabel;
@@ -150,6 +150,27 @@ public class SyllogismeRedactionSimpleController {
             AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
             AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
             AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void array() {
+        try {
+            // Charge le fichier FXML de l'interface des paramètres
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(".fxml"));
+            Parent polyorsylloContent = fxmlLoader.load();
+
+            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
+            pane.getChildren().setAll(polyorsylloContent);
+
+            // Optionnel : ajustez la position et la taille du contenu ajouté
+            AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
+            AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
+            AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
+            AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
