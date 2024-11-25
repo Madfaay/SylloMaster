@@ -20,7 +20,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void dynamicTestgGetIsolatedCondition() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         assertNull(poly.getFstIsolated());
         assertNull(poly.getLstIsolated());
     }
@@ -31,7 +31,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void dynamicTestGetIsolatedTermNoIsolated() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         Proposition p1 = new Proposition("terme", "terme2", new Quantifier("quantif", true), true);
         Proposition p2 = new Proposition("terme3", "terme4", new  Quantifier("quantif", true), true);
         assertNull(poly.getIsolatedTerm(p1, p2));
@@ -43,7 +43,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestTermeEgauxFalse() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         assertFalse(poly.termesEgaux("mm", "nn"));
     }
 
@@ -53,7 +53,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestTermeEgauxTrue() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         assertTrue(poly.termesEgaux("mm", "mm"));
     }
 
@@ -63,7 +63,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalPropValidAllTermsPos() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         // Test with various valid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun3", new Quantifier("commun", true), true);
@@ -78,7 +78,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalPropInvalidAllTermsPos() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         // Test with various invalid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
@@ -93,7 +93,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestConclusionRespected() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         // Setup valid premises and conclusion
         Proposition prop1 = new Proposition("a", "b", new Quantifier("", true), true);
         Proposition prop2 = new Proposition("b", "c", new Quantifier("", true), true);
@@ -116,7 +116,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void fonctionalTestConclusionUnRespected() {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         // Setup premises and an invalid conclusion
         Proposition prop1 = new Proposition("mammifère", "animal", new Quantifier("", true), true);
         Proposition prop2 = new Proposition("fox à poils durs", "fox", new Quantifier("", true), true);
@@ -152,7 +152,7 @@ public class PolysyllogismeTest {
  */
     @Test
     void testMediumTerm() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -178,7 +178,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testMediumTermInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -210,7 +210,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testLatius() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -241,7 +241,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testLatiusInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
 
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -274,7 +274,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testRnn() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -298,7 +298,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testRnnInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -324,7 +324,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testrN() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -353,7 +353,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testrNInvalid() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -384,7 +384,7 @@ public class PolysyllogismeTest {
      */
     @Test
     void testrAA() {
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -410,7 +410,7 @@ public class PolysyllogismeTest {
     @Test
     void testrAAInvalid() {
         // Toutes les premises sont universelles mais la conclusion est particulière.
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -437,7 +437,7 @@ public class PolysyllogismeTest {
     @Test
     void testrPP() {
 
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
 
@@ -463,7 +463,7 @@ public class PolysyllogismeTest {
     @Test
     void testrPPInvalid() {
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier aucun = new Quantifier("il n'existe", false);
 
         polysyllogisme.addPremise(aucun,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
@@ -487,7 +487,7 @@ public class PolysyllogismeTest {
     @Test
     void testrP(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
@@ -512,7 +512,7 @@ public class PolysyllogismeTest {
     @Test
     void testrPInvalid(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
@@ -539,7 +539,7 @@ public class PolysyllogismeTest {
     @Test
     void testRuu(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 
@@ -565,7 +565,7 @@ public class PolysyllogismeTest {
     @Test
     void testRuuInvalid(){
         // Toutes les premises sont particulières.
-        Polysyllogisme polysyllogisme = new Polysyllogisme();
+        Polysyllogisme polysyllogisme = new Polysyllogisme("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier nexiste = new Quantifier("il n'existe", false);
 

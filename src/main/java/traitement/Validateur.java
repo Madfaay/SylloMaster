@@ -10,7 +10,7 @@ public interface Validateur {
      * Applies the "Moyen Terme" rule.
      * This rule checks the relationship of the middle term in the syllogism.
      */
-    void MiddleTermRule(String Language);
+    void MiddleTermRule();
 
     /**
      * Applies the "Latius" rule.
@@ -59,5 +59,5 @@ public interface Validateur {
      *
      * @return a response indicating whether the syllogism is valid or not.
      */
-    Reponse valider(String Language);
+    Reponse valider();
 }

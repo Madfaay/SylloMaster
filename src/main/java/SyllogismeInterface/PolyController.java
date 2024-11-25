@@ -378,7 +378,7 @@ public class PolyController {
      */
     @FXML
     private void handleValidation() {
-        Reponse rep = this.poly.valider(language); //modifié ici
+        Reponse rep = this.poly.valider();
         this.resultStruct.setText(rep.getMessage());
 
     }
@@ -464,7 +464,7 @@ public class PolyController {
         doneButton.setDisable(true);
         structureValid.setDisable(true);
 
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme(this.language);
         int length = this.first.size() ;
         System.out.println("LE LENGTH  : "+ length);
 

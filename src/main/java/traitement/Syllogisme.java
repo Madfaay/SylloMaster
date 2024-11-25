@@ -17,6 +17,7 @@ public class Syllogisme implements Validateur{
     private Proposition conclusion;
     private int FigureNum;
     private ArrayList<String> invalid;
+    private  String language ;
 
     /**
      * Returns the major proposition.
@@ -262,10 +263,15 @@ public class Syllogisme implements Validateur{
      * If the rule is not valid, it is added to the list of invalid rules.
      * */
     @Override
-    public void MiddleTermRule(String Language) {
+    public void MiddleTermRule() {
 
         if (!getMajorMiddleTerm().isUniversal() && !getMinorMiddleterm().isUniversal()) { //<If the middle term is particular in both premises, it is false.
-            (this.invalid).add("Moyen Terme");
+            if(this.language.equals("English")){
+                (this.invalid).add("Middle Term");
+            }
+            else{
+                (this.invalid).add("Moyen Terme");
+            }
         }
     }
 

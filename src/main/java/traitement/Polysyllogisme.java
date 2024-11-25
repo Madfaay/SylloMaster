@@ -10,7 +10,7 @@ public class Polysyllogisme implements Validateur {
 
 
     public static void main(String[] args) {
-        Polysyllogisme poly = new Polysyllogisme();
+        Polysyllogisme poly = new Polysyllogisme("English");
         Proposition p1 = new Proposition("mammifère" , "animal" , new Quantifier("test" , true ) , true);
         Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantifier("test" , true ) , true);
         Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , true);
@@ -50,6 +50,7 @@ public class Polysyllogisme implements Validateur {
     protected List<Proposition> premises = new ArrayList<>();
     private List<String> invalid = new ArrayList<>();
     private int taillePremisses = 0 ;
+    private String language ;
 
 
 
@@ -375,7 +376,7 @@ public class Polysyllogisme implements Validateur {
      * If the rule is invalid, an error message is added to the invalid list.
      */
     @Override
-    public void MiddleTermRule(String language) {
+    public void MiddleTermRule() {
         for (int i = 0; i < premises.size() - 1; i++) {
             Pair<Terme, Terme> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
             Terme firstMediumTerm = mediumTerms.getKey();
@@ -402,13 +403,13 @@ public class Polysyllogisme implements Validateur {
     public void LatiusRule() {
         if (conclusion.getFirstTerm().isUniversal()) {
             if (!premises.getLast().getFirstTerm().isUniversal()) {
-                invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
+                invalid.add("Latius");
                 return;
             }
         }
         if (conclusion.getSecondTerm().isUniversal()) {
             if(!premises.getFirst().getFirstTerm().isUniversal()) {
-                invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
+                invalid.add("Latius");
             }
 
         }
@@ -564,12 +565,11 @@ public class Polysyllogisme implements Validateur {
      */
     // STOP
     @Override
-    public Reponse valider(String Language) {
+    public Reponse valider() {
         invalid.clear();
 
         // We apply all the rules.
-        String language = "English";
-        MiddleTermRule(language);
+        MiddleTermRule();
         LatiusRule();
         rNN();
         rN();
@@ -586,7 +586,7 @@ public class Polysyllogisme implements Validateur {
         if (isValid) {
             message = "Ok!"; //<We just return.
         } else {
-            if(Objects.equals(Language, "English")){
+            if(Objects.equals(this.language, "English")){
             message = "These Rules are not respected :";
             for (String s : invalid) {
                 message += s + "; ";
@@ -602,8 +602,10 @@ public class Polysyllogisme implements Validateur {
         return new Reponse(message, isValid, nouvelleConclusion);
     }
 
-    public Polysyllogisme() {
+    public Polysyllogisme(String language) {
+
         this.invalid = new ArrayList<>();
+        this.language = language;
     }
 
     public void addPremise(Quantifier quantifier, String firstTerm, String secondTerm, boolean isAffirmatif) {
