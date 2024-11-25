@@ -111,7 +111,7 @@ public class PolyController {
         structureValid.setDisable(true);
         // Set the number label text to the current premise number and increment it
         if (this.number != null)
-            number.setText(Integer.toString(nbpremise++));
+            number.setText(Integer.toString(nbpremise));
 
         // Add options to the 'quantificateurs' ComboBox
         if (this.quantificateurs != null) {
@@ -263,7 +263,8 @@ public class PolyController {
         if (valid) {
             this.booleans.add(this.Negative.isSelected());
             // Update premise number and page counter
-            number.setText(Integer.toString(nbpremise++));
+            nbpremise+=1 ;
+            number.setText(Integer.toString(nbpremise));
             pageCounter++;
 
             // Enable "Go to Last One" button if page counter is 3 or more
@@ -579,7 +580,7 @@ public class PolyController {
 
     @FXML
     public void back(ActionEvent actionEvent) {
-        if(this.nbpremise > 2)
+        if(this.nbpremise >=1)
         {
             if(this.titre.getText().equals("Conclusion" )) {
                 this.titre.setText("Prémisse");
@@ -600,7 +601,8 @@ public class PolyController {
             second.removeLast();
             quant.removeLast();
             booleans.removeLast();
-            this.nbpremise-= 1 ;
+            this.nbpremise-- ;
+            System.out.println(this.nbpremise);
             number.setText(Integer.toString(nbpremise--));
 
 
