@@ -184,7 +184,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the middle term in the major premise based on the figure.
      */
-    public Terme getMoyenTermeMajeur() {
+    public Terme getMajorMiddleTerm() {
         if(FigureNum == 1 || FigureNum == 3){
             return (getMajor()).getFirstTerm();}
         else{
@@ -194,7 +194,7 @@ public class Syllogisme implements Validateur{
     /**
      * Returns the middle term in the minor premise based on the figure.
      */
-    public Terme getMoyenTermeMineur() {
+    public Terme getMinorMiddleterm() {
         if(FigureNum == 1 || FigureNum == 2){
             return getMinor().getSecondTerm();}
         else{
@@ -235,7 +235,7 @@ public class Syllogisme implements Validateur{
      *         - 4: If the second term of the major premise equals the first term of the minor premise.
      *         Returns 0 if no match is found.
      */
-    public int DetecterFigure(){
+    public int FigureDetect(){
         if(Objects.equals(major.getFirstTerm().getExpression(), minor.getSecondTerm().getExpression())){
             return 1;
         }
@@ -264,7 +264,7 @@ public class Syllogisme implements Validateur{
     @Override
     public void MiddleTermRule() {
 
-        if (!getMoyenTermeMajeur().isUniversal() && !getMoyenTermeMineur().isUniversal()) { //<If the middle term is particular in both premises, it is false.
+        if (!getMajorMiddleTerm().isUniversal() && !getMinorMiddleterm().isUniversal()) { //<If the middle term is particular in both premises, it is false.
             (this.invalid).add("Moyen Terme");
         }
     }
