@@ -5,58 +5,54 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="686.0" prefWidth="1127.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.PolyController">
+<?import javafx.scene.control.CheckBox?>
+<AnchorPane fx:id="anchor" prefHeight="850.0" prefWidth="1549.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.PolyController">
     <children>
-        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <!-- Centered main title label -->
-            <HBox alignment="CENTER" spacing="10">
-                <Label fx:id="titre" text="Premisse" textAlignment="CENTER">
-                    <font>
-                        <Font size="27.0" />
-                    </font>
-                </Label>
-                <Label fx:id="number" text=" " textAlignment="CENTER">
-                    <font>
-                        <Font size="27.0" />
-                    </font>
-                </Label>
-            </HBox>
+        <!-- Title Label -->
+        <Label fx:id="titre" layoutX="642.0" layoutY="131.0" prefHeight="58.0" prefWidth="173.0" text="Premisse" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="642.0" AnchorPane.rightAnchor="313.20000000000005" AnchorPane.topAnchor="131.0">
+            <font>
+                <Font name="System Bold Italic" size="38.0" />
+            </font>
+        </Label>
 
-            <!-- Predicate label and TextField side by side and centered -->
-            <HBox alignment="CENTER" spacing="10.0">
-                <Label alignment="CENTER_RIGHT" prefWidth="200.0" text=" premier terme">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="premierterme" prefWidth="200.0" />
-            </HBox>
+        <Label fx:id="number" layoutX="843.0" layoutY="-176.0" prefHeight="1022.0" prefWidth="970.0" textAlignment="CENTER" textFill="#f3ff13" AnchorPane.leftAnchor="843.0" AnchorPane.rightAnchor="-263.0" AnchorPane.topAnchor="-176.0">
+            <font>
+                <Font size="700.0" />
+            </font>
+        </Label>
 
-            <!-- Medium Term label and TextField side by side and centered -->
-            <HBox alignment="CENTER" spacing="10.0">
-                <Label alignment="CENTER_RIGHT" prefWidth="200.0" text="deuxieme terme">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="deuxiemeterme" prefWidth="200.0" />
-            </HBox>
+        <!-- Premier Terme Label and TextField -->
+        <Label alignment="CENTER_RIGHT" layoutX="434.0" layoutY="215.0" prefWidth="200.0" text=" Premier terme" textFill="WHITE" AnchorPane.leftAnchor="434.0" AnchorPane.topAnchor="215.0">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="premierterme" layoutX="658.0" layoutY="211.0" prefHeight="33.0" prefWidth="238.0" AnchorPane.leftAnchor="658.0" AnchorPane.topAnchor="211.0" />
 
-            <!-- Centered ComboBox -->
-            <ComboBox fx:id="quantificateurs" prefWidth="200.0" promptText="Quantifier" />
+        <!-- Deuxieme Terme Label and TextField -->
+        <Label alignment="CENTER_RIGHT" layoutX="442.0" layoutY="279.0" prefWidth="200.0" text="Deuxiéme terme" textFill="WHITE" AnchorPane.leftAnchor="442.0" AnchorPane.topAnchor="279.0">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="deuxiemeterme" layoutX="658.0" layoutY="271.0" prefHeight="33.0" prefWidth="238.0" AnchorPane.leftAnchor="658.0" AnchorPane.topAnchor="271.0" />
 
-            <!-- Centered Buttons at the bottom -->
-            <HBox alignment="CENTER" prefHeight="38.0" prefWidth="885.0" spacing="20.0">
-                <!--fx:id="addOneMoreButton" -->
-                <Button fx:id="premisse" onAction="#actionButtonNewPremisse" text="ADD one more" />
-                <Button fx:id="goToLastOne" disable="true" onAction="#handleButtonLast" text="Add conclusion" />
-                <Button fx:id="doneButton" disable="true" onAction="#handleValidation" text="Validation" />
-                <Button fx:id="structureValid" onAction="#handleValidStructure" text="Validation Structure" visible="false" />
-            </HBox>
-        </VBox>
+        <!-- ComboBox for Quantificateurs -->
+        <ComboBox fx:id="quantificateurs" layoutX="678.0" layoutY="335.0" prefWidth="200.0" promptText="Quantifier" AnchorPane.leftAnchor="678.0" AnchorPane.topAnchor="335.0" />
+
+        <!-- Buttons at the bottom -->
+        <Button fx:id="premisse" layoutX="614.0" layoutY="483.0" onAction="#actionButtonNewPremisse" text="ADD one more" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="614.0" />
+        <Button fx:id="goToLastOne" disable="true" layoutX="779.0" layoutY="483.0" onAction="#handleButtonLast" text="Add conclusion" AnchorPane.bottomAnchor="329.80000000000007" AnchorPane.leftAnchor="779.0" />
+        <Button fx:id="doneButton" disable="true" layoutX="619.0" layoutY="556.0" onAction="#handleValidation" text="Validation" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="619.0" />
+        <Button fx:id="structureValid" layoutX="786.0" layoutY="556.0" onAction="#handleValidStructure" text="Validation Structure" AnchorPane.bottomAnchor="256.80000000000007" AnchorPane.leftAnchor="786.0" />
+        <CheckBox mnemonicParsing="false" layoutX="786.0" layoutY="600.0" text="Negative" fx:id="Negative" style="-fx-text-fill: white"/>
+
+        <Label fx:id="resultStruct" layoutX="350.0" layoutY="584.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

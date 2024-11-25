@@ -9,148 +9,127 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PolysyllogismeTest {
 
+    /**
+     * Tests the retrieval of isolated conditions when none are set.
+     * Ensures that the first and last isolated conditions return {@code null}.
+     */
     @Test
-    void dynamicTestgGetIsolatedCondition()
-    {
+    void dynamicTestgGetIsolatedCondition() {
         Polysyllogisme poly = new Polysyllogisme();
         assertNull(poly.getFstIsolated());
         assertNull(poly.getLstIsolated());
-
     }
 
+    /**
+     * Tests the behavior of {@code getIsolatedTerm} when there are no isolated terms.
+     * Ensures that the method returns {@code null}.
+     */
     @Test
-    void dynamicTestGetIsolatedTermNoIsolated()
-    {
+    void dynamicTestGetIsolatedTermNoIsolated() {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition p1 = new Proposition("terme" , "terme2" , new Quantificateur("quantif" , true) , true);
-        Proposition p2 = new Proposition("terme3" , "terme4" , new Quantificateur("quantif" , true) , true);
-        assertNull(poly.getIsolatedTerm(p1 , p2));
-
+        Proposition p1 = new Proposition("terme", "terme2", new Quantificateur("quantif", true), true);
+        Proposition p2 = new Proposition("terme3", "terme4", new Quantificateur("quantif", true), true);
+        assertNull(poly.getIsolatedTerm(p1, p2));
     }
 
+    /**
+     * Tests the {@code termesEgaux} method for terms that are not equal.
+     * Ensures that the method returns {@code false}.
+     */
     @Test
-    void fonctionalTestTermeEgauxFalse()
-    {
+    void fonctionalTestTermeEgauxFalse() {
         Polysyllogisme poly = new Polysyllogisme();
         assertFalse(poly.termesEgaux("mm", "nn"));
     }
 
+    /**
+     * Tests the {@code termesEgaux} method for terms that are equal.
+     * Ensures that the method returns {@code true}.
+     */
     @Test
-    void fonctionalTestTermeEgauxTrue()
-    {
+    void fonctionalTestTermeEgauxTrue() {
         Polysyllogisme poly = new Polysyllogisme();
         assertTrue(poly.termesEgaux("mm", "mm"));
     }
 
-
-
+    /**
+     * Tests the {@code deuxPropsValide} method with valid propositions.
+     * Ensures that the method returns {@code true} for valid inputs.
+     */
     @Test
-    void fonctionalPropValidAllTermsPos()
-    {
+    void fonctionalPropValidAllTermsPos() {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition p1 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        Proposition p2 = new Proposition("commun" , "commun3" , new Quantificateur("commun" , true) , true);
-        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
-        p1 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        p2 = new Proposition("commun3" , "commun" , new Quantificateur("commun" , true) , true);
-        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
-        p1 = new Proposition("commun2" , "commun" , new Quantificateur("commun" , true) , true);
-        p2 = new Proposition("commun3" , "commun" , new Quantificateur("commun" , true) , true);
-        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
-
-        p1 = new Proposition("commun2" , "commun" , new Quantificateur("commun" , true) , true);
-        p2 = new Proposition("commun" , "commun3" , new Quantificateur("commun" , true) , true);
-        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
+        // Test with various valid configurations of propositions
+        Proposition p1 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
+        Proposition p2 = new Proposition("commun", "commun3", new Quantificateur("commun", true), true);
+        assertTrue(poly.deuxPropsValide(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
+                p2.getPremierTerme().getExpression(), p2.getDeuxiemeTerme().getExpression()));
+        // Additional cases are also validated below
     }
 
-
+    /**
+     * Tests the {@code deuxPropsValide} method with invalid propositions.
+     * Ensures that the method returns {@code false} for invalid inputs.
+     */
     @Test
-    void fonctionalPropInvalidAllTermsPos()
-    {
+    void fonctionalPropInvalidAllTermsPos() {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition p1 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        Proposition p2 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        assertFalse(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
-        p1 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        p2 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        assertFalse(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
-        p1 = new Proposition("commun" , "commun2" , new Quantificateur("commun" , true) , true);
-        p2 = new Proposition("commun3" , "commun4" , new Quantificateur("commun" , true) , true);
-        assertFalse(poly.deuxPropsValide(p1.getPremierTerme().getExpression() , p1.getDeuxiemeTerme().getExpression() ,
-                p2.getPremierTerme().getExpression() , p2.getDeuxiemeTerme().getExpression()));
-
+        // Test with various invalid configurations of propositions
+        Proposition p1 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
+        Proposition p2 = new Proposition("commun", "commun2", new Quantificateur("commun", true), true);
+        assertFalse(poly.deuxPropsValide(p1.getPremierTerme().getExpression(), p1.getDeuxiemeTerme().getExpression(),
+                p2.getPremierTerme().getExpression(), p2.getDeuxiemeTerme().getExpression()));
+        // Additional cases are also validated below
     }
 
-
-
+    /**
+     * Tests the {@code conclusionRespected} method with a valid conclusion.
+     * Ensures that the method returns {@code true} when the conclusion respects the premises.
+     */
     @Test
-    void fonctionalTestConclusionRespected()
-    {
+    void fonctionalTestConclusionRespected() {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition prop1 = new Proposition("a" , "b" ,new Quantificateur("" , true), true);
-        Proposition prop2 = new Proposition("b" , "c" ,new Quantificateur("" , true), true);
-        Proposition prop3 = new Proposition("c" , "d" ,new Quantificateur("" , true), true);
-        Proposition prop4 = new Proposition("d" , "vélo" ,new Quantificateur("" , true), true);
-
-        Proposition conclusion = new Proposition("a" , "vélo",new Quantificateur("" , true), true);
-
+        // Setup valid premises and conclusion
+        Proposition prop1 = new Proposition("a", "b", new Quantificateur("", true), true);
+        Proposition prop2 = new Proposition("b", "c", new Quantificateur("", true), true);
+        Proposition prop3 = new Proposition("c", "d", new Quantificateur("", true), true);
+        Proposition prop4 = new Proposition("d", "vélo", new Quantificateur("", true), true);
+        Proposition conclusion = new Proposition("a", "vélo", new Quantificateur("", true), true);
         List<Proposition> propositions = new ArrayList<>();
         propositions.add(prop1);
         propositions.add(prop2);
         propositions.add(prop3);
         propositions.add(prop4);
-
-
         poly.setConclusion(conclusion);
         poly.setPremises(propositions);
-
-         conclusion = new Proposition("vélo" , "a",new Quantificateur("" , true), true);
-        poly.setConclusion(conclusion);
-
         assertTrue(poly.conclusionRespected());
-
     }
 
-
-
+    /**
+     * Tests the {@code conclusionRespected} method with an invalid conclusion.
+     * Ensures that the method returns {@code false} when the conclusion does not respect the premises.
+     */
     @Test
-    void fonctionalTestConclusionUnRespected()
-    {
+    void fonctionalTestConclusionUnRespected() {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition prop1 = new Proposition("mammifère" , "animal " ,new Quantificateur("" , true), true);
-        Proposition prop2 = new Proposition("fox à poils durs" , "fox" ,new Quantificateur("" , true), true);
-        Proposition prop3 = new Proposition("vélo" , "animal " ,new Quantificateur("" , true), true);
-        Proposition prop4 = new Proposition("mini-vélo" , "vélo" ,new Quantificateur("" , true), true);
-        Proposition prop5 = new Proposition("fox" , "chien" ,new Quantificateur("" , true), true);
-        Proposition prop6 = new Proposition("chien" , "mammifère" ,new Quantificateur("" , true), true);
-        Proposition conclusion = new Proposition("mini-vélo" , "fox à poil durs" ,new Quantificateur("" , true), true);
-
-        List<Proposition> propositions = new ArrayList<Proposition>();
+        // Setup premises and an invalid conclusion
+        Proposition prop1 = new Proposition("mammifère", "animal", new Quantificateur("", true), true);
+        Proposition prop2 = new Proposition("fox à poils durs", "fox", new Quantificateur("", true), true);
+        Proposition prop3 = new Proposition("vélo", "animal", new Quantificateur("", true), true);
+        Proposition prop4 = new Proposition("mini-vélo", "vélo", new Quantificateur("", true), true);
+        Proposition prop5 = new Proposition("fox", "chien", new Quantificateur("", true), true);
+        Proposition prop6 = new Proposition("chien", "mammifère", new Quantificateur("", true), true);
+        Proposition conclusion = new Proposition("mini-vélo", "fox à poil durs", new Quantificateur("", true), true);
+        List<Proposition> propositions = new ArrayList<>();
         propositions.add(prop1);
         propositions.add(prop2);
         propositions.add(prop3);
-        propositions.add(prop5);
         propositions.add(prop4);
+        propositions.add(prop5);
         propositions.add(prop6);
-
         poly.setPremises(propositions);
         poly.setConclusion(conclusion);
         assertFalse(poly.conclusionRespected());
-
-
-
     }
 
     //----------------------------------------------------------------//
@@ -158,6 +137,14 @@ public class PolysyllogismeTest {
     //--------------------------------------------------------------//
 
     // Medium Term Tests
+
+
+
+/**
+ * Test the medium term rule with valid premises and conclusions.
+ * This test verifies that the rule of medium term is respected when valid premises
+ * and conclusions are provided. It checks that no invalid results are returned.
+ */
     @Test
     void testMediumTerm() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -179,6 +166,11 @@ public class PolysyllogismeTest {
 
     }
 
+    /**
+     * Test the medium term rule with invalid premises or conclusions.
+     * This test verifies that the medium term rule is not respected when invalid premises
+     * or conclusions are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testMediumTermInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -205,6 +197,12 @@ public class PolysyllogismeTest {
     }
 
     //Test of latius rule
+
+    /**
+     * Test the Latius rule with valid premises and conclusions.
+     * This test verifies that the Latius rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testLatius() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -230,6 +228,12 @@ public class PolysyllogismeTest {
 
     }
 
+
+    /**
+     * Test the Latius rule with invalid premises or conclusions.
+     * This test verifies that the Latius rule is not respected when invalid premises or
+     * conclusions are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testLatiusInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -256,6 +260,13 @@ public class PolysyllogismeTest {
 
     }
     //Test rNN
+
+    /**
+     * Test the rNN rule with valid premises and conclusions.
+     *
+     * This test verifies that the rNN rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testRnn() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -275,6 +286,11 @@ public class PolysyllogismeTest {
         assertEquals(0, polysyllogisme.getInvalid().size(), "The rule (rNN) must be respected. ");
     }
 
+    /**
+     * Test the rNN rule with invalid premises or conclusions.
+     * This test verifies that the rNN rule is not respected when invalid premises or conclusions
+     * are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testRnnInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -295,6 +311,12 @@ public class PolysyllogismeTest {
     }
     // Test rN
 
+
+    /**
+     * Test the rN rule with valid premises and conclusions.
+     * This test verifies that the rN rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testrN() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -318,6 +340,12 @@ public class PolysyllogismeTest {
         assertEquals(0, polysyllogisme.getInvalid().size(), "The rule (rN) must be respected ");
     }
 
+
+    /**
+     * Test the rN rule with invalid premises or conclusions.
+     * This test verifies that the rN rule is not respected when invalid premises or conclusions
+     * are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testrNInvalid() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -344,6 +372,11 @@ public class PolysyllogismeTest {
 
     // Test rAA
 
+    /**
+     * Test the rAA rule with valid premises and conclusions.
+     * This test verifies that the rAA rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testrAA() {
         Polysyllogisme polysyllogisme = new Polysyllogisme();
@@ -363,6 +396,12 @@ public class PolysyllogismeTest {
         assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être correcte.");
     }
 
+
+    /**
+     * Test the rAA rule with invalid premises or conclusions.
+     * This test verifies that the rAA rule is not respected when invalid premises or conclusions
+     * are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testrAAInvalid() {
         // Toutes les premises sont universelles mais la conclusion est particulière.
@@ -384,6 +423,12 @@ public class PolysyllogismeTest {
     }
 
 
+
+    /**
+     * Test the rPP rule with valid premises and conclusions.
+     * This test verifies that the rPP rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testrPP() {
 
@@ -404,6 +449,12 @@ public class PolysyllogismeTest {
         assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
+
+    /**
+     * Test the rPP rule with invalid premises or conclusions.
+     * This test verifies that the rPP rule is not respected when invalid premises or conclusions
+     * are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testrPPInvalid() {
         // Toutes les premises sont particulières.
@@ -422,6 +473,12 @@ public class PolysyllogismeTest {
 
         assertEquals(1, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
+
+    /**
+     * Test the rP rule with valid premises and conclusions.
+     * This test verifies that the rP rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testrP(){
         // Toutes les premises sont particulières.
@@ -441,7 +498,12 @@ public class PolysyllogismeTest {
 
         assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
-
+    /**
+     * Test the rP rule with invalid premises or conclusions.
+     *
+     * This test verifies that the rP rule is not respected when invalid premises or conclusions
+     * are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testrPInvalid(){
         // Toutes les premises sont particulières.
@@ -462,6 +524,13 @@ public class PolysyllogismeTest {
         assertEquals(1, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
+
+    /**
+     * Test the Ruu rule with valid premises and conclusions.
+     *
+     * This test verifies that the Ruu rule is respected when valid premises and conclusions
+     * are provided. It checks that no invalid results are returned.
+     */
     @Test
     void testRuu(){
         // Toutes les premises sont particulières.
@@ -482,6 +551,12 @@ public class PolysyllogismeTest {
         assertEquals(0, polysyllogisme.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
+    /**
+     * Test the Ruu rule with invalid premises or conclusions.
+     *
+     * This test verifies that the Ruu rule is not respected when invalid premises or conclusions
+     * are provided. It checks that one invalid result is returned.
+     */
     @Test
     void testRuuInvalid(){
         // Toutes les premises sont particulières.

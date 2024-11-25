@@ -133,9 +133,9 @@ public class Proposition {
     @Override
     public String toString()
     {
-        return ("voici mon premier terme : " + this.getPremierTermeString()
-                + " deuxieme terme : " + this.getDeuxiemeTermeString() +
-                " quantifcateur : " + this.getQuantificateur().getNom()
+        return ("Premier Terme : " + this.getPremierTermeString()
+                + " Deuxième terme : " + this.getDeuxiemeTermeString() +
+                " Quantificateur : " + this.getQuantificateur().getNom()
 
         );
     }

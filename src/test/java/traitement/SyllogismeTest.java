@@ -9,6 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 //
 class SyllogismeTest {
 
+    /**
+     * Test to detect the figure of a syllogism.
+     * In this case, we check if the syllogism correctly detects the figure based on the given quantifiers and terms.
+     */
     @Test
     void TestFigure() {
         Quantificateur quantifUniv = new Quantificateur("tous", true);
@@ -21,7 +25,10 @@ class SyllogismeTest {
 
         System.out.println("test: OK");
     }
-
+    /**
+     * Test to detect the figure of a syllogism with different terms.
+     * This method tests if figure detection works correctly with different sets of terms.
+     */
     @Test
     void TestFigure1() {
         Quantificateur quantifUniv = new Quantificateur("Tous", true);
@@ -34,13 +41,12 @@ class SyllogismeTest {
         assertEquals(1,syllo.DetecterFigure(),"Doit etre figure 1");
     }
 
+    /**
+     * Test the rule for the middle term in a syllogism.
+     * This method checks if the middle term rule is applied correctly and if the figure is correctly identified.
+     */
     @Test
     void testMoyenTerme() {
-        /** Syllogisme tester :
-         * Tous les chats sont gris. //< Moyen terme gris  -> particulier
-         * Il existe un animal qui n'est pas gris. //< Moyen terme gris -> universelle
-         * Il existe un animal qui n'est pas un chat
-         * */
         Quantificateur quantifUniv = new Quantificateur("tous", true);
         Quantificateur quantifExist = new Quantificateur("il existe", false);
 
@@ -57,6 +63,10 @@ class SyllogismeTest {
 
     }
 
+    /**
+     * Test the middle term rule for an invalid case.
+     * This method checks if the system correctly identifies an invalid middle term.
+     */
     @Test
     public void testMoyenTermeInvalide() {
         /** Syllogisme tester :
@@ -80,7 +90,10 @@ class SyllogismeTest {
 
 
     }
-
+    /**
+     * Test the "Latius" rule for syllogisms.
+     * This method ensures that the syllogism follows the Latius rule correctly.
+     */
     @Test
     void TestRegleLatius() {
         Quantificateur quantifUniv = new Quantificateur("tous", true);
@@ -97,6 +110,10 @@ class SyllogismeTest {
         System.out.println("testRegleLatius: OK");
     }
 
+    /**
+     * Test the "Latius" rule for an invalid syllogism.
+     * This method checks if an invalid syllogism is detected properly when applying the Latius rule.
+     */
     @Test
     void TestRegleLatiusInvalid() {
         Quantificateur quantifUniv = new Quantificateur("tous", false);
@@ -113,6 +130,11 @@ class SyllogismeTest {
         System.out.println("testRegleLatiusInvalid: OK");
     }
 
+
+    /**
+     * Test the "rNN" rule for syllogisms.
+     * This method checks if the syllogism follows the "rNN" rule correctly.
+     */
     @Test
     void rNN() {
         Quantificateur quantifUniv = new Quantificateur("tous", true);
@@ -129,6 +151,10 @@ class SyllogismeTest {
         System.out.println("testRegleLatius: OK");
     }
 
+    /**
+     * Test the "rNN" rule for an invalid syllogism.
+     * This method ensures that the system correctly detects an invalid syllogism under the "rNN" rule.
+     */
     @Test
     void rNNInvalid() {
         Quantificateur quantifUniv = new Quantificateur("tous", true);
@@ -145,6 +171,10 @@ class SyllogismeTest {
         System.out.println("testRNNInvalid: OK");
     }
 
+    /**
+     * Test the "rN" rule for valid syllogisms.
+     * This method checks if the "rN" rule is applied correctly with the right premises.
+     */
     @Test
     void testRnValide() {
         Syllogisme syllogisme = new Syllogisme();
@@ -169,6 +199,10 @@ class SyllogismeTest {
     }
 
 
+    /**
+     * Test the "rN" rule for an invalid syllogism.
+     * This method ensures that the system correctly detects an invalid "rN" syllogism where a premise is negative but the conclusion is affirmative.
+     */
     @Test
     void testRnInvalide() {
         Syllogisme syllogisme = new Syllogisme();
@@ -191,280 +225,273 @@ class SyllogismeTest {
         System.out.println("testRn (1 prémise négative mais conclusion affirmative ) : OK");
 
     }
-
     @Test
     void rAA() {
+        /**
+         * Test for the rAA rule (Affirmative major premise, affirmative minor premise, conclusion in the same form).
+         * In this test, the syllogism follows the rAA rule.
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", true);
+        Quantificateur universel = new Quantificateur("All", true);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true); // Affirmative
-        syllogisme.setMineur("Socrate", "hommes", particulier, true); // Négative
+        syllogisme.setMajeur("men", "mortal", universel, true); // Affirmative
+        syllogisme.setMineur("Socrates", "men", particulier, true); // Negative
 
-        syllogisme.setConclusion("Socrate", "mortel", particulier, true); // Affirmative
+        syllogisme.setConclusion("Socrates", "mortal", particulier, true); // Affirmative
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rAA();
 
-
-        assertEquals(0, syllogisme.getInvalid().size(), "Le syllogisme devrait respecter la règle raa.");
-
-        System.out.println("testRaa : OK");
+        assertEquals(0, syllogisme.getInvalid().size(), "The syllogism should respect the rAA rule.");
+        System.out.println("testRaa: OK");
     }
 
     @Test
     void rAAInvalid() {
+        /**
+         * Test for the rAA rule (Invalid case: Affirmative major premise, negative minor premise, conclusion should not be affirmative).
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", true);
+        Quantificateur universel = new Quantificateur("All", true);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", particulier, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", particulier, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", particulier, false);
+        syllogisme.setConclusion("Socrates", "mortal", particulier, false); // Invalid conclusion
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rAA();
 
-
-        assertEquals(1, syllogisme.getInvalid().size(), "Le syllogisme ne doit pas respecter la règle raa.");
-
-        System.out.println("testRaaInvalid : OK");
+        assertEquals(1, syllogisme.getInvalid().size(), "The syllogism should not respect the rAA rule.");
+        System.out.println("testRaaInvalid: OK");
     }
 
     @Test
     void rPP() {
+        /**
+         * Test for the rPP rule (Particular major premise, particular minor premise).
+         * This test ensures the syllogism does not respect the rPP rule.
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", false);
+        Quantificateur universel = new Quantificateur("All", false);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", particulier, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", particulier, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", particulier, false);
+        syllogisme.setConclusion("Socrates", "mortal", particulier, false);
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rPP();
 
-
-        assertEquals(1, syllogisme.getInvalid().size(), "Le syllogisme ne doit pas respecter la règle raa.");
-
-        System.out.println("testRppInvalid : OK");
+        assertEquals(1, syllogisme.getInvalid().size(), "The syllogism should not respect the rPP rule.");
+        System.out.println("testRppInvalid: OK");
     }
 
     @Test
     void rPPInvalid() {
+        /**
+         * Test for the rPP rule (Invalid case: particular major premise and particular minor premise with a particular conclusion).
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", false);
+        Quantificateur universel = new Quantificateur("All", false);
         Quantificateur particulier = new Quantificateur(" ", true);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", particulier, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", particulier, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", particulier, false);
+        syllogisme.setConclusion("Socrates", "mortal", particulier, false);
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rPP();
 
-
-        assertEquals(0, syllogisme.getInvalid().size(), "Le syllogisme ne doit pas respecter la règle raa.");
-
-        System.out.println("testRppInvalid : OK");
+        assertEquals(0, syllogisme.getInvalid().size(), "The syllogism should respect the rPP rule.");
+        System.out.println("testRppInvalid: OK");
     }
 
     @Test
     void rP() {
+        /**
+         * Test for the rP rule (Universal major premise, particular minor premise).
+         * This test ensures the syllogism respects the rP rule.
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", true);
+        Quantificateur universel = new Quantificateur("All", true);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", particulier, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", particulier, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", particulier, false);
+        syllogisme.setConclusion("Socrates", "mortal", particulier, false);
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rP();
 
-
-        assertEquals(0, syllogisme.getInvalid().size(), "Le syllogisme respecter la règle rp.");
-
-        System.out.println("testRpValid : OK");
+        assertEquals(0, syllogisme.getInvalid().size(), "The syllogism should respect the rP rule.");
+        System.out.println("testRpValid: OK");
     }
 
     @Test
     void rPInvalid() {
+        /**
+         * Test for the rP rule (Invalid case: Universal major premise, particular minor premise, conclusion should not be universal).
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", true);
+        Quantificateur universel = new Quantificateur("All", true);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", particulier, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", particulier, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", universel, false);
+        syllogisme.setConclusion("Socrates", "mortal", universel, false); // Invalid conclusion
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rP();
 
-
-        assertEquals(1, syllogisme.getInvalid().size(), "Le syllogisme ne respecte pas la règle rp.");
-
-        System.out.println("testRpInValid : OK");
+        assertEquals(1, syllogisme.getInvalid().size(), "The syllogism should not respect the rP rule.");
+        System.out.println("testRpInvalid: OK");
     }
 
     @Test
     void rUU() {
+        /**
+         * Test for the rUU rule (Universal major premise, universal minor premise).
+         * This test ensures the syllogism respects the rUU rule.
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", true);
+        Quantificateur universel = new Quantificateur("All", true);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", universel, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", universel, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", universel, false);
+        syllogisme.setConclusion("Socrates", "mortal", universel, false);
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rUU();
 
-
-        assertEquals(0, syllogisme.getInvalid().size(), "Le syllogisme doit respecter la règle RUU.");
-
-        System.out.println("testRUU : OK");
+        assertEquals(0, syllogisme.getInvalid().size(), "The syllogism should respect the rUU rule.");
+        System.out.println("testRUU: OK");
     }
 
     @Test
     void rUUInvalid() {
+        /**
+         * Test for the rUU rule (Invalid case: universal major and minor premises, but particular conclusion).
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur universel = new Quantificateur("Tous", true);
+        Quantificateur universel = new Quantificateur("All", true);
         Quantificateur particulier = new Quantificateur(" ", false);
 
-        syllogisme.setMajeur("hommes", "mortels", universel, true);
-        syllogisme.setMineur("Socrate", "hommes", universel, true);
+        syllogisme.setMajeur("men", "mortal", universel, true);
+        syllogisme.setMineur("Socrates", "men", universel, true);
 
-        syllogisme.setConclusion("Socrate", "mortel", particulier, false);
+        syllogisme.setConclusion("Socrates", "mortal", particulier, false); // Invalid conclusion
 
         syllogisme.setNumFigure(2);
 
-
         syllogisme.rUU();
 
-
-        assertEquals(1, syllogisme.getInvalid().size(), "Le syllogisme ne doit pas respecter la règle RUU.");
-
-        System.out.println("testRUUInvalid : OK");
+        assertEquals(1, syllogisme.getInvalid().size(), "The syllogism should not respect the rUU rule.");
+        System.out.println("testRUUInvalid: OK");
     }
 
     @Test
     void valider() {
         /**
-         * Tout lion à poils ras ressemble à un fox à poils durs.
-         * Tout rhinocéros à poils drus ressemble à un lion à poils ras.
-         * Tout rhinocéros à poils drus ressemble à un fox à poils durs.
-         * **/
+         * Validate a syllogism:
+         * All lions with short fur resemble foxes with rough fur.
+         * All rhinoceroses with coarse fur resemble lions with short fur.
+         * All rhinoceroses with coarse fur resemble foxes with rough fur.
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur tout = new Quantificateur("All", true);
         syllogisme.setNumFigure(1);
 
-        syllogisme.setMajeur("lion à poils ras", "fox à poils durs" , tout, true);
-        syllogisme.setMineur("rhinocéros à poils drus", "lion à poils ras", tout, true);
+        syllogisme.setMajeur("lion with short fur", "fox with rough fur", tout, true);
+        syllogisme.setMineur("rhinoceros with coarse fur", "lion with short fur", tout, true);
 
-        syllogisme.setConclusion("rhinocéros à poils drus", "fox à poils durs", tout, true);
+        syllogisme.setConclusion("rhinoceros with coarse fur", "fox with rough fur", tout, true);
 
         Reponse reponse = syllogisme.valider();
 
-
-        assertEquals(true, reponse.isValid(), "Le syllogisme doit être valide");
-
-        System.out.println("Validation du syllogisme : OK");
+        assertEquals(true, reponse.isValid(), "The syllogism should be valid.");
+        System.out.println("Validation of syllogism: OK");
     }
 
     @Test
     void testIninteressant() {
-        /* Syllogisme tester :
-         * - Tous les mamifères sont mortels
-         * - Tous les être humains sont des mamifères
-         * - Il existe un être humain qui est mortel */
-
+        /**
+         * Test for determining whether a syllogism is 'uninteresting' (i.e., a trivially true conclusion).
+         * The syllogism concludes that there exists a mortal human.
+         */
         Syllogisme syllogisme = new Syllogisme();
+        Quantificateur tous = new Quantificateur("All", true);
+        Quantificateur existe = new Quantificateur("There exists", false);
 
-        Quantificateur tous = new Quantificateur("Tous", true);
-        Quantificateur existe = new Quantificateur("Il existe", false);
+        syllogisme.setMajeur("mammals", "mortal", tous, true); // All mammals are mortal
+        syllogisme.setMineur("humans", "mammals", tous, false); // All humans are mammals
 
-
-        syllogisme.setMajeur("mamifères", "mortels", tous, true); //< Tous les mamifères sont mortels (universelle affirmative)
-        syllogisme.setMineur("être humains", "mamifères", tous, false); //< Tous les être humains sont des mamifères (universelle affirmative)
-
-        syllogisme.setConclusion("être humain", "mortel", existe, true); //< Il existe un être humain qui est mortel (particulier affirmative)
+        syllogisme.setConclusion("human", "mortal", existe, true); // There exists a mortal human
 
         syllogisme.setNumFigure(1);
 
-
-
-        assertEquals(true, syllogisme.estIninteressant(), "Normalement il devrait dire qu'il est ininterassant.");
-
-        System.out.println("testIninteressant() (cas true) : OK");
-
-
+        assertEquals(true, syllogisme.estIninteressant(), "The syllogism should be considered uninteresting.");
+        System.out.println("testIninteressant() (true case): OK");
     }
 
     @Test
     void convertConclusion() {
+        /**
+         * Test for converting the conclusion of a syllogism to universal form.
+         */
         Syllogisme syllogisme = new Syllogisme();
+        Quantificateur tous = new Quantificateur("All", true);
+        Quantificateur existe = new Quantificateur("There exists", false);
 
-        Quantificateur tous = new Quantificateur("Tous", true);
-        Quantificateur existe = new Quantificateur("Il existe", false);
+        syllogisme.setMajeur("mammals", "mortal", tous, true); // Universal positive
+        syllogisme.setMineur("humans", "mammals", tous, true); // Universal positive
 
-
-        syllogisme.setMajeur("mamifères", "mortels", tous, true); //< universelle positive
-        syllogisme.setMineur("être humains", "mamifères", tous, true); //< universelle positive
-
-        syllogisme.setConclusion("être humain", "mortel", existe, true); //< particulier positive
+        syllogisme.setConclusion("human", "mortal", existe, true); // Particular positive
 
         syllogisme.setNumFigure(1);
 
-        assertEquals(true,  !syllogisme.getConclusion().estUniverselle() && syllogisme.convertConclusion().estUniverselle(), "La conclusion doit devenir universelle");
-
-        System.out.println("testConvertConclusion : OK");
+        assertEquals(true, !syllogisme.getConclusion().estUniverselle() && syllogisme.convertConclusion().estUniverselle(), "The conclusion should become universal.");
+        System.out.println("testConvertConclusion: OK");
     }
 
     @Test
-    void validerForRules() { // non
+    void validerForRules() {
         /**
-         * Tout lion à poils ras ressemble à un fox à poils durs.
-         * Tout rhinocéros à poils drus ressemble à un lion à poils ras.
-         * Tout rhinocéros à poils drus ressemble à un fox à poils durs.
-         * **/
+         * Validate a syllogism with specific rules applied:
+         * All lions with short fur resemble foxes with rough fur.
+         * All rhinoceroses with coarse fur resemble lions with short fur.
+         * All rhinoceroses with coarse fur resemble foxes with rough fur.
+         */
         Syllogisme syllogisme = new Syllogisme();
-        Quantificateur tout = new Quantificateur("Tout", true);
+        Quantificateur tout = new Quantificateur("All", true);
         syllogisme.setNumFigure(1);
 
-        syllogisme.setMajeur("lion à poils ras", "fox à poils durs" , tout, true);
-        syllogisme.setMineur("rhinocéros à poils drus", "lion à poils ras", tout, true);
+        syllogisme.setMajeur("lion with short fur", "fox with rough fur", tout, true);
+        syllogisme.setMineur("rhinoceros with coarse fur", "lion with short fur", tout, true);
 
-        syllogisme.setConclusion("rhinocéros à poils drus", "fox à poils durs", tout, true);
+        syllogisme.setConclusion("rhinoceros with coarse fur", "fox with rough fur", tout, true);
         ArrayList<String> check = new ArrayList<>();
         check.add("regleMoyenTerme");
         check.add("rNN");
         check.add("rP");
         Reponse reponse = syllogisme.validRule(check);
 
-
-        assertEquals(true, reponse.isValid(), "Le syllogisme doit être valide");
-
-        System.out.println("Validation du syllogisme pour x regles: OK");
+        assertEquals(true, reponse.isValid(), "The syllogism should be valid.");
+        System.out.println("Validation of syllogism for rules: OK");
     }
 }

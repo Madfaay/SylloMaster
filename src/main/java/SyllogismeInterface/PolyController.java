@@ -1,23 +1,34 @@
 package SyllogismeInterface;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import traitement.Polysyllogisme;
+import traitement.Proposition;
+import traitement.Quantificateur;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PolyController {
+    public AnchorPane anchor;
+    public CheckBox Negative;
     @FXML
     private Button goToLastOne;
     @FXML
@@ -36,6 +47,9 @@ public class PolyController {
     private Label titre;
 
     @FXML
+    private Label resultStruct ;
+
+    @FXML
     private TextField premierterme;
     @FXML
     private TextField deuxiemeterme;
@@ -52,15 +66,26 @@ public class PolyController {
     @FXML
     private Label number;
 
-
     private int nbpremise = 1;
+
+
 
 
     private ArrayList<String> first = new ArrayList<>();
     private ArrayList<String> second = new ArrayList<>();
     private ArrayList<String> quant = new ArrayList<>();
+    private ArrayList<Boolean> booleans = new ArrayList<>();
+
+    private ArrayList<String> quantiflistUniv  = new ArrayList<>();
+
+    private ArrayList<String> quantiflistExist  = new ArrayList<>();
+
 
     private int pageCounter = 1;
+
+    private final File languageFile = new File("language.json");
+
+    private String language ;
 
 
     /**
@@ -69,17 +94,60 @@ public class PolyController {
      */
     @FXML
     public void initialize() {
+        loadLanguageFromJson();
+        retrieve();
+
+
         // Set the number label text to the current premise number and increment it
         if (this.number != null)
             number.setText(Integer.toString(nbpremise++));
 
         // Add options to the 'quantificateurs' ComboBox
-        if (this.quantificateurs != null)
-            quantificateurs.getItems().addAll("Option 1", "Option 2", "Option 3");
+        if (this.quantificateurs != null) {
+            for(String quantif : quantiflistUniv)
+            quantificateurs.getItems().add(quantif);
+            for(String quantif : quantiflistExist ){
+                quantificateurs.getItems().add(quantif);
+            }
+
+        }
 
         // Add options to the 'quantifConclusion' ComboBox
-        if (this.quantifConclusion != null)
-            quantifConclusion.getItems().addAll("Option 1", "Option 2", "Option 3");
+    }
+
+    private List<Map<String, String>> loadData() throws IOException {
+        File file = new File("data.json");
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Vérifier si le fichier existe et s'il n'est pas vide
+        if (file.exists() && file.length() > 0) {
+            // Lire les données si le fichier contient des données
+            return mapper.readValue(file, new TypeReference<List<Map<String, String>>>() {});
+        } else {
+            // Retourner une liste vide si le fichier n'existe pas ou est vide
+            return new ArrayList<>();
+        }
+    }
+
+    private void loadLanguageFromJson() {
+        ObjectMapper mapper = new ObjectMapper();
+
+        if (languageFile.exists()) {
+            try {
+                // Lire la langue depuis le fichier JSON
+                Map<String, String> data = mapper.readValue(languageFile, Map.class);
+                String savedLanguage = data.get("language");
+
+                // Si une langue a été enregistrée, la définir comme valeur par défaut de la ComboBox
+                if (savedLanguage != null) {
+                    this.language = savedLanguage;
+                    System.out.println("Langue chargée depuis language.json : " + savedLanguage);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors du chargement de la langue.");
+            }
+        }
     }
 
     /**
@@ -233,6 +301,11 @@ public class PolyController {
             System.out.print(quantificateur + " ");
         }
         System.out.print("]\n");
+        System.out.print("Liste des negatives: [");
+        for (Boolean boo : booleans) {
+            System.out.print(boo + " ");
+        }
+        System.out.print("]\n");
     }
 
 
@@ -251,7 +324,7 @@ public class PolyController {
 
         // Validate the first term input field
         if(premierterme.getText().isEmpty()){
-            premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            //premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         }
         else {
@@ -260,7 +333,7 @@ public class PolyController {
 
         // Validate the second term input field
         if(deuxiemeterme.getText().isEmpty()){
-            deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            //deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         }
         else{
@@ -269,15 +342,22 @@ public class PolyController {
 
         // Validate the quantifier ComboBox
         if (quantificateurs.getValue().isEmpty()){
-            quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            //quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         }
         else{
             quantificateurs.setStyle(null);
         }
 
+        if (quantificateurs.getValue().isEmpty()){
+            //quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            valid = false;
+        }
+
+
         // If all fields are valid
         if (valid) {
+            this.booleans.add(this.Negative.isSelected());
             // Update premise number and page counter
             number.setText(Integer.toString(nbpremise++));
             pageCounter++;
@@ -352,8 +432,7 @@ public class PolyController {
     @FXML
     private void handleButtonLast() {
         // Show structure validation label and hide the premise input section
-        structureValid.setVisible(true);
-        premisse.setVisible(false);
+        premisse.setDisable(true);
         titre.setText("Conclusion");
         number.setText("");
         premisse.setDisable(true);
@@ -362,19 +441,19 @@ public class PolyController {
         // Validate input fields
         boolean valid = true;
         if(premierterme.getText().isEmpty()){
-            premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;"); // Set red border if empty
+           // premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;"); // Set red border if empty
             valid = false;
         } else {
             premierterme.setStyle(null); // Clear the red border
         }
         if(deuxiemeterme.getText().isEmpty()){
-            deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+           // deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         } else {
             deuxiemeterme.setStyle(null);
         }
         if (quantificateurs.getValue().isEmpty()){
-            quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+           // quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         } else {
             quantificateurs.setStyle(null);
@@ -457,7 +536,7 @@ public class PolyController {
 
         // Check if the first term is empty, highlight if invalid
         if (premierterme.getText().isEmpty()) {
-            premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            //premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         } else {
             premierterme.setStyle(null);
@@ -465,7 +544,7 @@ public class PolyController {
 
         // Check if the second term is empty, highlight if invalid
         if (deuxiemeterme.getText().isEmpty()) {
-            deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            //deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         } else {
             deuxiemeterme.setStyle(null);
@@ -473,7 +552,7 @@ public class PolyController {
 
         // Check if the quantifier is selected, highlight if invalid
         if (quantificateurs.getValue().isEmpty()) {
-            quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            //quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
             valid = false;
         } else {
             quantificateurs.setStyle(null);
@@ -505,6 +584,70 @@ public class PolyController {
         displayPremissesAndConclusion();
     }
 
+
+    private void handle() {
+        // Flag to check if all inputs are valid
+        boolean valid = true;
+
+        // Check if the first term is empty, highlight if invalid
+        if (premierterme.getText().isEmpty()) {
+            //premierterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            valid = false;
+        } else {
+            premierterme.setStyle(null);
+        }
+
+        // Check if the second term is empty, highlight if invalid
+        if (deuxiemeterme.getText().isEmpty()) {
+            //deuxiemeterme.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            valid = false;
+        } else {
+            deuxiemeterme.setStyle(null);
+        }
+
+        // Check if the quantifier is selected, highlight if invalid
+        if (quantificateurs.getValue().isEmpty()) {
+            //quantificateurs.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
+            valid = false;
+        } else {
+            quantificateurs.setStyle(null);
+        }
+
+        // If all fields are valid, process the data
+        if (valid) {
+            this.booleans.add(this.Negative.isSelected());
+            // Get text from the TextFields and the selected quantifier
+            String premierTermeText = premierterme.getText();
+            String deuxiemeTermeText = deuxiemeterme.getText();
+            String selectedQuantificateur = quantificateurs.getValue();
+
+            // Add the premise data to the lists
+            first.add(premierTermeText);
+            second.add(deuxiemeTermeText);
+            quant.add(selectedQuantificateur);
+
+            // Clear the input fields after adding the data
+            premierterme.clear();
+            deuxiemeterme.clear();
+            quantificateurs.setValue(null);
+        }
+
+
+
+    }
+
+
+    public boolean universel(String quantif)
+    {
+        for(String univ : this.quantiflistUniv ) {
+            if (univ.equals(quantif)) {
+                return true;
+            }
+        }
+        return false ;
+
+    }
+
     /**
      * This method is triggered when the "Validate Structure" button is clicked.
      * It enables the "Done" button and disables the "Validate Structure" button.
@@ -512,11 +655,125 @@ public class PolyController {
      */
     @FXML
     private void handleValidStructure() {
+
+        this.handle();
         // Log message indicating that the structure validation button was clicked
         System.out.println("bouton validation structure");
 
         // Enable the "Done" button and disable the "Validate Structure" button
-        doneButton.setDisable(false);
+        doneButton.setDisable(true);
         structureValid.setDisable(true);
+
+        Polysyllogisme poly = new Polysyllogisme();
+        int length = this.first.size() ;
+        System.out.println("LE LENGTH  : "+ length);
+
+        System.out.println("LE LENGTH  : "+ this.second.size());
+
+        System.out.println("LE quantif  : "+ this.quant.size());
+
+
+        List<Proposition> propositions = new ArrayList<>();
+        for(int i =0 ; i < length-1 ; i++ ){
+            String firstTerm = this.first.get(i);
+            String secondTerm = this.second.get(i);
+            Quantificateur quantificateur = new Quantificateur(this.quant.get(i), universel(this.quant.get(i)));
+            boolean isAffirmative = true;
+
+            Proposition p = new Proposition(firstTerm, secondTerm, quantificateur, this.booleans.get(i));
+
+            propositions.add(p);
+        }
+        String firstTerm = this.first.get(length-1);
+        String secondTerm = this.second.get(length-1);
+        Quantificateur quantificateur = new Quantificateur(this.quant.get(length-1), true); // Create a new Quantificateur using the value from 'quant' at index 'length'
+        boolean isAffirmative = true;
+
+
+
+        Proposition conclusion = new Proposition(firstTerm, secondTerm, quantificateur, this.booleans.get(length-1));
+
+        poly.setPremises(propositions);
+        poly.setConclusion(conclusion);
+        if(poly.structValid())
+        {
+            this.resultStruct.setText("La structure est correcte ! Nous pouvons maintenant procéder à la validation des règles.");
+        }
+        else {
+            if(poly.structCorrection()) {
+                this.resultStruct.setText("Nous avons corrigé votre structure Visualiser le résultat à gauche ! Nous pouvons maintenant procéder à la validation des règles.");
+                Double x = 5.0;
+                Double y = 190.0;
+                for(Proposition p : poly.getPremises())
+                {
+                    this.createLabelBelow(this.anchor , x , y , p.toString());
+                    y+=30.0;
+                }
+                this.createLabelBelow(this.anchor , x , y , poly.getConclusion().toString());
+
+
+
+
+            }
+            else
+                this.resultStruct.setText("Impossible de corriger la structure revoyez votre polysyllogisme ");
+        }
+
+
+
+
     }
+
+    public void createLabelBelow(AnchorPane parentPane, double layoutX, double layoutY, String text) {
+        // Crée un nouveau label
+        Label newLabel = new Label(text);
+
+        // Positionne le label 10px en dessous du label d'origine
+        newLabel.setLayoutX(layoutX); // Même position horizontale
+        newLabel.setLayoutY(layoutY);
+        // Position verticale + 10px
+        newLabel.setTextFill(javafx.scene.paint.Color.WHITE); // Couleur blanche
+        // Ajoute le label au pane parent
+        parentPane.getChildren().add(newLabel);
+    }
+
+    private void retrieve() {
+        try {
+            // Lire les données depuis le fichier JSON
+            List<Map<String, String>> dataList = loadData();
+
+            // Deux listes pour stocker les données classées
+
+            // Parcourir les données et les classer
+            for (Map<String, String> data : dataList) {
+                String selectedQuantif = data.get("selectedQuantif");
+                String quantif = data.get("quantif");
+
+                if(this.language.equals("English")) {
+                    if ("Universal".equals(selectedQuantif)) {
+                        quantiflistUniv.add(quantif);
+                    }  if ("Existential".equals(selectedQuantif)) {
+                        quantiflistExist.add(quantif);
+                    }
+                }
+
+                else {
+                    if ("Universel".equals(selectedQuantif)) {
+                        quantiflistUniv.add(quantif);
+
+                    }  if ("Existentiel".equals(selectedQuantif)) {
+                        quantiflistExist.add(quantif);
+
+
+                    }
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
