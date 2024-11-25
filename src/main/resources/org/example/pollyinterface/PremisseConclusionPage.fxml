@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pollyinterface.PolyController">
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" text="Premises:" />
+        <VBox fx:id="premisesBox" layoutX="20.0" layoutY="50.0" spacing="10.0" />
+        <Label fx:id="conclusionLabel" layoutX="20.0" layoutY="180.0" />
+        <Label fx:id="isValid" layoutX="20.0" layoutY="280.0" />
+        <Button fx:id="backButton" layoutX="20.0" layoutY="220.0" text="Back" />
+        <Button fx:id="validationPoly" layoutX="120.0" layoutY="220.0" text="Structure VALIDATION" />
+        <Label fx:id="structureValid" layoutX="20.0" layoutY="280.0" />
+    </children>
+</AnchorPane>
