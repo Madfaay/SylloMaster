@@ -421,7 +421,7 @@ public class SyllogismeRedactionController {
 
         Syllogism syllo = new Syllogism(  q1,subjectPremise1,predicatPremise1, !negatifPremise1,
                 q2,subjectPremise2,predicatPremise2, !negatifPremise2,
-                qC, subjectConclusion, predicatConclusion, !negatifConclusion );
+                qC, subjectConclusion, predicatConclusion, !negatifConclusion , "English");
 
         Response r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
