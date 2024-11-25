@@ -44,7 +44,7 @@ public class PolysyllogismeTest {
     @Test
     void fonctionalTestTermeEgauxFalse() {
         Polysyllogisme poly = new Polysyllogisme("English");
-        assertFalse(poly.termesEgaux("mm", "nn"));
+        assertFalse(poly.EqualTerms("mm", "nn"));
     }
 
     /**
@@ -54,7 +54,7 @@ public class PolysyllogismeTest {
     @Test
     void fonctionalTestTermeEgauxTrue() {
         Polysyllogisme poly = new Polysyllogisme("English");
-        assertTrue(poly.termesEgaux("mm", "mm"));
+        assertTrue(poly.EqualTerms("mm", "mm"));
     }
 
     /**
@@ -67,7 +67,7 @@ public class PolysyllogismeTest {
         // Test with various valid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun3", new Quantifier("commun", true), true);
-        assertTrue(poly.deuxPropsValide(p1.getFirstTerm().getExpression(), p1.getSecondTerm().getExpression(),
+        assertTrue(poly.twoValidProps(p1.getFirstTerm().getExpression(), p1.getSecondTerm().getExpression(),
                 p2.getFirstTerm().getExpression(), p2.getSecondTerm().getExpression()));
         // Additional cases are also validated below
     }
@@ -82,7 +82,7 @@ public class PolysyllogismeTest {
         // Test with various invalid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
         Proposition p2 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
-        assertFalse(poly.deuxPropsValide(p1.getFirstTerm().getExpression(), p1.getSecondTerm().getExpression(),
+        assertFalse(poly.twoValidProps(p1.getFirstTerm().getExpression(), p1.getSecondTerm().getExpression(),
                 p2.getFirstTerm().getExpression(), p2.getSecondTerm().getExpression()));
         // Additional cases are also validated below
     }

@@ -21,7 +21,7 @@ class SyllogismeTest {
         Syllogisme syllo = new Syllogisme(quantifUniv,"Adnane","Dinh",true,quantifExist,
                 "omar","Adnane",true,quantifUniv,"Adnane","Dinh",true);
 
-        assertEquals(1,syllo.FigureDetect(), "ici");
+        assertEquals(1,syllo.figureDetect(), "ici");
 
         System.out.println("test: OK");
     }
@@ -38,7 +38,7 @@ class SyllogismeTest {
                 quantifExist, "Socrate", "homme", true,
                 quantifExist, "Socrate", "mortel", true);
 
-        assertEquals(1,syllo.FigureDetect(),"Doit etre figure 1");
+        assertEquals(1,syllo.figureDetect(),"Doit etre figure 1");
     }
 
     /**
@@ -57,7 +57,7 @@ class SyllogismeTest {
         syllo.setFigureNum(2);
         syllo.MiddleTermRule();
         assertEquals(0, syllo.getInvalid().size(), "Moyen terme devrait être valide");
-        assertEquals(2, syllo.FigureDetect(), "bonne figure");
+        assertEquals(2, syllo.figureDetect(), "bonne figure");
 
         System.out.println("testMoyenTerme: OK");
 
