@@ -5,25 +5,25 @@ package traitement;
  * This class allows defining and managing a quantifier,
  * with its quantity and its name.
  */
-public class Quantificator {
+public class Quantifier {
     /**
      * Name of the quantifier, such as "all" or "some".
      */
-    private String nom;
+    private String name;
     /**
      * Indicates if the quantifier is universal (true) or particular (false).
      */
-    private boolean estUniverselle;
+    private boolean isUniversal;
 
     /**
      * Constructor of the Quantifier class.
      *
-     * @param estUniverselle boolean indicating if the quantifier is universal.
-     * @param nom name of the quantifier.
+     * @param isUniversal boolean indicating if the quantifier is universal.
+     * @param name name of the quantifier.
      */
-    public Quantificator(String nom, boolean estUniverselle) {
-        this.nom = nom;
-        this.estUniverselle = estUniverselle;
+    public Quantifier(String name, boolean isUniversal) {
+        this.name = name;
+        this.isUniversal = isUniversal;
     }
 
     //The setters will be used to modify the quantifiers.
@@ -33,7 +33,7 @@ public class Quantificator {
      * @param universelle boolean indicating if the quantifier is universal or particular.
      */
     public void setUniversal(boolean universelle) {
-        estUniverselle = universelle;
+        isUniversal = universelle;
     }
     /**
      * Allows modifying the name of the quantifier.
@@ -41,7 +41,7 @@ public class Quantificator {
      * @param n the new name of the quantifier.
      */
     public void setName(String n) {
-        this.nom = n;
+        this.name = n;
     }
 
 
@@ -50,15 +50,15 @@ public class Quantificator {
      *
      * @return the name of the quantifier.
      */
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
     /**
      * Checks if the quantifier is universal.
      *
      * @return true if the quantifier is universal, false otherwise.
      */
-    public boolean estUniverselle() {
-        return estUniverselle;
+    public boolean isUniversal() {
+        return isUniversal;
     }
 }

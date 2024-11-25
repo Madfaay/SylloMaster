@@ -1,6 +1,6 @@
 package SyllogismeInterface;
 
-import traitement.Quantificator;
+import traitement.Quantifier;
 import traitement.Reponse;
 import traitement.Syllogisme;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -346,7 +346,7 @@ public class SyllogismeRedactionSimpleController {
                 break;
             }
         }
-        Quantificator q1 = new Quantificator(quantifPremise1, q1univ);
+        Quantifier q1 = new Quantifier(quantifPremise1, q1univ);
 
         boolean q2univ = false ;
         for (String quantif : quantiflistUniv){
@@ -355,7 +355,7 @@ public class SyllogismeRedactionSimpleController {
                 break;
             }
         }
-        Quantificator q2 = new Quantificator(quantifPremise2, q1univ);
+        Quantifier q2 = new Quantifier(quantifPremise2, q1univ);
 
         boolean qCuniv = false ;
         for (String quantif : quantiflistUniv){
@@ -364,7 +364,7 @@ public class SyllogismeRedactionSimpleController {
                 break;
             }
         }
-        Quantificator qC = new Quantificator(quantifConclusion, q1univ);
+        Quantifier qC = new Quantifier(quantifConclusion, q1univ);
 
         Syllogisme syllo = new Syllogisme(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure );
 

@@ -10,14 +10,14 @@ public class Polysyllogisme implements Validateur {
 
     public static void main(String[] args) {
         Polysyllogisme poly = new Polysyllogisme();
-        Proposition p1 = new Proposition("mammifère" , "animal" , new Quantificateur("test" , true ) , true);
-        Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantificateur("test" , true ) , true);
-        Proposition p3 = new Proposition("vélo" , "animal" , new Quantificateur("test" , true ) , true);
-        Proposition p4 = new Proposition("fox" , "chien" , new Quantificateur("test" , true ) , true);
-        Proposition p5 = new Proposition("mini-vélo" , "vélo" , new Quantificateur("test" , true ) , true);
-        Proposition p6 = new Proposition("chien" , "mammifère" , new Quantificateur("test" , true ) , true);
+        Proposition p1 = new Proposition("mammifère" , "animal" , new Quantifier("test" , true ) , true);
+        Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantifier("test" , true ) , true);
+        Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , true);
+        Proposition p4 = new Proposition("fox" , "chien" , new Quantifier("test" , true ) , true);
+        Proposition p5 = new Proposition("mini-vélo" , "vélo" , new Quantifier("test" , true ) , true);
+        Proposition p6 = new Proposition("chien" , "mammifère" , new Quantifier("test" , true ) , true);
 
-        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantificateur("test" , true ) , true);
+        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantifier("test" , true ) , true);
 
         List<Proposition> propositions = new ArrayList<>();
         propositions.add(p1);
@@ -128,25 +128,25 @@ public class Polysyllogisme implements Validateur {
      * @return the isolated term as a {@link Terme}, or {@code null} if no isolated term is found.
      */
     public Terme getIsolatedTerm(Proposition p1, Proposition p2) {
-        String un = p1.getPremierTerme().getExpression();
-        String deux = p1.getDeuxiemeTerme().getExpression();
-        String trois = p2.getPremierTerme().getExpression();
-        String quatre = p2.getDeuxiemeTerme().getExpression();
+        String one = p1.getFirstTerm().getExpression();
+        String two = p1.getSecondTerm().getExpression();
+        String Three = p2.getFirstTerm().getExpression();
+        String four = p2.getSecondTerm().getExpression();
 
-        System.out.println(un + deux + trois + quatre);
+        System.out.println(one + two + Three + four);
 
-        if (termesEgaux(un, trois) && !termesEgaux(deux, quatre)) {
-            return p1.getDeuxiemeTerme();
+        if (termesEgaux(one, Three) && !termesEgaux(two, four)) {
+            return p1.getSecondTerm();
         }
-        if (termesEgaux(un, quatre) && !termesEgaux(deux, trois)) {
-            return p1.getDeuxiemeTerme();
+        if (termesEgaux(one, four) && !termesEgaux(two, Three)) {
+            return p1.getSecondTerm();
         }
-        if (termesEgaux(deux, trois) && !termesEgaux(un, quatre)) {
-            return p1.getPremierTerme();
+        if (termesEgaux(two, Three) && !termesEgaux(one, four)) {
+            return p1.getFirstTerm();
         }
 
-        if (termesEgaux(deux, quatre) && !termesEgaux(un, trois)) {
-            return p1.getPremierTerme();
+        if (termesEgaux(two, four) && !termesEgaux(one, Three)) {
+            return p1.getFirstTerm();
         }
 
         return null;
@@ -194,8 +194,8 @@ public class Polysyllogisme implements Validateur {
 
         if (predicat == null || sujet == null) return false;
 
-        String premierTerme = conclusion.getPremierTerme().getExpression();
-        String deuxiemeTerme = conclusion.getDeuxiemeTerme().getExpression();
+        String premierTerme = conclusion.getFirstTerm().getExpression();
+        String deuxiemeTerme = conclusion.getSecondTerm().getExpression();
 
         System.out.println("104" + premierTerme + " " + deuxiemeTerme + " " + predicat + " " + sujet);
 
@@ -219,10 +219,10 @@ public class Polysyllogisme implements Validateur {
 
         for (Proposition p : premises) {
             if (tmpProp != null) {
-                String premierTermeTmp = tmpProp.getPremierTerme().getExpression();
-                String deuxiemeTermeTmp = tmpProp.getDeuxiemeTerme().getExpression();
-                String premierTerme = p.getPremierTerme().getExpression();
-                String deuxiemeTerme = p.getDeuxiemeTerme().getExpression();
+                String premierTermeTmp = tmpProp.getFirstTerm().getExpression();
+                String deuxiemeTermeTmp = tmpProp.getSecondTerm().getExpression();
+                String premierTerme = p.getFirstTerm().getExpression();
+                String deuxiemeTerme = p.getSecondTerm().getExpression();
 
                 if (!deuxPropsValide(premierTermeTmp, deuxiemeTermeTmp, premierTerme, deuxiemeTerme)) {
                     return false;
@@ -240,7 +240,7 @@ public class Polysyllogisme implements Validateur {
      */
     public Terme getPredicatConclusion()
     {
-        return this.conclusion.getDeuxiemeTerme();
+        return this.conclusion.getSecondTerm();
     }
 
     /**
@@ -250,7 +250,7 @@ public class Polysyllogisme implements Validateur {
      */
     public Terme getSujetConclusion()
     {
-        return this.conclusion.getPremierTerme();
+        return this.conclusion.getFirstTerm();
     }
 
     /**
@@ -278,8 +278,8 @@ public class Polysyllogisme implements Validateur {
         Terme sujet = getSujetConclusion();
         int indice = 0 ;
         for (Proposition p : premises) {
-            if(termesEgaux(sujet.getExpression() , p.getPremierTerme().getExpression())
-                    || termesEgaux(sujet.getExpression() , p.getDeuxiemeTerme().getExpression()))
+            if(termesEgaux(sujet.getExpression() , p.getFirstTerm().getExpression())
+                    || termesEgaux(sujet.getExpression() , p.getSecondTerm().getExpression()))
             {
                 this.swap(this.taillePremisses -1  , indice);
                 return true;
@@ -304,10 +304,10 @@ public class Polysyllogisme implements Validateur {
 
         for (int i = 0; i < premises.size(); i++) {
             Proposition p = premises.get(i);
-            String premierTermeTmp = prop.getPremierTerme().getExpression();
-            String deuxiemeTermeTmp = prop.getDeuxiemeTerme().getExpression();
-            String premierTerme = p.getPremierTerme().getExpression();
-            String deuxiemeTerme = p.getDeuxiemeTerme().getExpression();
+            String premierTermeTmp = prop.getFirstTerm().getExpression();
+            String deuxiemeTermeTmp = prop.getSecondTerm().getExpression();
+            String premierTerme = p.getFirstTerm().getExpression();
+            String deuxiemeTerme = p.getSecondTerm().getExpression();
             if (deuxPropsValide(premierTermeTmp, deuxiemeTermeTmp, premierTerme, deuxiemeTerme)) {
                 System.out.println(premierTerme+ deuxiemeTerme + premierTermeTmp + deuxiemeTermeTmp + i + indice);
                 if(indice == 1)
@@ -340,17 +340,17 @@ public class Polysyllogisme implements Validateur {
      * */
     public Pair<Terme, Terme> getMediumTerm (Proposition p1, Proposition p2){
         Pair<Terme, Terme> mediumTerms;
-        if (p1.getPremierTermeString().equals(p2.getPremierTermeString())) { //< cas ou le moyen terme est le premier terme dans les deux.
-            mediumTerms = new Pair(p1.getPremierTerme(), p2.getPremierTerme());
+        if (p1.getFirstTermString().equals(p2.getFirstTermString())) { //< cas ou le moyen terme est le premier terme dans les deux.
+            mediumTerms = new Pair(p1.getFirstTerm(), p2.getFirstTerm());
             return mediumTerms;
-        } else if (p1.getPremierTermeString().equals(p2.getDeuxiemeTermeString())) { //< cas ou le moyen terme est premier terme dans la premiere premise et deuxième dans la seconde.
-            mediumTerms = new Pair(p1.getPremierTerme(), p2.getDeuxiemeTerme());
+        } else if (p1.getFirstTermString().equals(p2.getSecondTermString())) { //< cas ou le moyen terme est premier terme dans la premiere premise et deuxième dans la seconde.
+            mediumTerms = new Pair(p1.getFirstTerm(), p2.getSecondTerm());
             return mediumTerms;
-        } else if (p1.getDeuxiemeTermeString().equals(p2.getPremierTermeString())) {
-            mediumTerms = new Pair<>(p1.getDeuxiemeTerme(), p2.getPremierTerme());
+        } else if (p1.getSecondTermString().equals(p2.getFirstTermString())) {
+            mediumTerms = new Pair<>(p1.getSecondTerm(), p2.getFirstTerm());
             return mediumTerms;
-        } else if (p1.getDeuxiemeTermeString().equals(p2.getDeuxiemeTermeString())) {
-            mediumTerms = new Pair<>(p1.getDeuxiemeTerme(), p2.getDeuxiemeTerme());
+        } else if (p1.getSecondTermString().equals(p2.getSecondTermString())) {
+            mediumTerms = new Pair<>(p1.getSecondTerm(), p2.getSecondTerm());
             return mediumTerms;
         } else {
             System.out.println("Pas de moyen terme : structure invalide");
@@ -374,13 +374,13 @@ public class Polysyllogisme implements Validateur {
      * If the rule is invalid, an error message is added to the invalid list.
      */
     @Override
-    public void regleMoyenTerme() {
+    public void MiddleTermRule() {
         for (int i = 0; i < premises.size() - 1; i++) {
             Pair<Terme, Terme> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
             Terme firstMediumTerm = mediumTerms.getKey();
             Terme secondMediumTerm = mediumTerms.getValue();
 
-            if (!firstMediumTerm.estUniverselle() && !secondMediumTerm.estUniverselle()) {
+            if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
                 invalid.add("ENG: Medium Term Invalid / FR: Moyen Terme Invalide");
                 return; //< Si on trouve que la règle est invalide on quitte la vérification.
             }
@@ -395,15 +395,15 @@ public class Polysyllogisme implements Validateur {
      * the corresponding term in the premises must also be universal.
      */
     @Override
-    public void regleLatius() {
-        if (conclusion.getPremierTerme().estUniverselle()) {
-            if (!premises.getLast().getPremierTerme().estUniverselle()) {
+    public void LatiusRule() {
+        if (conclusion.getFirstTerm().isUniversal()) {
+            if (!premises.getLast().getFirstTerm().isUniversal()) {
                 invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
                 return;
             }
         }
-        if (conclusion.getDeuxiemeTerme().estUniverselle()) {
-            if(!premises.getFirst().getPremierTerme().estUniverselle()) {
+        if (conclusion.getSecondTerm().isUniversal()) {
+            if(!premises.getFirst().getFirstTerm().isUniversal()) {
                 invalid.add("ENG: Latius Invalid / FR: Latius Invalide");
             }
 
@@ -420,7 +420,7 @@ public class Polysyllogisme implements Validateur {
     public void rNN() {
         int i = 0;
         for (Proposition p : premises) {
-            if (!p.estAffirmative()) {
+            if (!p.isAffirmative()) {
                 i++;
             }
             if (i >= 2) {
@@ -437,7 +437,7 @@ public class Polysyllogisme implements Validateur {
     @Override
     public void rN() {
         for(Proposition p : premises) {
-            if(!p.estAffirmative() && conclusion.estAffirmative()) {
+            if(!p.isAffirmative() && conclusion.isAffirmative()) {
                 invalid.add("ENG: Rn Invalid / FR: Rn Invalide");
                 return;
             }
@@ -454,11 +454,11 @@ public class Polysyllogisme implements Validateur {
     public void rAA() {
         int i = 0;
         for(Proposition a : premises) {
-            if(a.estAffirmative()){
+            if(a.isAffirmative()){
                 i++;
             }
         }
-        if(i == premises.size() && !conclusion.estAffirmative()){
+        if(i == premises.size() && !conclusion.isAffirmative()){
             invalid.add("ENG: Raa Invalid / FR: Raa Invalide");
         }
     }
@@ -471,7 +471,7 @@ public class Polysyllogisme implements Validateur {
     public void rPP() {
         int i = 0;
         for(Proposition a : premises) {
-            if(!a.estUniverselle()){
+            if(!a.isUniversal()){
                 i++;
             }
         }
@@ -488,11 +488,11 @@ public class Polysyllogisme implements Validateur {
     public void rP() {
         int i = 0;
         for(Proposition a : premises) {
-            if(!a.estUniverselle()){  //si l'une des prémisses est particuliers
+            if(!a.isUniversal()){  //si l'une des prémisses est particuliers
                 break;
             }
         }
-        if(conclusion.estUniverselle()) { //< Et si la conclusion ne l'est pas.
+        if(conclusion.isUniversal()) { //< Et si la conclusion ne l'est pas.
             invalid.add("ENG: Rp Invalid / FR: Rp Invalide");
         }
     }
@@ -505,12 +505,12 @@ public class Polysyllogisme implements Validateur {
     public void rUU() {
         int i = 0;
         for(Proposition a : premises) {
-            if(a.estUniverselle()){
+            if(a.isUniversal()){
                 i++;
             }
         }
         if(i==premises.size()) {
-            if(!conclusion.estUniverselle()) {
+            if(!conclusion.isUniversal()) {
                 invalid.add("ENG: Ruu Invalid / FR: Ruu Invalide");
             }
         }
@@ -546,8 +546,8 @@ public class Polysyllogisme implements Validateur {
      */
     public Proposition convertConclusion() {
         if(estIninteressant()) { // If the syllogism is uninteresting, we need to change the conclusion.
-            return new Proposition(conclusion.getPremierTermeString(), conclusion.getDeuxiemeTermeString(),
-                    premises.getFirst().getQuantificateur(), conclusion.estAffirmative()); //< We return the new conclusion.
+            return new Proposition(conclusion.getFirstTermString(), conclusion.getSecondTermString(),
+                    premises.getFirst().getQuantificator(), conclusion.isAffirmative()); //< We return the new conclusion.
         }
         return null; //< If the conclusion is interesting, return null
     }
@@ -564,8 +564,8 @@ public class Polysyllogisme implements Validateur {
         invalid.clear();
 
         // We apply all the rules.
-        regleMoyenTerme();
-        regleLatius();
+        MiddleTermRule();
+        LatiusRule();
         rNN();
         rN();
         rAA();
@@ -593,7 +593,7 @@ public class Polysyllogisme implements Validateur {
         this.invalid = new ArrayList<>();
     }
 
-    public void addPremise(Quantificateur quantifier,String firstTerm, String secondTerm, boolean isAffirmatif) {
+    public void addPremise(Quantifier quantifier, String firstTerm, String secondTerm, boolean isAffirmatif) {
         Proposition premise = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
         premises.add(premise);
 
@@ -607,7 +607,7 @@ public class Polysyllogisme implements Validateur {
      * @param secondTerm the second term of the conclusion.
      * @param isAffirmatif {@code true} if the conclusion is affirmative, {@code false} otherwise.
      */
-    public void addConclusion(Quantificateur quantifier,String firstTerm, String secondTerm, boolean isAffirmatif) {
+    public void addConclusion(Quantifier quantifier, String firstTerm, String secondTerm, boolean isAffirmatif) {
         Proposition conclusion = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
         this.conclusion = conclusion;
     }

@@ -70,9 +70,9 @@ public class Syllogisme implements Validateur{
      * @param ConclusionPredicate Predicate of the conclusion.
      * @param isConclusionAffirmative Boolean indicating if the conclusion is affirmative.
      */
-    public Syllogisme(Quantificator MajorQuantif, String MajorSubject, String MajorPredicat, boolean isMajorAffirmative,
-                      Quantificator MinorQuantif, String MinorSubject, String MinorPredicat, boolean isMinorAffirmative,
-                      Quantificator ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative
+    public Syllogisme(Quantifier MajorQuantif, String MajorSubject, String MajorPredicat, boolean isMajorAffirmative,
+                      Quantifier MinorQuantif, String MinorSubject, String MinorPredicat, boolean isMinorAffirmative,
+                      Quantifier ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative
                       ) {
 
 
@@ -103,7 +103,7 @@ public class Syllogisme implements Validateur{
      * @param FigureNum Figure number of the syllogism (must be between 1 and 4).
      * @throws IllegalArgumentException if the figure number is outside the range [1, 4].
      */
-    public Syllogisme(Quantificator quantifPremise1, Quantificator quantifPremise2, Quantificator quantifConclusion,
+    public Syllogisme(Quantifier quantifPremise1, Quantifier quantifPremise2, Quantifier quantifConclusion,
                       String Subject, String predicat, String MiddleTerm,
                       boolean isAffirmativePremis1, boolean isAffirmativePremiss2, boolean isAffirmativeConclusion,
                       int FigureNum) {
@@ -152,22 +152,22 @@ public class Syllogisme implements Validateur{
     /**
      * Defines the major premise of the syllogism.
      */
-    public void setMajeur(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean isAffirmative) {
-        this.major = new Proposition(FirstTerm, SecondTerm, quantificator, isAffirmative);
+    public void setMajeur(String FirstTerm, String SecondTerm, Quantifier quantifier, boolean isAffirmative) {
+        this.major = new Proposition(FirstTerm, SecondTerm, quantifier, isAffirmative);
     }
 
     /**
      * Defines the minor premise of the syllogism.
      */
-    public void setMineur(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean estAffirmative) {
-        this.minor = new Proposition(FirstTerm, SecondTerm, quantificator, estAffirmative);
+    public void setMineur(String FirstTerm, String SecondTerm, Quantifier quantifier, boolean estAffirmative) {
+        this.minor = new Proposition(FirstTerm, SecondTerm, quantifier, estAffirmative);
     }
 
     /**
      * Defines the conclusion of the syllogism.
      */
-    public void setConclusion(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean isAffirmative) {
-        this.conclusion = new Proposition(FirstTerm, SecondTerm, quantificator, isAffirmative);
+    public void setConclusion(String FirstTerm, String SecondTerm, Quantifier quantifier, boolean isAffirmative) {
+        this.conclusion = new Proposition(FirstTerm, SecondTerm, quantifier, isAffirmative);
     }
 
     /**
@@ -262,7 +262,7 @@ public class Syllogisme implements Validateur{
      * If the rule is not valid, it is added to the list of invalid rules.
      * */
     @Override
-    public void regleMoyenTerme() {
+    public void MiddleTermRule() {
 
         if (!getMoyenTermeMajeur().isUniversal() && !getMoyenTermeMineur().isUniversal()) { //<If the middle term is particular in both premises, it is false.
             (this.invalid).add("Moyen Terme");
@@ -275,7 +275,7 @@ public class Syllogisme implements Validateur{
      * If the rule is not valid, it is added to the list of invalid rules.
      */
     @Override
-    public void regleLatius() {
+    public void LatiusRule() {
 
         if (conclusion.getFirstTerm().isUniversal()) { //< If the subject of the conclusion is universal,
             if (!getSujet().isUniversal()) { //< The subject in the premise must also be universal.
@@ -377,8 +377,8 @@ public class Syllogisme implements Validateur{
          invalid.clear();
 
         // We apply all the rules.
-        regleMoyenTerme();
-        regleLatius();
+        MiddleTermRule();
+        LatiusRule();
         rNN();
         rN();
         rAA();
@@ -416,9 +416,9 @@ public class Syllogisme implements Validateur{
 
         for(String isCheck : check){
             if("regleMoyenTerme".equals(isCheck)){
-                regleMoyenTerme();
+                MiddleTermRule();
             }else if("regleLatius".equals(isCheck)){
-                regleLatius();
+                LatiusRule();
             }else if("rNN".equals(isCheck)){
                 rNN();
             }else if("rN".equals(isCheck)){

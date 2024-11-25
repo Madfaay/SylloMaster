@@ -16,25 +16,25 @@ public class Proposition {
     private boolean isAffirmative;
     private Terme FirstTerm;
     private Terme SecondTerm;
-    private Quantificator quantificator;
+    private Quantifier quantifier;
 
     /**
      * Constructor to create a new proposition.
      *
      * @param FirstTerm The string representing the first term of the proposition.
      * @param SecondTerm The string representing the second term of the proposition.
-     * @param quantificator The quantifier associated with the proposition (for example, universal or existential).
+     * @param quantifier The quantifier associated with the proposition (for example, universal or existential).
      * @param isAffirmative Indicates if the proposition is affirmative (true) or negative (false).
      */
-    public Proposition(String FirstTerm, String SecondTerm, Quantificator quantificator, boolean isAffirmative) {
+    public Proposition(String FirstTerm, String SecondTerm, Quantifier quantifier, boolean isAffirmative) {
         if(isAffirmative){
             this.SecondTerm = new Terme(SecondTerm,false);
         } else {
             this.SecondTerm = new Terme(SecondTerm,true);
         }
-        this.FirstTerm = new Terme(FirstTerm, quantificator.estUniverselle());
+        this.FirstTerm = new Terme(FirstTerm, quantifier.isUniversal());
 
-        this.quantificator = quantificator;
+        this.quantifier = quantifier;
         this.isAffirmative = isAffirmative;
     }
 
@@ -79,8 +79,8 @@ public class Proposition {
      *
      * @return the quantifier (Quantificateur) of the proposition.
      */
-    public Quantificator getQuantificator() {
-        return quantificator;
+    public Quantifier getQuantificator() {
+        return quantifier;
     }
 
     /**
@@ -98,7 +98,7 @@ public class Proposition {
      * @return true if the quantifier is universal, false if it is existential.
      */
     public boolean isUniversal() {
-        return quantificator.estUniverselle();
+        return quantifier.isUniversal();
     }
 
     // Methods to recognize the form of the proposition.
@@ -135,7 +135,7 @@ public class Proposition {
     {
         return ("First Term : " + this.getFirstTermString()
                 + " Second Term : " + this.getSecondTermString() +
-                " Quantificator : " + this.getQuantificator().getNom()
+                " Quantificator : " + this.getQuantificator().getName()
 
         );
     }

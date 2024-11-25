@@ -10,13 +10,13 @@ public interface Validateur {
      * Applies the "Moyen Terme" rule.
      * This rule checks the relationship of the middle term in the syllogism.
      */
-    void regleMoyenTerme();
+    void MiddleTermRule();
 
     /**
      * Applies the "Latius" rule.
      * This rule checks if a universal term in the conclusion must also be universal in the premises.
      */
-    void regleLatius();
+    void LatiusRule();
 
     /**
      * Applies the "rNN" rule.
