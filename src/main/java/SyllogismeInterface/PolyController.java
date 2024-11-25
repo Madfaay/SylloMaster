@@ -16,10 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import traitement.Polysyllogisme;
 import traitement.Proposition;
-import traitement.Quantificateur;
+import traitement.Quantifier;
 import traitement.Reponse;
 
-import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -478,21 +477,21 @@ public class PolyController {
         for(int i =0 ; i < length-1 ; i++ ){
             String firstTerm = this.first.get(i);
             String secondTerm = this.second.get(i);
-            Quantificateur quantificateur = new Quantificateur(this.quant.get(i), universel(this.quant.get(i)));
+            Quantifier quantifier = new Quantifier(this.quant.get(i), universel(this.quant.get(i)));
             boolean isAffirmative = true;
 
-            Proposition p = new Proposition(firstTerm, secondTerm, quantificateur, this.booleans.get(i));
+            Proposition p = new Proposition(firstTerm, secondTerm, quantifier, this.booleans.get(i));
 
             propositions.add(p);
         }
         String firstTerm = this.first.get(length-1);
         String secondTerm = this.second.get(length-1);
-        Quantificateur quantificateur = new Quantificateur(this.quant.get(length-1), true); // Create a new Quantificateur using the value from 'quant' at index 'length'
+        Quantifier quantifier = new Quantifier(this.quant.get(length-1), true); // Create a new Quantificateur using the value from 'quant' at index 'length'
         boolean isAffirmative = true;
 
 
 
-        Proposition conclusion = new Proposition(firstTerm, secondTerm, quantificateur, this.booleans.get(length-1));
+        Proposition conclusion = new Proposition(firstTerm, secondTerm, quantifier, this.booleans.get(length-1));
 
         poly.setPremises(propositions);
         poly.setConclusion(conclusion);
