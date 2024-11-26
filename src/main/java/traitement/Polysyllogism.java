@@ -572,9 +572,9 @@ public class Polysyllogism implements Validator {
         rAA();
         rPP();
         rP();
-        rUU();
+        //rUU();
 
-        Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
+        Proposition newConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
 
         boolean isValid = invalid.isEmpty(); // If the list of invalid rules is empty, it is valid.
 
@@ -595,7 +595,51 @@ public class Polysyllogism implements Validator {
                     }
             }
     }
-        return new Response(message, isValid, nouvelleConclusion);
+        return new Response(message, isValid, newConclusion);
+    }
+
+    /**
+     * Allows choosing the rule that we want to submit for validation.
+     */
+    public Response validRule(ArrayList<String> check){
+        if(check.isEmpty()) {
+            return new Response("No rules selected", true, null);
+        }
+        invalid.clear();
+        Proposition newConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
+
+
+        for(String isCheck : check){
+            if("regleMoyenTerme".equals(isCheck)){
+                MiddleTermRule();
+            }else if("regleLatius".equals(isCheck)){
+                LatiusRule();
+            }else if("rNN".equals(isCheck)){
+                rNN();
+            }else if("rN".equals(isCheck)){
+                rN();
+            }else if("rAA".equals(isCheck)){
+                rAA();
+            }else if("rPP".equals(isCheck)){
+                rPP();
+            }else if("rP".equals(isCheck)){
+                rP();
+            }else if("rUU".equals(isCheck)){
+                rUU();
+            }
+
+        }
+        boolean isValid = invalid.isEmpty();
+        String message;
+        if (isValid) {
+            message = "Every rules chosen are validated";
+        }else{
+            message = "The rules that are not validated are: ";
+            for (String s : invalid) {
+                message += s + "; ";
+            }
+        }
+        return new Response(message, isValid, newConclusion);
     }
 
     public Polysyllogism(String language) {
