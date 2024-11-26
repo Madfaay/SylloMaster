@@ -1,5 +1,6 @@
 package SyllogismeInterface;
 
+import traitement.Generator256;
 import traitement.Quantifier;
 import traitement.Response;
 import traitement.Syllogism;
@@ -41,6 +42,7 @@ public class SyllogismeRedactionSimpleController {
     Boolean negatifConclusion;
     Boolean hypothesis;
 
+    Syllogism syllogism;
     List<String> quantiflistUniv = new ArrayList<>();
     List<String> quantiflistExist = new ArrayList<>();
 
@@ -157,15 +159,31 @@ public class SyllogismeRedactionSimpleController {
 
     @FXML
     private void array(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Tableau.fxml"));
+        // Chargement du fichier FXML
+        if(this.syllogism!=null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Tableau.fxml"));
+            Parent root = loader.load();
 
-        Stage stage = new Stage();
-        stage.setTitle("Tableau");
+            // Obtenir le contrôleur associé au fichier FXML
+            TableauController controller = loader.getController();
 
-        Scene scene = new Scene(root);
+            // Ajouter des lignes au tableau via le contrôleur
 
-        stage.setScene(scene);
-        stage.show();
+            Generator256 generator256 = new Generator256(this.syllogism);
+
+            for (List<String> syllogisme : generator256.syllogismesDetails) {
+                controller.addRow(syllogisme);
+            }
+
+            // Configuration de la scène et affichage
+            Stage stage = new Stage();
+            stage.setTitle("Tableau");
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     /**
@@ -380,6 +398,7 @@ public class SyllogismeRedactionSimpleController {
         Quantifier qC = new Quantifier(quantifConclusion, q1univ);
 
         Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure,"English" );
+        this.syllogism = syllo;
 
         Response r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)

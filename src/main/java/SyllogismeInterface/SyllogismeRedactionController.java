@@ -2,6 +2,7 @@ package SyllogismeInterface;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import traitement.Generator256;
 import traitement.Quantifier;
 import traitement.Response;
 import traitement.Syllogism;
@@ -26,6 +27,7 @@ public class SyllogismeRedactionController {
 
     @FXML private AnchorPane pane;
 
+    Syllogism syllogism;
     String quantifPremise1, subjectPremise1, predicatPremise1;
     Boolean negatifPremise1;
 
@@ -182,16 +184,33 @@ public class SyllogismeRedactionController {
 
     @FXML
     private void array(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Tableau.fxml"));
+        // Chargement du fichier FXML
+        if(this.syllogism!=null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Tableau.fxml"));
+            Parent root = loader.load();
 
-        Stage stage = new Stage();
-        stage.setTitle("Tableau");
+            // Obtenir le contrôleur associé au fichier FXML
+            TableauController controller = loader.getController();
 
-        Scene scene = new Scene(root);
+            // Ajouter des lignes au tableau via le contrôleur
 
-        stage.setScene(scene);
-        stage.show();
+            Generator256 generator256 = new Generator256(this.syllogism);
+
+            for (List<String> syllogisme : generator256.syllogismesDetails) {
+                controller.addRow(syllogisme);
+            }
+
+            // Configuration de la scène et affichage
+            Stage stage = new Stage();
+            stage.setTitle("Tableau");
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        }
     }
+
 
     /**
      * Method to handle premise 1 quantifier selection
@@ -423,6 +442,7 @@ public class SyllogismeRedactionController {
                 q2,subjectPremise2,predicatPremise2, !negatifPremise2,
                 qC, subjectConclusion, predicatConclusion, !negatifConclusion , "English");
 
+        this.syllogism = syllo;
         Response r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
             myTextValid.setText(r.getMessage());

@@ -328,7 +328,7 @@ public class PolyController {
 
         // If the inputs are valid, process the data
         if (valid) {
-            this.booleans.add(this.Negative.isSelected());
+            this.booleans.add(!this.Negative.isSelected());
             nbpremise++;
 
             // Get text from the TextFields
@@ -413,7 +413,7 @@ public class PolyController {
 
         // If all fields are valid, process the data
         if (valid) {
-            this.booleans.add(this.Negative.isSelected());
+            this.booleans.add(!this.Negative.isSelected());
             // Get text from the TextFields and the selected quantifier
             String premierTermeText = premierterme.getText();
             String deuxiemeTermeText = deuxiemeterme.getText();

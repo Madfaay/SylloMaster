@@ -22,10 +22,11 @@ public class Generator256 {
 
     // Attributs pour stocker les résultats
     private final List<Syllogism> syllogismes = new ArrayList<>();
-    private List<List<String>> syllogismesDetails = new ArrayList<>();
+    public List<List<String>> syllogismesDetails = new ArrayList<>();
 
     private int valideCount = 0;
     private int interessantCount = 0;
+
 
 
     public Generator256(Syllogism s) {
@@ -78,13 +79,22 @@ public class Generator256 {
                         boolean isIninteressant = nouveau.estIninteressant();
 
 
+                        nombre++;
                         // Pour chaque syllogisme
                         List<String> detail = new ArrayList<>();
-                        detail.add("Figure : " + figure);
+                        detail.add(Integer.toString(nombre));
+                        detail.add(Integer.toString(figure));
                         detail.add(type1+type2+type3);
-                        //detail.add("Premisse 1 : " + maj.toString());
-                        //detail.add("Premisse 2 : " + min.toString());
-                        //detail.add("Conclusion : " + c.toString());
+
+                        ArrayList<Boolean> r = nouveau.getValidRules();
+                        for(Boolean b : r) {
+                            if(b) {
+                                detail.add("TRUE");
+                            }else{
+                                detail.add("FALSE");
+                            }
+                        }
+
 
                         if (isValidSyllo) {
                             detail.add("Valide");
@@ -97,6 +107,7 @@ public class Generator256 {
                             }
                         } else {
                             detail.add("Invalide");
+                            detail.add("NULL");
                             /*if (!nouveau.getInvalid().isEmpty()) {
                                 detail.add("Règles invalides :");
                                 for (String regle : nouveau.getInvalid()) {
@@ -105,6 +116,8 @@ public class Generator256 {
                                 }
                             }*/
                         }
+
+
 
                         // Ajout du détail du syllogisme dans la liste principale
                         syllogismesDetails.add(detail);
@@ -193,6 +206,32 @@ public class Generator256 {
     }
 
 
+    public void afficherSyllogismesDetails() {
+        // Check if the list is empty
+        if (syllogismesDetails.isEmpty()) {
+            System.out.println("La liste des syllogismes est vide.");
+            return;
+        }
+
+        System.out.println("Contenu de syllogismesDetails :");
+        int index = 1; // Index for each sublist
+
+        // Iterate through each sublist in syllogismesDetails
+        for (List<String> syllogisme : syllogismesDetails) {
+            System.out.print("Syllogisme " + index + ": [");
+
+            // Print each element in the sublist, separated by commas
+            for (int i = 0; i < syllogisme.size(); i++) {
+                System.out.print(syllogisme.get(i));
+                if (i < syllogisme.size() - 1) {
+                    System.out.print(", "); // Add comma except for the last element
+                }
+            }
+            System.out.println("]");
+            index++; // Increment index for next sublist
+        }
+    }
+
     public static void main(String[] args) {
         // Création des quantificateurs
         Quantifier quantifMajeur = new Quantifier("Tous les", true); // Universelle affirmative (A)
@@ -227,7 +266,7 @@ public class Generator256 {
 
         // Initialisation du générateur
         Generator256 g = new Generator256(syllogisme1);
-        g.afficherSyllogismes();
+        g.afficherSyllogismesDetails();
 
 
 

@@ -305,15 +305,16 @@ public class Syllogism implements Validator {
             if (!getSujet().isUniversal()) { //< The subject in the premise must also be universal.
                 invalid.add("Latius");
                 this.validRules.add(false);
+                return;
             }
-        } else if (conclusion.getSecondTerm().isUniversal()) { //< If the predicate of the conclusion is universal,
+        }
+
+        if (conclusion.getSecondTerm().isUniversal()) { //< If the predicate of the conclusion is universal,
             if (!getPredicat().isUniversal()) { //< The predicate in the premise must also be universal.
                 invalid.add("Latius");
                 this.validRules.add(false);
+                return;
             }
-        } else {
-            this.validRules.add(true);
-            return;
         }
         this.validRules.add(true);
     }
@@ -364,10 +365,7 @@ public class Syllogism implements Validator {
                 this.validRules.add(false);
                 return;
             }
-                this.validRules.add(true);
-                return;
         }
-
         this.validRules.add(true);
     }
 
@@ -424,7 +422,6 @@ public class Syllogism implements Validator {
         }
         this.validRules.add(true);
     }
-
     /**
      * Validates the syllogism by applying logical rules and determines if the conclusion is interesting.
      */
