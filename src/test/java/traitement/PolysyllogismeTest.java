@@ -582,5 +582,29 @@ public class PolysyllogismeTest {
         assertEquals(1, polysyllogism.getInvalid().size(), "Le poly syllogisme doit être incorrecte.");
     }
 
+    @Test
+    void testValider() {
+        Polysyllogism polysyllogism = new Polysyllogism("English");
+        Quantifier tout = new Quantifier("TouT", true);
+        Quantifier aucun = new Quantifier("il n'existe", true);
+
+        polysyllogism.addPremise(tout,"fox à poils durs", "fox",true); //< Tout fox à poils durs est un fox
+        polysyllogism.addPremise(tout,"fox", "chien",true); //< Tout fox est un chien
+        polysyllogism.addPremise(tout,"chien", "mammifère",true); //< Tout chien est un mammifère
+        polysyllogism.addPremise(tout,"mammifère", "animal",true); //< Tout mammifère est un animal
+        polysyllogism.addPremise(aucun,"vélo", "animal",false); //< Aucun vélo n’est un animal
+        polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
+        polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
+
+        Response r = polysyllogism.valider();
+
+        for (String rules : polysyllogism.getInvalid() ) {
+            System.out.println(rules);
+        }
+
+        assertEquals(true, r.isValid(), "Le poly syllogisme doit être correcte.");
+
+    }
+
 
 }

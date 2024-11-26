@@ -340,24 +340,18 @@ public class Polysyllogism implements Validator {
      * Method that allow the user to get a pair of medium term from two premises
      * */
     public Pair<Term, Term> getMediumTerm (Proposition p1, Proposition p2){
-        Pair<Term, Term> mediumTerms;
-        if (p1.getFirstTermString().equals(p2.getFirstTermString())) { //< cas ou le moyen terme est le premier terme dans les deux.
-            mediumTerms = new Pair(p1.getFirstTerm(), p2.getFirstTerm());
-            return mediumTerms;
-        } else if (p1.getFirstTermString().equals(p2.getSecondTermString())) { //< cas ou le moyen terme est premier terme dans la premiere premise et deuxième dans la seconde.
-            mediumTerms = new Pair(p1.getFirstTerm(), p2.getSecondTerm());
-            return mediumTerms;
+        if (p1.getFirstTermString().equals(p2.getFirstTermString())) {
+            return new Pair<>(p1.getFirstTerm(), p2.getFirstTerm());
+        } else if (p1.getFirstTermString().equals(p2.getSecondTermString())) {
+            return new Pair<>(p1.getFirstTerm(), p2.getSecondTerm());
         } else if (p1.getSecondTermString().equals(p2.getFirstTermString())) {
-            mediumTerms = new Pair<>(p1.getSecondTerm(), p2.getFirstTerm());
-            return mediumTerms;
+            return new Pair<>(p1.getSecondTerm(), p2.getFirstTerm());
         } else if (p1.getSecondTermString().equals(p2.getSecondTermString())) {
-            mediumTerms = new Pair<>(p1.getSecondTerm(), p2.getSecondTerm());
-            return mediumTerms;
+            return new Pair<>(p1.getSecondTerm(), p2.getSecondTerm());
         } else {
             System.out.println("Pas de moyen terme : structure invalide");
             return null;
         }
-
     }
 
     //------------------------------------------------------------------//
@@ -376,16 +370,23 @@ public class Polysyllogism implements Validator {
     public void MiddleTermRule() {
         for (int i = 0; i < premises.size() - 1; i++) {
             Pair<Term, Term> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
-            Term firstMediumTerm = mediumTerms.getKey();
-            Term secondMediumTerm = mediumTerms.getValue();
+            if (mediumTerms != null) {
+                Term firstMediumTerm = mediumTerms.getKey();
+                Term secondMediumTerm = mediumTerms.getValue();
 
-            if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
-                if(Objects.equals(language, "English")){
-                invalid.add("Middle Term");}
-                if(Objects.equals(language, "French")){
-                    invalid.add("Moyen Terme");}
-                return; //< Si on trouve que la règle est invalide on quitte la vérification.
+                if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
+                    if(Objects.equals(language, "English")){
+                        invalid.add("Middle Term");
+                    }
+                    if(Objects.equals(language, "French")){
+                        invalid.add("Moyen Terme");
+                    }
+                    return; //< Si on trouve que la règle est invalide on quitte la vérification.
+                }
+            } else {
+                return;
             }
+
         }
     }
 
@@ -490,12 +491,18 @@ public class Polysyllogism implements Validator {
     public void rP() {
         int i = 0;
         for(Proposition a : premises) {
-            if(!a.isUniversal()){  //si l'une des prémisses est particuliers
+            if(!a.isUniversal()){
+                i++;//si l'une des prémisses est particuliers
                 break;
             }
         }
+        if(i == 0){ // if no premise is existantial
+            return;
+        }
+        if(i != premises.size()){
         if(conclusion.isUniversal()) { //< Et si la conclusion ne l'est pas.
             invalid.add("rP");
+        }
         }
     }
 

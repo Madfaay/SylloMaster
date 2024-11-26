@@ -862,7 +862,7 @@ class SyllogismTest {
     }
 
     @Test
-    void testEIOFig4() {
+    void testValidRules() {
         // Quantificateurs
         Quantifier aucun = new Quantifier("No", true); // Universelle négative
         Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
@@ -875,10 +875,12 @@ class SyllogismTest {
                 4 ,
                 "English"
         );
+
         Response r = syllo.valider();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
+        assertEquals(7,syllo.getValidRules().size(), "It must be valid.");
     }
 
 }
