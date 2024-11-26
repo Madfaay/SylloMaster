@@ -880,4 +880,5 @@ class SyllogismTest {
 
         assertTrue(isValid, "It must be valid.");
     }
+
 }

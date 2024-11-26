@@ -18,6 +18,7 @@ public class Syllogism implements Validator {
     private int FigureNum;
     private ArrayList<String> invalid;
     private  String language = "English" ;
+    private ArrayList<Boolean> validRules = new ArrayList<>();
 
     /**
      * Returns the major proposition.
@@ -280,11 +281,14 @@ public class Syllogism implements Validator {
         if (!getMajorMiddleTerm().isUniversal() && !getMinorMiddleterm().isUniversal()) { //<If the middle term is particular in both premises, it is false.
             if(this.language.equals("English")){
                 (this.invalid).add("Middle Term");
+                validRules.add(false);
             }
             else{
                 (this.invalid).add("Moyen Terme");
+                validRules.add(false);
             }
         }
+        validRules.add(true);
     }
 
     /**
@@ -298,13 +302,15 @@ public class Syllogism implements Validator {
         if (conclusion.getFirstTerm().isUniversal()) { //< If the subject of the conclusion is universal,
             if (!getSujet().isUniversal()) { //< The subject in the premise must also be universal.
                 invalid.add("Latius");
+                validRules.add(false);
             }
-        }
-
-        if (conclusion.getSecondTerm().isUniversal()) { //< If the predicate of the conclusion is universal,
+        } else if (conclusion.getSecondTerm().isUniversal()) { //< If the predicate of the conclusion is universal,
             if (!getPredicat().isUniversal()) { //< The predicate in the premise must also be universal.
                 invalid.add("Latius");
+                validRules.add(false);
             }
+        } else {
+            validRules.add(true);
         }
 
     }
@@ -317,7 +323,10 @@ public class Syllogism implements Validator {
     public void rNN() {
         if(!major.isAffirmative() && !minor.isAffirmative()){
             invalid.add("rNN");
+            validRules.add(false);
+            return;
         }
+        validRules.add(true);
     }
 
     /**
@@ -326,14 +335,18 @@ public class Syllogism implements Validator {
      */
     @Override
     public void rN() {
-        if (major.isAffirmative() && minor.isAffirmative()) {
-            return; //< Both premises are affirmative, so the rN rule does not apply.
+        if (!major.isAffirmative() || !minor.isAffirmative()) {
+            if (conclusion.isAffirmative()) {
+                invalid.add("rN");
+                validRules.add(false);
+                return;
+            } else {
+                validRules.add(true);
+                return;
+            }
         }
+        validRules.add(true);
 
-        // Checks if the conclusion is affirmative when it should be negative.
-        if (conclusion.isAffirmative()) {
-            invalid.add("rN");
-        }
     }
 
     /**
@@ -345,8 +358,14 @@ public class Syllogism implements Validator {
         if(major.isAffirmative() && minor.isAffirmative()) {
             if(!conclusion.isAffirmative()) {
                 invalid.add("rAA");
+                validRules.add(false);
+                return;
+            }else{
+                validRules.add(true);
+                return;
             }
         }
+        validRules.add(true);
     }
 
     /**
@@ -357,7 +376,10 @@ public class Syllogism implements Validator {
     public void rPP() {
         if(!major.isUniversal() && !minor.isUniversal()) { //<If both are particular.
             invalid.add("rPP");
+            validRules.add(false);
+            return;
         }
+        validRules.add(true);
     }
 
     /**
@@ -369,8 +391,11 @@ public class Syllogism implements Validator {
         if(!major.isUniversal() || !minor.isUniversal()) { //< If one of the premises is particular.
             if(conclusion.isUniversal()) { //< And if the conclusion is not particular.
                 invalid.add("rP");
+                validRules.add(false);
+                return;
             }
         }
+        validRules.add(true);
     }
 
     /**
@@ -382,8 +407,15 @@ public class Syllogism implements Validator {
         if(major.isUniversal() && minor.isUniversal()) {
             if(!conclusion.isUniversal()) {
                 invalid.add("rUU");
+                validRules.add(false);
+                return;
+            }
+            else{
+                validRules.add(true);
+                return;
             }
         }
+        validRules.add(true);
     }
 
     /**
@@ -464,7 +496,6 @@ public class Syllogism implements Validator {
         }
         return new Response(message, isValid, newConclusion);
     }
-
     //------------------------------------------------------------------//
     //---------------MANAGEMENT OF INTERESTING CONCLUSIONS--------------//
     //------------------------------------------------------------------//
@@ -475,7 +506,6 @@ public class Syllogism implements Validator {
      * **/
 
     public boolean estIninteressant() {
-
         if (major.isUniversal() && minor.isUniversal() && !conclusion.isUniversal()) {
             return true;
         } else {
@@ -493,8 +523,5 @@ public class Syllogism implements Validator {
         }
         return null;
     }
-
-
-
 
 }
