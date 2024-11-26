@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Polysyllogism implements Validator {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         Polysyllogism poly = new Polysyllogism("English");
         Proposition p1 = new Proposition("mammifère" , "animal" , new Quantifier("test" , true ) , true);
         Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantifier("test" , true ) , true);
