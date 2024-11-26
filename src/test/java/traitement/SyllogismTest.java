@@ -69,7 +69,7 @@ class SyllogismTest {
      */
     @Test
     public void testMoyenTermeInvalide() {
-        /** Syllogisme tester :
+        /* Syllogisme tester :
          * Tous les chats sont gris.
          * Il existe un animal gris.
          * Il existe un animal qui est un chat.
@@ -225,12 +225,13 @@ class SyllogismTest {
         System.out.println("testRn (1 prémise négative mais conclusion affirmative ) : OK");
 
     }
+    /**
+     * Test for the rAA rule (Affirmative major premise, affirmative minor premise, conclusion in the same form).
+     * In this test, the syllogism follows the rAA rule.
+     */
     @Test
     void rAA() {
-        /**
-         * Test for the rAA rule (Affirmative major premise, affirmative minor premise, conclusion in the same form).
-         * In this test, the syllogism follows the rAA rule.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", true);
         Quantifier particulier = new Quantifier(" ", false);
@@ -247,12 +248,12 @@ class SyllogismTest {
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rAA rule.");
         System.out.println("testRaa: OK");
     }
-
+    /**
+     * Test for the rAA rule (Invalid case: Affirmative major premise, negative minor premise, conclusion should not be affirmative).
+     */
     @Test
     void rAAInvalid() {
-        /**
-         * Test for the rAA rule (Invalid case: Affirmative major premise, negative minor premise, conclusion should not be affirmative).
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", true);
         Quantifier particulier = new Quantifier(" ", false);
@@ -269,13 +270,13 @@ class SyllogismTest {
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rAA rule.");
         System.out.println("testRaaInvalid: OK");
     }
-
+    /**
+     * Test for the rPP rule (Particular major premise, particular minor premise).
+     * This test ensures the syllogism does not respect the rPP rule.
+     */
     @Test
     void rPP() {
-        /**
-         * Test for the rPP rule (Particular major premise, particular minor premise).
-         * This test ensures the syllogism does not respect the rPP rule.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", false);
         Quantifier particulier = new Quantifier(" ", false);
@@ -292,12 +293,12 @@ class SyllogismTest {
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rPP rule.");
         System.out.println("testRppInvalid: OK");
     }
-
+    /**
+     * Test for the rPP rule (Invalid case: particular major premise and particular minor premise with a particular conclusion).
+     */
     @Test
     void rPPInvalid() {
-        /**
-         * Test for the rPP rule (Invalid case: particular major premise and particular minor premise with a particular conclusion).
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", false);
         Quantifier particulier = new Quantifier(" ", true);
@@ -314,13 +315,13 @@ class SyllogismTest {
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rPP rule.");
         System.out.println("testRppInvalid: OK");
     }
-
+    /**
+     * Test for the rP rule (Universal major premise, particular minor premise).
+     * This test ensures the syllogism respects the rP rule.
+     */
     @Test
     void rP() {
-        /**
-         * Test for the rP rule (Universal major premise, particular minor premise).
-         * This test ensures the syllogism respects the rP rule.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", true);
         Quantifier particulier = new Quantifier(" ", false);
@@ -337,12 +338,12 @@ class SyllogismTest {
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rP rule.");
         System.out.println("testRpValid: OK");
     }
-
+    /**
+     * Test for the rP rule (Invalid case: Universal major premise, particular minor premise, conclusion should not be universal).
+     */
     @Test
     void rPInvalid() {
-        /**
-         * Test for the rP rule (Invalid case: Universal major premise, particular minor premise, conclusion should not be universal).
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", true);
         Quantifier particulier = new Quantifier(" ", false);
@@ -359,16 +360,15 @@ class SyllogismTest {
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rP rule.");
         System.out.println("testRpInvalid: OK");
     }
-
+    /**
+     * Test for the rUU rule (Universal major premise, universal minor premise).
+     * This test ensures the syllogism respects the rUU rule.
+     */
     @Test
     void rUU() {
-        /**
-         * Test for the rUU rule (Universal major premise, universal minor premise).
-         * This test ensures the syllogism respects the rUU rule.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", true);
-        Quantifier particulier = new Quantifier(" ", false);
 
         syllogism.setMajeur("men", "mortal", universel, true);
         syllogism.setMineur("Socrates", "men", universel, true);
@@ -382,12 +382,12 @@ class SyllogismTest {
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rUU rule.");
         System.out.println("testRUU: OK");
     }
-
+    /**
+     * Test for the rUU rule (Invalid case: universal major and minor premises, but particular conclusion).
+     */
     @Test
     void rUUInvalid() {
-        /**
-         * Test for the rUU rule (Invalid case: universal major and minor premises, but particular conclusion).
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier universel = new Quantifier("All", true);
         Quantifier particulier = new Quantifier(" ", false);
@@ -404,15 +404,15 @@ class SyllogismTest {
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rUU rule.");
         System.out.println("testRUUInvalid: OK");
     }
-
+    /**
+     * Validate a syllogism:
+     * All lions with short fur resemble foxes with rough fur.
+     * All rhinoceroses with coarse fur resemble lions with short fur.
+     * All rhinoceroses with coarse fur resemble foxes with rough fur.
+     */
     @Test
     void valider() {
-        /**
-         * Validate a syllogism:
-         * All lions with short fur resemble foxes with rough fur.
-         * All rhinoceroses with coarse fur resemble lions with short fur.
-         * All rhinoceroses with coarse fur resemble foxes with rough fur.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier tout = new Quantifier("All", true);
         syllogism.setFigureNum(1);
@@ -424,16 +424,16 @@ class SyllogismTest {
 
         Response response = syllogism.valider();
 
-        assertEquals(true, response.isValid(), "The syllogism should be valid.");
+        assertTrue(response.isValid(), "The syllogism should be valid.");
         System.out.println("Validation of syllogism: OK");
     }
-
+    /**
+     * Test for determining whether a syllogism is 'uninteresting' (i.e., a trivially true conclusion).
+     * The syllogism concludes that there exists a mortal human.
+     */
     @Test
     void testIninteressant() {
-        /**
-         * Test for determining whether a syllogism is 'uninteresting' (i.e., a trivially true conclusion).
-         * The syllogism concludes that there exists a mortal human.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier tous = new Quantifier("All", true);
         Quantifier existe = new Quantifier("There exists", false);
@@ -445,15 +445,15 @@ class SyllogismTest {
 
         syllogism.setFigureNum(1);
 
-        assertEquals(true, syllogism.estIninteressant(), "The syllogism should be considered uninteresting.");
+        assertTrue(syllogism.estIninteressant(), "The syllogism should be considered uninteresting.");
         System.out.println("testIninteressant() (true case): OK");
     }
-
+    /**
+     * Test for converting the conclusion of a syllogism to universal form.
+     */
     @Test
     void convertConclusion() {
-        /**
-         * Test for converting the conclusion of a syllogism to universal form.
-         */
+
         Syllogism syllogism = new Syllogism();
         Quantifier tous = new Quantifier("All", true);
         Quantifier existe = new Quantifier("There exists", false);
@@ -491,7 +491,384 @@ class SyllogismTest {
         check.add("rP");
         Response response = syllogism.validRule(check);
 
-        assertEquals(true, response.isValid(), "The syllogism should be valid.");
-        System.out.println("Validation of syllogism for rules: OK");
+        assertTrue(response.isValid(), "The syllogism should be valid.");
+
+    }
+
+    // Test
+    //Figure 1
+    @Test
+    void testAAAFig1() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); //<Universelle affirmative
+
+        // AAA-1 : Prémisses et conclusion sont universelles affirmatives
+        Syllogism syllo = new Syllogism(
+                tout, tout, tout,             // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", //< >Termes : sujet, prédicat, terme moyen
+                true, true, true,             // Les prémisses et la conclusion sont affirmatives
+                1                             // Figure 1
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEAEFig1() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+
+        // EAE-1 : Majeure universelle négative, mineure universelle affirmative, conclusion universelle négative
+        Syllogism syllo = new Syllogism(
+                aucun, tout, aucun,           // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
+                1                             // Figure 1
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testAIIFig1() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // AII-1 : Majeure universelle affirmative, mineure particulière affirmative, conclusion particulière affirmative
+        Syllogism syllo = new Syllogism(
+                tout, certains, certains,     // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                true, true, true,             // Les prémisses et la conclusion sont affirmatives
+                1                             // Figure 1
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEIOFig1() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // EIO-1 : Majeure universelle négative, mineure particulière affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, certains, certains,    // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
+                1                             // Figure 1
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    //Figure 2
+    @Test
+    void testEAEFig2() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // EAE-2 : Majeure universelle négative, mineure universelle affirmative, conclusion universelle négative
+        Syllogism syllo = new Syllogism(
+                aucun, tout, aucun,           // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
+                2                             // Figure 2
+        );
+        Response r = syllo.valider();
+        System.out.println("Regle invalid testEAEFig2 :");
+        for (String invalid : syllo.getInvalid()) {
+            System.out.println(invalid);
+        }
+        System.out.println("\n");
+
+        boolean isValid = r.isValid();
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testAEEFig2() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+
+        // AEE-2 : Majeure universelle affirmative, mineure universelle négative, conclusion universelle négative
+        Syllogism syllo = new Syllogism(
+                tout, aucun, aucun,           // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                true, false, false,           // Affirmativité : prémisse majeure (affirmative), mineure (négative), conclusion (négative)
+                2                             // Figure 2
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEIOFig2() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // EIO-2 : Majeure universelle négative, mineure particulière affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, certains, certains,    // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
+                2                             // Figure 2
+        );
+        Response r = syllo.valider();
+        System.out.println("Regle invalid EIOFig2 :");
+        for (String invalid : syllo.getInvalid()) {
+            System.out.println(invalid);
+        }
+        System.out.println("\n");
+
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testAOOFig2() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+        Quantifier certains = new Quantifier("Some", false); // Particulière négative
+
+        // AOO-2 : Majeure universelle affirmative, mineure particulière négative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                tout, certains, certains,     // Quantificateurs pour les deux prémisses et la conclusion
+                "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
+                true, false, false,           // Affirmativité : prémisse majeure (affirmative), mineure (négative), conclusion (négative)
+                2                             // Figure 2
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+
+    //Figure 3
+    @Test
+    void testAAIFig3() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // AAI-3 : Majeure universelle affirmative, mineure universelle affirmative, conclusion particulière affirmative
+        Syllogism syllo = new Syllogism(
+                tout, tout, new Quantifier("Some", false), // Quantificateurs
+                "subject", "predicate", "medium term",        // Termes
+                true, true, true,                             // Affirmativité
+                3                                             // Figure 3
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testIAIFig3() {
+        // Quantificateurs
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // IAI-3 : Majeure particulière affirmative, mineure universelle affirmative, conclusion particulière affirmative
+        Syllogism syllo = new Syllogism(
+                certains, tout, certains,      // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                true, true, true,              // Affirmativité
+                3                              // Figure 3
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testAIIFig3() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // AII-3 : Majeure universelle affirmative, mineure particulière affirmative, conclusion particulière affirmative
+        Syllogism syllo = new Syllogism(
+                tout, certains, certains,      // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                true, true, true,              // Affirmativité
+                3                              // Figure 3
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEAOFig3() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // EAO-3 : Majeure universelle négative, mineure universelle affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, tout, new Quantifier("Some", false), // Quantificateurs
+                "subject", "predicate", "medium term",         // Termes
+                false, true, false,                            // Affirmativité
+                3                                              // Figure 3
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testOAOFig3() {
+        // Quantificateurs
+        Quantifier certains = new Quantifier("Some", false); // Particulière négative
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // OAO-3 : Majeure particulière négative, mineure universelle affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                certains, tout, certains,      // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                false, true, false,            // Affirmativité
+                3                              // Figure 3
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEIOFig3() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // EIO-3 : Majeure universelle négative, mineure particulière affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, certains, certains,     // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                false, true, false,            // Affirmativité
+                3                              // Figure 3
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+
+
+    //Figure 4
+    @Test
+    void testAAIFig4() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // AAI-4 : Majeure universelle affirmative, mineure universelle affirmative, conclusion particulière affirmative
+        Syllogism syllo = new Syllogism(
+                tout, tout, new Quantifier("Some", false), // Quantificateurs
+                "subject", "predicate", "medium term",        // Termes
+                true, true, true,                             // Affirmativité
+                4                                             // Figure 4
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testAEEFig4() {
+        // Quantificateurs
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+
+        // AEE-4 : Majeure universelle affirmative, mineure universelle négative, conclusion universelle négative
+        Syllogism syllo = new Syllogism(
+                tout, aucun, aucun,           // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                true, false, false,           // Affirmativité
+                4                              // Figure 4
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testIAIFig4() {
+        // Quantificateurs
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // IAI-4 : Majeure particulière affirmative, mineure universelle affirmative, conclusion particulière affirmative
+        Syllogism syllo = new Syllogism(
+                certains, tout, certains,      // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                true, true, true,              // Affirmativité
+                4                              // Figure 4
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEAOFig4() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier tout = new Quantifier("All", true); // Universelle affirmative
+
+        // EAO-4 : Majeure universelle négative, mineure universelle affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, tout, new Quantifier("Some", false), // Quantificateurs
+                "subject", "predicate", "medium term",         // Termes
+                false, true, false,                            // Affirmativité
+                4                                              // Figure 4
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+    }
+
+    @Test
+    void testEIOFig4() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // EIO-4 : Majeure universelle négative, mineure particulière affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, certains, certains,     // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                false, true, false,            // Affirmativité
+                4                              // Figure 4
+        );
+        Response r = syllo.valider();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
     }
 }
