@@ -17,7 +17,7 @@
             </font>
         </Label>
 
-        <Label fx:id="number" layoutX="843.0" layoutY="-176.0" prefHeight="1022.0" prefWidth="970.0" textAlignment="CENTER" textFill="#f3ff13" AnchorPane.leftAnchor="843.0" AnchorPane.rightAnchor="-263.0" AnchorPane.topAnchor="-176.0">
+        <Label fx:id="number" layoutX="907.0" layoutY="-157.0" prefHeight="1022.0" prefWidth="970.0" textAlignment="CENTER" textFill="#f3ff13" AnchorPane.leftAnchor="907.0" AnchorPane.rightAnchor="-327.0" AnchorPane.topAnchor="-157.0">
             <font>
                 <Font size="700.0" />
             </font>
@@ -54,6 +54,6 @@
             <Font name="System Bold Italic" size="23.0" />
          </font>
       </Label>
-        <Button fx:id="btnBack" text="Back" mnemonicParsing="false" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" style="-fx-font-size: 15px" onAction="#back"/>
+        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#back" style="-fx-font-size: 15px" text="Back" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
     </children>
 </AnchorPane>

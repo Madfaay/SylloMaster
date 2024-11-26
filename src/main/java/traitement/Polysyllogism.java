@@ -13,12 +13,12 @@ public class Polysyllogism implements Validator {
         Polysyllogism poly = new Polysyllogism("English");
         Proposition p1 = new Proposition("mammifère" , "animal" , new Quantifier("test" , true ) , true);
         Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantifier("test" , true ) , true);
-        Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , true);
+        Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , false);
         Proposition p4 = new Proposition("fox" , "chien" , new Quantifier("test" , true ) , true);
         Proposition p5 = new Proposition("mini-vélo" , "vélo" , new Quantifier("test" , true ) , true);
         Proposition p6 = new Proposition("chien" , "mammifère" , new Quantifier("test" , true ) , true);
 
-        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantifier("test" , true ) , true);
+        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantifier("test" , true ) , false);
 
         List<Proposition> propositions = new ArrayList<>();
         propositions.add(p1);
@@ -36,6 +36,8 @@ public class Polysyllogism implements Validator {
         System.out.println(poly.structCorrection());
 
         System.out.println(poly.conclusionRespected());
+
+        System.out.println(poly.valider().getMessage());
 
 
 
@@ -336,9 +338,6 @@ public class Polysyllogism implements Validator {
         return  false;
     }
 
-    /**
-     * Method that allow the user to get a pair of medium term from two premises
-     * */
     public Pair<Term, Term> getMediumTerm (Proposition p1, Proposition p2){
         if (p1.getFirstTermString().equals(p2.getFirstTermString())) {
             return new Pair<>(p1.getFirstTerm(), p2.getFirstTerm());
@@ -389,7 +388,6 @@ public class Polysyllogism implements Validator {
 
         }
     }
-
 
 
     /**

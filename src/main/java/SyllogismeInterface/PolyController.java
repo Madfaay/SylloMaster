@@ -256,7 +256,7 @@ public class PolyController {
 
         // If all fields are valid
         if (valid) {
-            this.booleans.add(this.Negative.isSelected());
+            this.booleans.add(!this.Negative.isSelected());
             // Update premise number and page counter
             nbpremise+=1 ;
             number.setText(Integer.toString(nbpremise));
@@ -329,6 +329,7 @@ public class PolyController {
         // If the inputs are valid, process the data
         if (valid) {
             this.booleans.add(this.Negative.isSelected());
+            nbpremise++;
 
             // Get text from the TextFields
             String premierTermeText = premierterme.getText();
@@ -376,6 +377,8 @@ public class PolyController {
     private void handleValidation() {
         Response rep = this.poly.valider();
         this.resultStruct.setText(rep.getMessage());
+        this.resultStruct.setLayoutX(this.resultStruct.getLayoutX() +100.);
+
 
     }
 
@@ -435,7 +438,9 @@ public class PolyController {
 
     public boolean universel(String quantif)
     {
+        System.out.println("les liste de universel");
         for(String univ : this.quantiflistUniv ) {
+            System.out.println(univ);
             if (univ.equals(quantif)) {
                 return true;
             }
@@ -467,14 +472,16 @@ public class PolyController {
         System.out.println("LE LENGTH  : "+ this.second.size());
 
         System.out.println("LE quantif  : "+ this.quant.size());
+        this.afficherListes();
 
 
         List<Proposition> propositions = new ArrayList<>();
         for(int i =0 ; i < length-1 ; i++ ){
             String firstTerm = this.first.get(i);
             String secondTerm = this.second.get(i);
+            String quantif = this.quant.get(i);
+
             Quantifier quantifier = new Quantifier(this.quant.get(i), universel(this.quant.get(i)));
-            boolean isAffirmative = true;
 
             Proposition p = new Proposition(firstTerm, secondTerm, quantifier, this.booleans.get(i));
 
@@ -499,8 +506,9 @@ public class PolyController {
         }
         else {
             if(this.poly.structCorrection()) {
-                this.resultStruct.setText("Nous avons corrigé votre structure Visualiser le résultat à gauche ! Nous pouvons maintenant procéder à la validation des règles.");
-                Double x = 5.0;
+                this.resultStruct.setText("Nous avons corrigé votre structure Visualiser le résultat à droit ! Nous pouvons maintenant procéder à la validation des règles.");
+                this.resultStruct.setLayoutX(this.resultStruct.getLayoutX() -100.);
+                Double x = 950.0;
                 Double y = 190.0;
                 for(Proposition p : poly.getPremises())
                 {
@@ -512,25 +520,31 @@ public class PolyController {
 
 
             }
-            else
+            else {
                 this.resultStruct.setText("Impossible de corriger la structure revoyez votre polysyllogisme ");
+                this.resultStruct.setLayoutX(this.resultStruct.getLayoutX() - 30.);
+            }
+
+
         }
 
 
 
 
     }
-
     public void createLabelBelow(AnchorPane parentPane, double layoutX, double layoutY, String text) {
-        // Crée un nouveau label
+        // Crée un nouveau label avec le texte spécifié
         Label newLabel = new Label(text);
 
-        // Positionne le label 10px en dessous du label d'origine
+        // Définit la position du label
         newLabel.setLayoutX(layoutX); // Même position horizontale
-        newLabel.setLayoutY(layoutY);
-        // Position verticale + 10px
-        newLabel.setTextFill(javafx.scene.paint.Color.WHITE); // Couleur blanche
-        // Ajoute le label au pane parent
+        newLabel.setLayoutY(layoutY + 10); // Position verticale légèrement en dessous
+
+        // Applique des styles pour améliorer la visibilité
+        newLabel.setTextFill(javafx.scene.paint.Color.WHITE); // Texte en blanc
+        newLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;"); // Texte plus grand et gras
+
+        // Ajoute le label au conteneur parent
         parentPane.getChildren().add(newLabel);
     }
 
