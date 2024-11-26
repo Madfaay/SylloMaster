@@ -19,7 +19,7 @@ class SyllogismTest {
         Quantifier quantifExist = new Quantifier("il existe", false);
 
         Syllogism syllo = new Syllogism(quantifUniv,"Adnane","Dinh",true,quantifExist,
-                "omar","Adnane",true,quantifUniv,"Adnane","Dinh",true);
+                "omar","Adnane",true,quantifUniv,"Adnane","Dinh",true,"English");
 
         assertEquals(1,syllo.figureDetect(), "ici");
 
@@ -36,7 +36,7 @@ class SyllogismTest {
 
         Syllogism syllo = new Syllogism(quantifUniv, "homme", "mortel", true,
                 quantifExist, "Socrate", "homme", true,
-                quantifExist, "Socrate", "mortel", true);
+                quantifExist, "Socrate", "mortel", true,"English");
 
         assertEquals(1,syllo.figureDetect(),"Doit etre figure 1");
     }

@@ -73,7 +73,8 @@ public class Syllogism implements Validator {
      */
     public Syllogism(Quantifier MajorQuantif, String MajorSubject, String MajorPredicat, boolean isMajorAffirmative,
                      Quantifier MinorQuantif, String MinorSubject, String MinorPredicat, boolean isMinorAffirmative,
-                     Quantifier ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative
+                     Quantifier ConclusionQuantif, String ConclusionSubject, String ConclusionPredicate, boolean isConclusionAffirmative,
+                     String language
                       ) {
 
 
@@ -81,7 +82,7 @@ public class Syllogism implements Validator {
         this.major = new Proposition(MajorSubject, MajorPredicat, MajorQuantif, isMajorAffirmative);
         this.minor = new Proposition(MinorSubject, MinorPredicat, MinorQuantif, isMinorAffirmative);
         this.conclusion = new Proposition(ConclusionSubject, ConclusionPredicate, ConclusionQuantif, isConclusionAffirmative);
-
+        this.language = language;
 
 
         // Initialization of the list of invalidities
@@ -107,7 +108,7 @@ public class Syllogism implements Validator {
     public Syllogism(Quantifier quantifPremise1, Quantifier quantifPremise2, Quantifier quantifConclusion,
                      String Subject, String predicat, String MiddleTerm,
                      boolean isAffirmativePremis1, boolean isAffirmativePremiss2, boolean isAffirmativeConclusion,
-                     int FigureNum) {
+                     int FigureNum, String language) {
 
 
         if (FigureNum < 1 || FigureNum > 4) {
@@ -137,17 +138,17 @@ public class Syllogism implements Validator {
         }
 
         this.conclusion = new Proposition(Subject, predicat, quantifConclusion, isAffirmativeConclusion);
-
-
+        this.language = language;
         this.invalid = new ArrayList<>();
     }
 
-    Syllogism(Proposition maj, Proposition min, Proposition conclusion) {
+    Syllogism(Proposition maj, Proposition min, Proposition conclusion, String language) {
         this.conclusion = conclusion;
         this.major = maj;
         this.minor = min;
         this.FigureNum = figureDetect();
         this.invalid = new ArrayList<>();
+        this.language = language;
     }
     //----------------------------------------------------------------//
     //---------------------GETTERS-----------------------------------//

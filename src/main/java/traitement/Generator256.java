@@ -70,7 +70,7 @@ public class Generator256 {
 
 
                         // Création du nouveau syllogisme
-                        Syllogism nouveau = new Syllogism(maj, min, c);
+                        Syllogism nouveau = new Syllogism(maj, min, c, "English");
                         syllogismes.add(nouveau);
 
                         // Vérifications supplémentaires
@@ -214,13 +214,14 @@ public class Generator256 {
         Proposition conclusion = new Proposition(sujetConclusion, predicatConclusion, quantifConclusion, false); // Négative (n'est pas un chat)
 
         // Création du syllogisme avec les propositions
-        Syllogism syllogisme1 = new Syllogism(majeur, mineur, conclusion);
+        Syllogism syllogisme1 = new Syllogism(majeur, mineur, conclusion,"English");
 
         // Création du syllogisme avec les paramètres directement
         Syllogism s = new Syllogism(
                 quantifMajeur, sujetMajeur, predicatMajeur, true,
                 quantifMineur, sujetMineur, predicatMineur, false,
                 quantifConclusion, sujetConclusion, predicatConclusion, false
+                ,"English"
         );
 
         // Initialisation du générateur

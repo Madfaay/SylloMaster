@@ -379,7 +379,7 @@ public class SyllogismeRedactionSimpleController {
         }
         Quantifier qC = new Quantifier(quantifConclusion, q1univ);
 
-        Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure );
+        Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure,"English" );
 
         Response r = syllo.validRule(reglelist);
         if (r.getConclusion() == null)
