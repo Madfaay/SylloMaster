@@ -13,12 +13,12 @@ public class Polysyllogism implements Validator {
         Polysyllogism poly = new Polysyllogism("English");
         Proposition p1 = new Proposition("mammifère" , "animal" , new Quantifier("test" , true ) , true);
         Proposition p2 = new Proposition("fox à poils durs" , "fox" , new Quantifier("test" , true ) , true);
-        Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , true);
+        Proposition p3 = new Proposition("vélo" , "animal" , new Quantifier("test" , true ) , false);
         Proposition p4 = new Proposition("fox" , "chien" , new Quantifier("test" , true ) , true);
         Proposition p5 = new Proposition("mini-vélo" , "vélo" , new Quantifier("test" , true ) , true);
         Proposition p6 = new Proposition("chien" , "mammifère" , new Quantifier("test" , true ) , true);
 
-        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantifier("test" , true ) , true);
+        Proposition conclusion = new Proposition("mini-vélo" , "fox à poils durs" , new Quantifier("test" , true ) , false);
 
         List<Proposition> propositions = new ArrayList<>();
         propositions.add(p1);
@@ -36,6 +36,8 @@ public class Polysyllogism implements Validator {
         System.out.println(poly.structCorrection());
 
         System.out.println(poly.conclusionRespected());
+
+        System.out.println(poly.valider().getMessage());
 
 
 
@@ -336,28 +338,19 @@ public class Polysyllogism implements Validator {
         return  false;
     }
 
-    /**
-     * Method that allow the user to get a pair of medium term from two premises
-     * */
     public Pair<Term, Term> getMediumTerm (Proposition p1, Proposition p2){
-        Pair<Term, Term> mediumTerms;
-        if (p1.getFirstTermString().equals(p2.getFirstTermString())) { //< cas ou le moyen terme est le premier terme dans les deux.
-            mediumTerms = new Pair(p1.getFirstTerm(), p2.getFirstTerm());
-            return mediumTerms;
-        } else if (p1.getFirstTermString().equals(p2.getSecondTermString())) { //< cas ou le moyen terme est premier terme dans la premiere premise et deuxième dans la seconde.
-            mediumTerms = new Pair(p1.getFirstTerm(), p2.getSecondTerm());
-            return mediumTerms;
+        if (p1.getFirstTermString().equals(p2.getFirstTermString())) {
+            return new Pair<>(p1.getFirstTerm(), p2.getFirstTerm());
+        } else if (p1.getFirstTermString().equals(p2.getSecondTermString())) {
+            return new Pair<>(p1.getFirstTerm(), p2.getSecondTerm());
         } else if (p1.getSecondTermString().equals(p2.getFirstTermString())) {
-            mediumTerms = new Pair<>(p1.getSecondTerm(), p2.getFirstTerm());
-            return mediumTerms;
+            return new Pair<>(p1.getSecondTerm(), p2.getFirstTerm());
         } else if (p1.getSecondTermString().equals(p2.getSecondTermString())) {
-            mediumTerms = new Pair<>(p1.getSecondTerm(), p2.getSecondTerm());
-            return mediumTerms;
+            return new Pair<>(p1.getSecondTerm(), p2.getSecondTerm());
         } else {
             System.out.println("Pas de moyen terme : structure invalide");
             return null;
         }
-
     }
 
     //------------------------------------------------------------------//
@@ -365,8 +358,6 @@ public class Polysyllogism implements Validator {
     //----------------------------------------------------------------//
 
 
-    // Cela risque d'être pas ouf si on doit parcourir la liste a chaque regle
-    // TODO : essayer de faire en sorte qu'on parcourt une seul fois pour tester toutes les regles.
 
 
     /**
@@ -378,19 +369,25 @@ public class Polysyllogism implements Validator {
     public void MiddleTermRule() {
         for (int i = 0; i < premises.size() - 1; i++) {
             Pair<Term, Term> mediumTerms = getMediumTerm(premises.get(i), premises.get(i + 1));
-            Term firstMediumTerm = mediumTerms.getKey();
-            Term secondMediumTerm = mediumTerms.getValue();
+            if (mediumTerms != null) {
+                Term firstMediumTerm = mediumTerms.getKey();
+                Term secondMediumTerm = mediumTerms.getValue();
 
-            if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
-                if(Objects.equals(language, "English")){
-                invalid.add("Middle Term");}
-                if(Objects.equals(language, "French")){
-                    invalid.add("Moyen Terme");}
-                return; //< Si on trouve que la règle est invalide on quitte la vérification.
+                if (!firstMediumTerm.isUniversal() && !secondMediumTerm.isUniversal()) {
+                    if(Objects.equals(language, "English")){
+                        invalid.add("Middle Term");
+                    }
+                    if(Objects.equals(language, "French")){
+                        invalid.add("Moyen Terme");
+                    }
+                    return; //< Si on trouve que la règle est invalide on quitte la vérification.
+                }
+            } else {
+                return;
             }
+
         }
     }
-
 
 
     /**

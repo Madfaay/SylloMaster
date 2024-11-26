@@ -81,9 +81,10 @@ public class Generator256 {
                         // Pour chaque syllogisme
                         List<String> detail = new ArrayList<>();
                         detail.add("Figure : " + figure);
-                        detail.add("Premisse 1 : " + maj.toString());
-                        detail.add("Premisse 2 : " + min.toString());
-                        detail.add("Conclusion : " + c.toString());
+                        detail.add(type1+type2+type3);
+                        //detail.add("Premisse 1 : " + maj.toString());
+                        //detail.add("Premisse 2 : " + min.toString());
+                        //detail.add("Conclusion : " + c.toString());
 
                         if (isValidSyllo) {
                             detail.add("Valide");
@@ -96,13 +97,13 @@ public class Generator256 {
                             }
                         } else {
                             detail.add("Invalide");
-                            if (!nouveau.getInvalid().isEmpty()) {
+                            /*if (!nouveau.getInvalid().isEmpty()) {
                                 detail.add("Règles invalides :");
                                 for (String regle : nouveau.getInvalid()) {
                                     // Ajout de chaque règle invalide dans la liste des détails
                                     detail.add("- " + regle);
                                 }
-                            }
+                            }*/
                         }
 
                         // Ajout du détail du syllogisme dans la liste principale
