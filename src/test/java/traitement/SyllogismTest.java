@@ -23,7 +23,6 @@ class SyllogismTest {
 
         assertEquals(1,syllo.figureDetect(), "ici");
 
-        System.out.println("test: OK");
     }
     /**
      * Test to detect the figure of a syllogism with different terms.
@@ -59,7 +58,7 @@ class SyllogismTest {
         assertEquals(0, syllo.getInvalid().size(), "Moyen terme devrait être valide");
         assertEquals(2, syllo.figureDetect(), "bonne figure");
 
-        System.out.println("testMoyenTerme: OK");
+
 
     }
 
@@ -86,7 +85,7 @@ class SyllogismTest {
         syllo.MiddleTermRule();
         assertEquals(1, syllo.getInvalid().size(), "Moyen terme devrait être invalide");
 
-        System.out.println("testMoyenTermeInvalide: OK");
+
 
 
     }
@@ -107,7 +106,7 @@ class SyllogismTest {
         syllo.LatiusRule();
         assertEquals(0, syllo.getInvalid().size(), "Latius devrait être valide");
 
-        System.out.println("testRegleLatius: OK");
+
     }
 
     /**
@@ -127,7 +126,7 @@ class SyllogismTest {
         syllo.LatiusRule();
         assertEquals(1, syllo.getInvalid().size(), "Latius devrait être Invalide");
 
-        System.out.println("testRegleLatiusInvalid: OK");
+
     }
 
 
@@ -148,7 +147,6 @@ class SyllogismTest {
         syllo.rNN();
         assertEquals(0, syllo.getInvalid().size(), "rNN devrait être valide");
 
-        System.out.println("testRegleLatius: OK");
     }
 
     /**
@@ -168,7 +166,7 @@ class SyllogismTest {
         syllo.rNN();
         assertEquals(1, syllo.getInvalid().size(), "rNN devrait être Invalide");
 
-        System.out.println("testRNNInvalid: OK");
+
     }
 
     /**
@@ -194,7 +192,7 @@ class SyllogismTest {
 
         assertEquals(0, syllogism.getInvalid().size(), "Le syllogisme devrait respecter la règle rN.");
 
-        System.out.println("testRn (1 premise négative donc conclusion négative ) : OK");
+
 
     }
 
@@ -222,7 +220,7 @@ class SyllogismTest {
 
         assertEquals(1, syllogism.getInvalid().size(), "Le syllogisme devrait respecter la règle rN.");
 
-        System.out.println("testRn (1 prémise négative mais conclusion affirmative ) : OK");
+
 
     }
     /**
@@ -246,7 +244,7 @@ class SyllogismTest {
         syllogism.rAA();
 
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rAA rule.");
-        System.out.println("testRaa: OK");
+
     }
     /**
      * Test for the rAA rule (Invalid case: Affirmative major premise, negative minor premise, conclusion should not be affirmative).
@@ -268,7 +266,7 @@ class SyllogismTest {
         syllogism.rAA();
 
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rAA rule.");
-        System.out.println("testRaaInvalid: OK");
+
     }
     /**
      * Test for the rPP rule (Particular major premise, particular minor premise).
@@ -291,7 +289,7 @@ class SyllogismTest {
         syllogism.rPP();
 
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rPP rule.");
-        System.out.println("testRppInvalid: OK");
+
     }
     /**
      * Test for the rPP rule (Invalid case: particular major premise and particular minor premise with a particular conclusion).
@@ -313,7 +311,7 @@ class SyllogismTest {
         syllogism.rPP();
 
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rPP rule.");
-        System.out.println("testRppInvalid: OK");
+
     }
     /**
      * Test for the rP rule (Universal major premise, particular minor premise).
@@ -336,7 +334,7 @@ class SyllogismTest {
         syllogism.rP();
 
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rP rule.");
-        System.out.println("testRpValid: OK");
+
     }
     /**
      * Test for the rP rule (Invalid case: Universal major premise, particular minor premise, conclusion should not be universal).
@@ -358,7 +356,7 @@ class SyllogismTest {
         syllogism.rP();
 
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rP rule.");
-        System.out.println("testRpInvalid: OK");
+
     }
     /**
      * Test for the rUU rule (Universal major premise, universal minor premise).
@@ -380,7 +378,7 @@ class SyllogismTest {
         syllogism.rUU();
 
         assertEquals(0, syllogism.getInvalid().size(), "The syllogism should respect the rUU rule.");
-        System.out.println("testRUU: OK");
+
     }
     /**
      * Test for the rUU rule (Invalid case: universal major and minor premises, but particular conclusion).
@@ -402,7 +400,7 @@ class SyllogismTest {
         syllogism.rUU();
 
         assertEquals(1, syllogism.getInvalid().size(), "The syllogism should not respect the rUU rule.");
-        System.out.println("testRUUInvalid: OK");
+
     }
     /**
      * Validate a syllogism:
@@ -425,7 +423,7 @@ class SyllogismTest {
         Response response = syllogism.valider();
 
         assertTrue(response.isValid(), "The syllogism should be valid.");
-        System.out.println("Validation of syllogism: OK");
+
     }
     /**
      * Test for determining whether a syllogism is 'uninteresting' (i.e., a trivially true conclusion).
@@ -446,7 +444,7 @@ class SyllogismTest {
         syllogism.setFigureNum(1);
 
         assertTrue(syllogism.estIninteressant(), "The syllogism should be considered uninteresting.");
-        System.out.println("testIninteressant() (true case): OK");
+
     }
     /**
      * Test for converting the conclusion of a syllogism to universal form.
@@ -465,13 +463,13 @@ class SyllogismTest {
 
         syllogism.setFigureNum(1);
 
-        assertEquals(true, !syllogism.getConclusion().isUniversal() && syllogism.convertConclusion().isUniversal(), "The conclusion should become universal.");
-        System.out.println("testConvertConclusion: OK");
+        assertTrue(!syllogism.getConclusion().isUniversal() && syllogism.convertConclusion().isUniversal(), "The conclusion should become universal.");
+
     }
 
     @Test
     void validerForRules() {
-        /**
+        /*
          * Validate a syllogism with specific rules applied:
          * All lions with short fur resemble foxes with rough fur.
          * All rhinoceroses with coarse fur resemble lions with short fur.
@@ -507,7 +505,8 @@ class SyllogismTest {
                 tout, tout, tout,             // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", //< >Termes : sujet, prédicat, terme moyen
                 true, true, true,             // Les prémisses et la conclusion sont affirmatives
-                1                             // Figure 1
+                1,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -526,7 +525,8 @@ class SyllogismTest {
                 aucun, tout, aucun,           // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
-                1                             // Figure 1
+                1,
+                "English"// Figure 1
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -545,7 +545,8 @@ class SyllogismTest {
                 tout, certains, certains,     // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 true, true, true,             // Les prémisses et la conclusion sont affirmatives
-                1                             // Figure 1
+                1,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -564,7 +565,8 @@ class SyllogismTest {
                 aucun, certains, certains,    // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
-                1                             // Figure 1
+                1,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -584,14 +586,11 @@ class SyllogismTest {
                 aucun, tout, aucun,           // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
-                2                             // Figure 2
+                2 ,
+                "English"
         );
         Response r = syllo.valider();
-        System.out.println("Regle invalid testEAEFig2 :");
-        for (String invalid : syllo.getInvalid()) {
-            System.out.println(invalid);
-        }
-        System.out.println("\n");
+
 
         boolean isValid = r.isValid();
         assertTrue(isValid, "It must be valid.");
@@ -608,7 +607,8 @@ class SyllogismTest {
                 tout, aucun, aucun,           // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 true, false, false,           // Affirmativité : prémisse majeure (affirmative), mineure (négative), conclusion (négative)
-                2                             // Figure 2
+                2,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -627,14 +627,11 @@ class SyllogismTest {
                 aucun, certains, certains,    // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 false, true, false,           // Affirmativité : prémisse majeure (négative), mineure (affirmative), conclusion (négative)
-                2                             // Figure 2
+                2,
+                "English"
         );
         Response r = syllo.valider();
-        System.out.println("Regle invalid EIOFig2 :");
-        for (String invalid : syllo.getInvalid()) {
-            System.out.println(invalid);
-        }
-        System.out.println("\n");
+
 
         boolean isValid = r.isValid();
 
@@ -652,7 +649,8 @@ class SyllogismTest {
                 tout, certains, certains,     // Quantificateurs pour les deux prémisses et la conclusion
                 "subject", "predicate", "medium term", // Termes : sujet, prédicat, terme moyen
                 true, false, false,           // Affirmativité : prémisse majeure (affirmative), mineure (négative), conclusion (négative)
-                2                             // Figure 2
+                2 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -672,7 +670,8 @@ class SyllogismTest {
                 tout, tout, new Quantifier("Some", false), // Quantificateurs
                 "subject", "predicate", "medium term",        // Termes
                 true, true, true,                             // Affirmativité
-                3                                             // Figure 3
+                3 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -691,7 +690,8 @@ class SyllogismTest {
                 certains, tout, certains,      // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 true, true, true,              // Affirmativité
-                3                              // Figure 3
+                3 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -710,7 +710,8 @@ class SyllogismTest {
                 tout, certains, certains,      // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 true, true, true,              // Affirmativité
-                3                              // Figure 3
+                3,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -729,7 +730,8 @@ class SyllogismTest {
                 aucun, tout, new Quantifier("Some", false), // Quantificateurs
                 "subject", "predicate", "medium term",         // Termes
                 false, true, false,                            // Affirmativité
-                3                                              // Figure 3
+                3,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -748,7 +750,8 @@ class SyllogismTest {
                 certains, tout, certains,      // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 false, true, false,            // Affirmativité
-                3                              // Figure 3
+                3 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -767,7 +770,8 @@ class SyllogismTest {
                 aucun, certains, certains,     // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 false, true, false,            // Affirmativité
-                3                              // Figure 3
+                3,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -788,7 +792,8 @@ class SyllogismTest {
                 tout, tout, new Quantifier("Some", false), // Quantificateurs
                 "subject", "predicate", "medium term",        // Termes
                 true, true, true,                             // Affirmativité
-                4                                             // Figure 4
+                4 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -807,7 +812,8 @@ class SyllogismTest {
                 tout, aucun, aucun,           // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 true, false, false,           // Affirmativité
-                4                              // Figure 4
+                4 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -826,7 +832,8 @@ class SyllogismTest {
                 certains, tout, certains,      // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 true, true, true,              // Affirmativité
-                4                              // Figure 4
+                4 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -845,7 +852,8 @@ class SyllogismTest {
                 aucun, tout, new Quantifier("Some", false), // Quantificateurs
                 "subject", "predicate", "medium term",         // Termes
                 false, true, false,                            // Affirmativité
-                4                                              // Figure 4
+                4,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();
@@ -864,7 +872,8 @@ class SyllogismTest {
                 aucun, certains, certains,     // Quantificateurs
                 "subject", "predicate", "medium term", // Termes
                 false, true, false,            // Affirmativité
-                4                              // Figure 4
+                4 ,
+                "English"
         );
         Response r = syllo.valider();
         boolean isValid = r.isValid();

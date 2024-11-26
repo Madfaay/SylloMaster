@@ -404,7 +404,7 @@ public class Syllogism implements Validator {
         rP();
         //rUU();
 
-        Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
+        Proposition newConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
 
         boolean isValid = invalid.isEmpty(); // If the list of invalid rules is empty, it is valid.
 
@@ -417,7 +417,7 @@ public class Syllogism implements Validator {
                 message += s + "; ";
             }
         }
-        return new Response(message, isValid, nouvelleConclusion);
+        return new Response(message, isValid, newConclusion);
 
     }
 /*****************************************************************************************************/
@@ -429,7 +429,7 @@ public class Syllogism implements Validator {
             return new Response("No rules selected", true, null);
         }
         invalid.clear();
-        Proposition nouvelleConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
+        Proposition newConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
 
 
         for(String isCheck : check){
@@ -462,7 +462,7 @@ public class Syllogism implements Validator {
                 message += s + "; ";
             }
         }
-        return new Response(message, isValid, nouvelleConclusion);
+        return new Response(message, isValid, newConclusion);
     }
 
     //------------------------------------------------------------------//
