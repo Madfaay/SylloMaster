@@ -118,14 +118,13 @@ public class Proposition {
     }
 
     /**
+    /**
      * Method to check if the proposition is existential affirmative.
      * **/
     public boolean isI() {
         return isAffirmative && !isUniversal();
     }
-    /**
-     * Method to check if the proposition is existential negative.
-     * **/
+
     public boolean isO() {
         return !isAffirmative && !isUniversal();
     }

@@ -589,6 +589,15 @@ public class PolyController {
 
     @FXML
     public void back(ActionEvent actionEvent) {
+        if(this.nbpremise>=3)
+        {
+            goToLastOne.setDisable(false);
+        }
+        else
+        {
+            goToLastOne.setDisable(true);
+
+        }
         if(this.nbpremise >1)
         {
             if(this.titre.getText().equals("Conclusion" )) {
@@ -596,6 +605,8 @@ public class PolyController {
                 if(this.language.equals("English")) {
                     translateLabelsToEnglish();
                 }
+                this.premisse.setDisable(false);
+                this.structureValid.setDisable(true);
             }
             String terme1 = this.first.getLast();
             String terme2 = this.second.getLast();
