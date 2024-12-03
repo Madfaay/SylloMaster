@@ -54,6 +54,6 @@
             <Font name="System Bold Italic" size="23.0" />
          </font>
       </Label>
-        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#back" style="-fx-font-size: 15px" text="Back" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
+        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#back" style="-fx-font-size: 15px" text="Retour" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
     </children>
 </AnchorPane>

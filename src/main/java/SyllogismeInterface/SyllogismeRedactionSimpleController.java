@@ -195,7 +195,12 @@ public class SyllogismeRedactionSimpleController {
      */
     @FXML
     public void switchToTypeFigure(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("TypeFigure.fxml"));
+        Parent root ;
+        if(this.language.equals("English"))
+             root = FXMLLoader.load(getClass().getResource("TypeFigure.fxml"));
+        else
+             root = FXMLLoader.load(getClass().getResource("TypeFigureFr.fxml"));
+
 
         Stage stage = new Stage();
         stage.setTitle("Type Figure");
@@ -397,7 +402,7 @@ public class SyllogismeRedactionSimpleController {
         }
         Quantifier qC = new Quantifier(quantifConclusion, q1univ);
 
-        Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure,"English" );
+        Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure,this.language );
         this.syllogism = syllo;
 
         Response r = syllo.validRule(reglelist);
@@ -425,15 +430,15 @@ public class SyllogismeRedactionSimpleController {
 
         labelSubject.setText("Sujet");
         mypredicateConclusionLabel.setText("Prédicat de la conclusion");
-        mymediumTermLabel.setText("Terme moyen");
-        mytypeFigureLabel.setText("Type de la figure");
+        mymediumTermLabel.setText("moyen Terme");
+        labelTypeFigure.setText("Type de la figure");
 
         actionVerif.setText("Vérification");
         myhypothesis.setText("Hypothèse d'existence");
         btnBack.setText("Retour");
         btnSwitch.setText("->");
-        labelPremise1.setText("Premisse n°1");
-        labelPremise2.setText("Premisse n°2");
+        labelPremise1.setText("Prémisse n°1");
+        labelPremise2.setText("Prémisse n°2");
 
     }
 

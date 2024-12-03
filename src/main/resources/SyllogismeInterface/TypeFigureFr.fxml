@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="509.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label layoutX="182.0" layoutY="23.0" prefHeight="17.0" prefWidth="145.0" text="Types of figures possible" />
+        <Label layoutX="182.0" layoutY="23.0" prefHeight="17.0" prefWidth="145.0" text="Types de figures possibles" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" layoutX="53.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" width="83.0" />
         <Label layoutX="73.0" layoutY="67.0" text="Figure 1" />
         <Line endX="-17.0" endY="-1.52587890625E-5" layoutX="153.0" layoutY="87.0" startX="-100.0" />
@@ -32,6 +32,6 @@
         <Label layoutX="395.0" layoutY="111.0" text="M -&gt; S" />
         <Label layoutX="396.0" layoutY="128.0" text="S -&gt; P" />
         <Label layoutX="394.0" layoutY="94.0" text="P -&gt; M" />
-        <Label layoutX="122.0" layoutY="172.0" prefHeight="17.0" prefWidth="266.0" text="S : subject        P : predicate        M : medium term" />
+        <Label layoutX="122.0" layoutY="172.0" prefHeight="17.0" prefWidth="266.0" text="S : sujet        P : prédicat        M : moyen Terme" />
     </children>
 </Pane>

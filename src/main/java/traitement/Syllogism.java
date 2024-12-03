@@ -491,9 +491,16 @@ public class Syllogism implements Validator {
         boolean isValid = invalid.isEmpty();
         String message;
         if (isValid) {
-            message = "Every rules chosen are validated";
+            if(this.language.equals("English "))
+                message = "Every rules chosen are validated";
+            else
+                message="Toutes les régles sont valides";
         }else{
-            message = "The rules that are not validated are: ";
+            if(this.language.equals("English "))
+                message = "The rules that are not validated are: ";
+            else
+                message = "les régles qui sont invalides sont :  ";
+
             for (String s : invalid) {
                 message += s + "; ";
             }

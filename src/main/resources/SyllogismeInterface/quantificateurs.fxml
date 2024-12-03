@@ -26,9 +26,6 @@
         <MenuBar layoutX="954.0" layoutY="14.0" prefHeight="34.0" prefWidth="550.0" style="-fx-background-color: #d3d3d3; -fx-border-color: #666666; -fx-border-width: 0 0 2 0;">
             <menus>
                 <Menu fx:id="quantiMenu" mnemonicParsing="false" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Quantificateurs">
-                    <items>
-                        <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Close" />
-                    </items>
                 </Menu>
                 <Menu fx:id="languageMenu" mnemonicParsing="false" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Langues">
                     <items>
@@ -50,7 +47,6 @@
                 </Menu>
                 <Menu fx:id="helpMenu" mnemonicParsing="false" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Aide">
                     <items>
-                        <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="About" />
                     </items>
                 </Menu>
             </menus>

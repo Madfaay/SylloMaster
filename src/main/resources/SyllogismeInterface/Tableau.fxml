@@ -18,6 +18,7 @@
             <TableColumn fx:id="Valide" text="Validation" prefWidth="55"/>
             <TableColumn fx:id="Interssant" text="Interessant" prefWidth="55"/>
         </columns>
+
     </TableView>
 </AnchorPane>
 

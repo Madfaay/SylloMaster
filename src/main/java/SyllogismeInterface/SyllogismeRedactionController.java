@@ -440,7 +440,7 @@ public class SyllogismeRedactionController {
 
         Syllogism syllo = new Syllogism(  q1,subjectPremise1,predicatPremise1, !negatifPremise1,
                 q2,subjectPremise2,predicatPremise2, !negatifPremise2,
-                qC, subjectConclusion, predicatConclusion, !negatifConclusion , "English");
+                qC, subjectConclusion, predicatConclusion, !negatifConclusion , this.language);
 
         this.syllogism = syllo;
         Response r = syllo.validRule(reglelist);
@@ -517,7 +517,7 @@ public class SyllogismeRedactionController {
         myhypothesis.setText("Hypothèse d'existence");
         btnBack.setText("Retour");
         btnSwitch.setText("->");
-        premisse1.setText("Premisse n°1");
+        premisse1.setText("Prémisse n°1");
     }
 
     /**
