@@ -260,7 +260,11 @@ public class HelloController {
             System.out.println("SyllogismeCours label clicked!");
             hideParams(); // Hide parameters
             hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "Syllogisme.jpg");
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn", "syllo.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "Cours", "Syllogisme.jpg");
+
             setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for syllogism course
         }
         // Handle the 'polysyllogismeCours' label click
@@ -268,7 +272,10 @@ public class HelloController {
             System.out.println("PolysyllogismeCours label clicked!");
             hideParams(); // Hide parameters
             hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "Polysyllogisme.jpg");
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn","poly.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES","Cours","Polysyllogisme.jpg");
             setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for polysyllogism course
         }
         // Handle the 'qualiteCours' label click
@@ -276,7 +283,10 @@ public class HelloController {
             System.out.println("QualiteCours label clicked!");
             hideParams(); // Hide parameters
             hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "Qualite.jpg");
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn", "Qualite.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "Cours" ,"Qualite.jpg");
             setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for quality course
         }
         // Handle the 'quantiteCours' label click
@@ -284,7 +294,11 @@ public class HelloController {
             System.out.println("QuantiteCours label clicked!");
             hideParams(); // Hide parameters
             hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "Quantificateurs.jpg");
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn", "Quantificateurs.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "Cours", "Quantificateurs.jpg");
+
             setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for quantity course
         }
         // Handle the 'reglescours' label click
@@ -292,15 +306,22 @@ public class HelloController {
             System.out.println("ReglesCours label clicked!");
             hideParams(); // Hide parameters
             hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "Regles.jpg");
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn", "Regles.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "Cours", "Regles.jpg");
+
             setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for rules course
         }
         // Handle the 'propos' label click
         else if (clickedLabel.equals(propos)) {
             System.out.println("Propos label clicked!");
             hideParams(); // Hide parameters
-            hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "TypeDeprop.jpg");
+            hideTitle();  // Hide title]
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn", "TypeDeprop.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "Cours", "TypeDeprop.jpg");
             setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for propositions course
         }
         // Handle the 'FiguresCours' label click
@@ -308,8 +329,13 @@ public class HelloController {
             System.out.println("FiguresCours label clicked!");
             hideParams(); // Hide parameters
             hideTitle();  // Hide title
-            relativePath = Paths.get("src", "IMAGES", "Cours", "quatreFigures.jpg");
-            setBackgroundImage(relativePath.toAbsolutePath().toString()); // Set background for figures course
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "CoursEn", "quatreFigures.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "Cours", "quatreFigures.jpg");
+
+            setBackgroundImage(relativePath.toAbsolutePath().toString());
+            // Set background for figures course
         }
         // Handle the 'back' label click
         else if (clickedLabel.equals(back)) {
@@ -489,6 +515,12 @@ public class HelloController {
         applyLabelEffect(qualiteCours, "Quality");
         applyLabelEffect(reglescours, "Rules");
         applyLabelEffect(propos, "Propositions");
+        reglescours.setText("Rules");
+        polysyllogismeCours.setText("PolySyllogism");
+        syllogismeCours.setText("Syllogism");
+        qualiteCours.setText("Quality");
+        quantiteCours.setText("Quantity");
+
     }
 
     // Helper method to apply typewriter effect conditionally
