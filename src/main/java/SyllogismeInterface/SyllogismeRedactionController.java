@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+
 
 public class SyllogismeRedactionController {
     public Label labelTitle,premisse1;
@@ -87,6 +89,43 @@ public class SyllogismeRedactionController {
 
         retrieve();
         populateQuantifierMenus();
+
+    }
+    /**
+     * Checks for duplicate subject-predicate pairs in the premises.
+     * This method ensures that the subject-predicate pairs in the two premises are distinct.
+     *
+     * @param subject1 the subject of the first premise
+     * @param predicate1 the predicate of the first premise
+     * @param subject2 the subject of the second premise
+     * @param predicate2 the predicate of the second premise
+     * @return true if there are duplicate subject-predicate pairs between the two premises, false otherwise
+     *
+     */
+    private boolean hasDuplicatePremiseCouples(String subject1, String predicate1, String subject2, String predicate2) {
+        HashMap<String, Integer> frequencyMap = new HashMap<>();
+
+        frequencyMap.put(subject1, 0);
+        frequencyMap.put(predicate1, 0);
+        frequencyMap.put(subject2, 0);
+        frequencyMap.put(predicate2, 0);
+
+        frequencyMap.put(subject1, frequencyMap.get(subject1)+1);
+        frequencyMap.put(predicate1, frequencyMap.get(predicate1)+1);
+        frequencyMap.put(subject2, frequencyMap.get(subject2)+1);
+        frequencyMap.put(predicate2, frequencyMap.get(predicate2)+1);
+
+        boolean twoEquals = false;
+
+        for (int frequency : frequencyMap.values()) {
+            if(frequency == 2) {
+                twoEquals = true;
+            } else if(frequency > 2) {
+                return true;
+            }
+        }
+        return !(twoEquals && (frequencyMap.size() == 3));
+
 
     }
 
@@ -377,6 +416,18 @@ public class SyllogismeRedactionController {
         negatifPremise1 = mynegatifPremise1.isSelected();
         negatifPremise2 = mynegatifPremise2.isSelected();
         negatifConclusion = mynegatifConclusion.isSelected();
+
+        if (hasDuplicatePremiseCouples(subjectPremise1, predicatPremise1, subjectPremise2, predicatPremise2)) {
+            if (language.equals("English")) {
+                myTextValid.setText("Error : The subject-predicate pairs in the premises cannot be identical.");
+                myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            } else {
+                myTextValid.setText("Erreur : Les couples de sujet-prédicat dans les prémisses ne peuvent pas être identiques.");
+                myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            }
+
+            return;
+        }
 
         hypothesis = myhypothesis.isSelected();
 
