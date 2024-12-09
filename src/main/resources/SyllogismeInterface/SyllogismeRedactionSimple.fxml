@@ -11,47 +11,47 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="pane" prefHeight="697.0" prefWidth="963.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.SyllogismeRedactionSimpleController">
-  <Label fx:id="labelTitle" layoutX="578.0" layoutY="5.0" style="-fx-font-size: 50px; -fx-text-fill: white" text="Writing a syllogism" AnchorPane.leftAnchor="578.0" AnchorPane.rightAnchor="-557.2" AnchorPane.topAnchor="5.0" />
+  <Label fx:id="labelTitle" layoutX="578.0" layoutY="5.0" style="-fx-font-size: 50px; -fx-text-fill: white" text="Writing a syllogism easy" AnchorPane.leftAnchor="578.0" AnchorPane.rightAnchor="-557.2" AnchorPane.topAnchor="5.0" />
 
   <VBox alignment="CENTER" layoutX="10.0" layoutY="172.0" spacing="10" style="-fx-font-size: 15px;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="172.0">
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="labelPremise1" style="-fx-text-fill: white" text="Premise n°1" />
+      <Label fx:id="labelPremise1" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Premise n°1" />
       <MenuButton fx:id="textPremise1" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Quantifier"/>
       <Label text="  " />
       <CheckBox fx:id="mynegatifPremise1" mnemonicParsing="false" style="-fx-text-fill: white" text="Negative" />
     </HBox>
 
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="labelPremise2" style="-fx-text-fill: white" text="Premise n°2" />
+      <Label fx:id="labelPremise2" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Premise n°2" />
       <MenuButton fx:id="textPremise2" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Quantifier"/>
       <Label text="  " />
       <CheckBox fx:id="mynegatifPremise2" mnemonicParsing="false" style="-fx-text-fill: white" text="Negative" />
     </HBox>
 
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="labelConclusion" style="-fx-text-fill: white" text="Conclusion" />
+      <Label fx:id="labelConclusion" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Conclusion" />
       <MenuButton fx:id="textConclusion" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Quantifier"/>
       <Label text="  " />
       <CheckBox fx:id="mynegatifConclusion" mnemonicParsing="false" style="-fx-text-fill: white" text="Negative" />
     </HBox>
 
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="labelSubject" style="-fx-text-fill: white" text="Subject" />
+      <Label fx:id="labelSubject" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Subject" />
       <TextField fx:id="mysubject" />
     </HBox>
 
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="mypredicateConclusionLabel" style="-fx-text-fill: white" text="Predicate of the conclusion" />
+      <Label fx:id="mypredicateConclusionLabel" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Predicate of the conclusion" />
       <TextField fx:id="mypredicatConclusion" />
     </HBox>
 
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="mymediumTermLabel" style="-fx-text-fill: white" text="Medium term" />
+      <Label fx:id="mymediumTermLabel" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Medium term" />
       <TextField fx:id="mymediumTerm" />
     </HBox>
 
     <HBox alignment="TOP_CENTER" maxWidth="500" minWidth="500" spacing="10">
-      <Label fx:id="labelTypeFigure" style="-fx-text-fill: white" text="Type of the figure" />
+      <Label fx:id="labelTypeFigure" style="-fx-text-fill: white;-fx-font-weight: bold;" text="Type of the figure" />
       <Button fx:id="mytypeFigureLabel" mnemonicParsing="false" onAction="#switchToTypeFigure" text="i" />
       <TextField fx:id="mytypeFigure" />
     </HBox>
@@ -81,7 +81,6 @@
 
   <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-font-size: 15px;" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
     <Button fx:id="actionVerif" mnemonicParsing="false" onAction="#actionVerif" text="Verification" />
-    <CheckBox fx:id="myhypothesis" mnemonicParsing="false" style="-fx-text-fill: white" text="Existence hypothesis" />
   </HBox>
 
   <Button fx:id="btnArray" text="Array"  AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" style="-fx-font-size: 15px" onAction="#array"/>

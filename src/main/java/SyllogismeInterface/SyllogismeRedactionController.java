@@ -67,7 +67,7 @@ public class SyllogismeRedactionController {
     @FXML HBox myHBoxquantifConclusion, myHBoxsubjectConclusion, myHBoxpredicatConclusion;
 
     @FXML Button myverif;
-    @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU, myhypothesis;
+    @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU;
 
     @FXML Button btnArray;
 
@@ -429,7 +429,6 @@ public class SyllogismeRedactionController {
             return;
         }
 
-        hypothesis = myhypothesis.isSelected();
 
         System.out.println("Verif ");
         System.out.println("Premise 1 " + quantifPremise1 + " " + subjectPremise1 + " " + predicatPremise1 + " " + negatifPremise1);
@@ -565,7 +564,6 @@ public class SyllogismeRedactionController {
 
         // Boutons et autres éléments
         myverif.setText("Vérification");
-        myhypothesis.setText("Hypothèse d'existence");
         btnBack.setText("Retour");
         btnSwitch.setText("->");
         premisse1.setText("Prémisse n°1");

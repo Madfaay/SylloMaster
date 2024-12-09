@@ -58,7 +58,7 @@ public class SyllogismeRedactionSimpleController {
     @FXML CheckBox mynegatifPremise1;
     @FXML CheckBox mynegatifPremise2;
     @FXML CheckBox mynegatifConclusion;
-    @FXML CheckBox myhypothesis;
+    //@FXML CheckBox myhypothesis;
     @FXML Label myTextValid;
     @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU;
 
@@ -272,7 +272,7 @@ public class SyllogismeRedactionSimpleController {
         negatifPremise2 = mynegatifPremise2.isSelected();
         negatifConclusion = mynegatifConclusion.isSelected();
 
-        hypothesis = myhypothesis.isSelected();
+       // hypothesis = myhypothesis.isSelected();
 
         if (quantifPremise1 == null){
             textPremise1.setStyle("-fx-border-color: #F15C5C ; -fx-border-radius: 5px;");
@@ -462,7 +462,7 @@ public class SyllogismeRedactionSimpleController {
         labelTypeFigure.setText("Type de la figure");
 
         actionVerif.setText("Vérification");
-        myhypothesis.setText("Hypothèse d'existence");
+        //myhypothesis.setText("Hypothèse d'existence");
         btnBack.setText("Retour");
         btnSwitch.setText("->");
         labelPremise1.setText("Prémisse n°1");
