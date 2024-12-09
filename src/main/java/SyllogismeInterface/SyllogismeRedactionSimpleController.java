@@ -182,7 +182,8 @@ public class SyllogismeRedactionSimpleController {
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
-            stage.show();
+            if(syllogism.isPdiffM() && syllogism.isPdiffS() && syllogism.isSdiffM())
+            { stage.show();}
         }
     }
 
@@ -411,6 +412,33 @@ public class SyllogismeRedactionSimpleController {
         else
             myTextValid.setText(r.getMessage() + " " + r.getConclusion());
         myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+
+
+
+        if(!syllogism.isPdiffM() ){
+            if(language.equals("English")){
+                myTextValid.setText("Error : Predicate and Middle term are similar");
+            }
+            else{
+                myTextValid.setText("Erreur : Predicat et Moyen term sont identique");
+            }
+        }
+        if(!syllogism.isPdiffS() ){
+            if(language.equals("English")){
+                myTextValid.setText("Error : Predicate and Subject are similar");
+            }
+            else{
+                myTextValid.setText("Erreur : Predicat et Moyen term sont identique");
+            }
+        }
+        if(!syllogism.isSdiffM() ){
+            if(language.equals("English")){
+                myTextValid.setText("Error : Subject and Middle term are similar");
+            }
+            else{
+                myTextValid.setText("Erreur : Subject et Moyen term sont identique");
+            }
+        }
     }
 
     /**

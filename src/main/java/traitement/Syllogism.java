@@ -79,7 +79,6 @@ public class Syllogism implements Validator {
                       ) {
 
 
-
         this.major = new Proposition(MajorSubject, MajorPredicat, MajorQuantif, isMajorAffirmative);
         this.minor = new Proposition(MinorSubject, MinorPredicat, MinorQuantif, isMinorAffirmative);
         this.conclusion = new Proposition(ConclusionSubject, ConclusionPredicate, ConclusionQuantif, isConclusionAffirmative);
@@ -238,6 +237,27 @@ public class Syllogism implements Validator {
             return getMinor().getSecondTerm();
         }
     }
+
+    public Boolean isPdiffS(){
+        if(getSujet().getExpression().equals(getPredicat().getExpression())){
+            return false;
+        }
+        return true;
+    }
+    public Boolean isPdiffM(){
+        if(getPredicat().getExpression().equals(getMinorMiddleterm().getExpression())){
+            return false;
+        }
+        return true;
+    }
+    public Boolean isSdiffM(){
+        if(getSujet().getExpression().equals(getMinorMiddleterm().getExpression())){
+            return false;
+        }
+        return true;
+    }
+
+
 
     /**
      * Detects the figure of the syllogism based on the terms of the major and minor premises.
