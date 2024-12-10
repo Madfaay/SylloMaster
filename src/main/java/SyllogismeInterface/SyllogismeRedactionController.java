@@ -545,13 +545,13 @@ public class SyllogismeRedactionController {
         mynegatifPremise2.setText("Négatif");
 
         // Options de sujet et prédicat pour la deuxième prémisse
-        ((Label) myHBoxsubjectPremise2.getChildren().get(0)).setText("Sujet");
-        mysubjectPremise2Subject.setText("Sujet");
-        mysubjectPremise2Predicat.setText("Prédicat");
+        ((Label) myHBoxsubjectPremise2.getChildren().get(0)).setText("Sujet : ");
+        mysubjectPremise2Subject.setText("Sujet de p1");
+        mysubjectPremise2Predicat.setText("Prédicat de p1");
         mysubjectPremise2New.setText("Nouveau");
-        ((Label) myHBoxpredicatPremise2.getChildren().get(0)).setText("Prédicat");
-        mypredicatPremise2Subject.setText("Sujet");
-        mypredicatPremise2Predicat.setText("Prédicat");
+        ((Label) myHBoxpredicatPremise2.getChildren().get(0)).setText("Prédicat : ");
+        mypredicatPremise2Subject.setText("Sujet de p1");
+        mypredicatPremise2Predicat.setText("Prédicat de p1");
         mypredicatPremise2New.setText("Nouveau");
 
         // Conclusion

@@ -41,25 +41,25 @@
         </HBox>
 
         <HBox alignment="CENTER" disable="true" fx:id="myHBoxsubjectPremise2" spacing="10">
-            <Label style="-fx-text-fill: white;-fx-font-weight: bold;" text="Subject" />
-            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Subject" fx:id="mysubjectPremise2Subject" toggleGroup="$subject" onAction="#choiceSubjectPremise2">
+            <Label style="-fx-text-fill: white;-fx-font-weight: bold;" text="Subject : " />
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Subject of p1" fx:id="mysubjectPremise2Subject" toggleGroup="$subject" onAction="#choiceSubjectPremise2">
                 <toggleGroup>
                     <ToggleGroup fx:id="subject" />
                 </toggleGroup>
             </RadioButton>
-            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Predicate" fx:id="mysubjectPremise2Predicat" toggleGroup="$subject" onAction="#choiceSubjectPremise2"/>
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Predicate of p1" fx:id="mysubjectPremise2Predicat" toggleGroup="$subject" onAction="#choiceSubjectPremise2"/>
             <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="New" fx:id="mysubjectPremise2New" toggleGroup="$subject" onAction="#choiceSubjectPremise2"/>
             <TextField fx:id="mysubjectPremise2" disable="true" onAction="#nextSubjectPremise2"/>
         </HBox>
 
         <HBox alignment="CENTER" disable="true" fx:id="myHBoxpredicatPremise2" spacing="10">
-            <Label style="-fx-text-fill: white;-fx-font-weight: bold;" text="Predicate" />
-            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Subject" fx:id="mypredicatPremise2Subject" toggleGroup="$predicat" onAction="#chocePredicatPremise2">
+            <Label style="-fx-text-fill: white;-fx-font-weight: bold;" text="Predicate : " />
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false" text="Subject of p1" fx:id="mypredicatPremise2Subject" toggleGroup="$predicat" onAction="#chocePredicatPremise2">
                 <toggleGroup>
                     <ToggleGroup fx:id="predicat" />
                 </toggleGroup>
             </RadioButton>
-            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false"  text="Predicate" fx:id="mypredicatPremise2Predicat" toggleGroup="$predicat" onAction="#chocePredicatPremise2"/>
+            <RadioButton style="-fx-text-fill: white" mnemonicParsing="false"  text="Predicate of p1" fx:id="mypredicatPremise2Predicat" toggleGroup="$predicat" onAction="#chocePredicatPremise2"/>
             <RadioButton style="-fx-text-fill: white" mnemonicParsing="false"  text="New" fx:id="mypredicatPremise2New" toggleGroup="$predicat" onAction="#chocePredicatPremise2"/>
             <TextField  fx:id="mypredicatPremise2" disable="true" onAction="#nextPredicatPremise2"/>
         </HBox>
