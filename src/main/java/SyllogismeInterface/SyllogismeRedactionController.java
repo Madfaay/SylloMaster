@@ -177,22 +177,7 @@ public class SyllogismeRedactionController {
      */
     @FXML
     public void switchToSyllogismeRedactionSimple(ActionEvent event) throws IOException {
-        try {
-            // Charge le fichier FXML de l'interface des paramètres
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SyllogismeRedactionSimple.fxml"));
-            Parent acceuilContent = fxmlLoader.load();
-
-            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-            pane.getChildren().setAll(acceuilContent);
-            AnchorPane.setTopAnchor(acceuilContent, 0.0);
-            AnchorPane.setBottomAnchor(acceuilContent, 0.0);
-            AnchorPane.setLeftAnchor(acceuilContent, 0.0);
-            AnchorPane.setRightAnchor(acceuilContent, 0.0);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelloApplication.getPageManager().goToPageNoHistory("mode");
     }
 
 
@@ -202,23 +187,7 @@ public class SyllogismeRedactionController {
     */
     @FXML
     private void polyOrShow() {
-        try {
-            // Charge le fichier FXML de l'interface des paramètres
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
-            Parent polyorsylloContent = fxmlLoader.load();
-
-            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-            pane.getChildren().setAll(polyorsylloContent);
-
-            // Optionnel : ajustez la position et la taille du contenu ajouté
-            AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelloApplication.getPageManager().goBack();
     }
 
     @FXML
@@ -477,7 +446,7 @@ public class SyllogismeRedactionController {
                 break;
             }
         }
-        Quantifier q2 = new Quantifier(quantifPremise2, q1univ);
+        Quantifier q2 = new Quantifier(quantifPremise2, q2univ);
 
         boolean qCuniv = false ;
         for (String quantif : quantiflistUniv){
@@ -486,7 +455,7 @@ public class SyllogismeRedactionController {
                 break;
             }
         }
-        Quantifier qC = new Quantifier(quantifConclusion, q1univ);
+        Quantifier qC = new Quantifier(quantifConclusion, qCuniv);
 
         Syllogism syllo = new Syllogism(  q1,subjectPremise1,predicatPremise1, !negatifPremise1,
                 q2,subjectPremise2,predicatPremise2, !negatifPremise2,

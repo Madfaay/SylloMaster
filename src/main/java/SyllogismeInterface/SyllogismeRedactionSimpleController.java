@@ -118,19 +118,7 @@ public class SyllogismeRedactionSimpleController {
      */
     @FXML
     public void switchToSyllogismeRedaction(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SyllogismeRedaction.fxml"));
-            Parent acceuilContent = fxmlLoader.load();
-
-            pane.getChildren().clear(); // Efface les éléments existants
-            pane.getChildren().add(acceuilContent); // Ajoute l'interface des paramètres
-            AnchorPane.setTopAnchor(acceuilContent, 0.0);
-            AnchorPane.setBottomAnchor(acceuilContent, 0.0);
-            AnchorPane.setLeftAnchor(acceuilContent, 0.0);
-            AnchorPane.setRightAnchor(acceuilContent, 0.0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelloApplication.getPageManager().goToPageNoHistory("mode2");
     }
 
     /**
@@ -142,19 +130,7 @@ public class SyllogismeRedactionSimpleController {
      */
     @FXML
     private void polyOrShow() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
-            Parent polyorsylloContent = fxmlLoader.load();
-
-            pane.getChildren().setAll(polyorsylloContent);
-
-            AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelloApplication.getPageManager().goBack();
     }
 
     @FXML
@@ -392,7 +368,7 @@ public class SyllogismeRedactionSimpleController {
                 break;
             }
         }
-        Quantifier q2 = new Quantifier(quantifPremise2, q1univ);
+        Quantifier q2 = new Quantifier(quantifPremise2, q2univ);
 
         boolean qCuniv = false ;
         for (String quantif : quantiflistUniv){
@@ -401,7 +377,7 @@ public class SyllogismeRedactionSimpleController {
                 break;
             }
         }
-        Quantifier qC = new Quantifier(quantifConclusion, q1univ);
+        Quantifier qC = new Quantifier(quantifConclusion, qCuniv);
 
         Syllogism syllo = new Syllogism(q1,q2,qC,subject,predicatConclusion,mediumTerm,!negatifPremise1,!negatifPremise2,!negatifConclusion,typeFigure,this.language );
         this.syllogism = syllo;

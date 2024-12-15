@@ -365,66 +365,43 @@ public class HelloController {
     }
 
     private void showSettingsInSamePane() {
-        try {
-            // Charge le fichier FXML de l'interface des paramètres
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quantificateurs.fxml"));
-            Parent settingsContent = fxmlLoader.load();
-
-            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-            archor.getChildren().setAll(settingsContent);
-            // Optionnel : ajustez la position et la taille du contenu ajouté
-            AnchorPane.setTopAnchor(settingsContent, 0.0);
-            AnchorPane.setBottomAnchor(settingsContent, 0.0);
-            AnchorPane.setLeftAnchor(settingsContent, 0.0);
-            AnchorPane.setRightAnchor(settingsContent, 0.0);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelloApplication.getPageManager().goToPage("settings");
     }
 
     private void polyOrShow() {
-        try {
-            // Charge le fichier FXML de l'interface des paramètres
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
-            Parent polyorsylloContent = fxmlLoader.load();
-
-            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-            archor.getChildren().clear(); // Efface les éléments existants
-            archor.getChildren().add(polyorsylloContent); // Ajoute l'interface des paramètres
-
-            // Optionnel : ajustez la position et la taille du contenu ajouté
-            AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
-            AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelloApplication.getPageManager().goToPage("selection");
     }
 
     private void recoverAcceuil()
     {
-        try {
-            // Charge le fichier FXML de l'interface des paramètres
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-            Parent acceuilContent = fxmlLoader.load();
+        // Reset background image
+        Path relativePath = Paths.get("src", "IMAGES", "background.jpg");
+        setBackgroundImage(relativePath.toAbsolutePath().toString());
 
-            // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-            archor.getChildren().setAll(acceuilContent);
+        // Set all menu's button visible
+        start.setVisible(true);
+        settings.setVisible(true);
+        quit.setVisible(true);
+        whatsyllo.setVisible(true);
+        credits.setVisible(true);
 
-            // Optionnel : ajustez la position et la taille du contenu ajouté
-            AnchorPane.setTopAnchor(acceuilContent, 0.0);
-            AnchorPane.setBottomAnchor(acceuilContent, 0.0);
-            AnchorPane.setLeftAnchor(acceuilContent, 0.0);
-            AnchorPane.setRightAnchor(acceuilContent, 0.0);
-            this.back.setVisible(false);
+        // Set visible title
+        sylloMaster.setVisible(true);
+        sylloUnderstand.setVisible(true);
 
+        // Hide courses element
+        syllogismeCours.setVisible(false);
+        polysyllogismeCours.setVisible(false);
+        propos.setVisible(false);
+        reglescours.setVisible(false);
+        qualiteCours.setVisible(false);
+        quantiteCours.setVisible(false);
+        FiguresCours.setVisible(false);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Hide back button
+        back.setVisible(false);
+
+        System.out.println("Retour à l'accueil effectué.");
     }
 
 

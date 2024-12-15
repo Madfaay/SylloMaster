@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="pane" prefHeight="697.0" prefWidth="963.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.SyllogismeRedactionSimpleController">
+<AnchorPane stylesheets="@style.css" fx:id="pane" prefHeight="697.0" prefWidth="963.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SyllogismeInterface.SyllogismeRedactionSimpleController">
   <Label fx:id="labelTitle" layoutX="578.0" layoutY="5.0" style="-fx-font-size: 50px; -fx-text-fill: white" text="Writing a syllogism easy" AnchorPane.leftAnchor="578.0" AnchorPane.rightAnchor="-557.2" AnchorPane.topAnchor="5.0" />
 
   <VBox alignment="CENTER" layoutX="10.0" layoutY="172.0" spacing="10" style="-fx-font-size: 15px;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="172.0">

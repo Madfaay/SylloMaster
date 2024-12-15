@@ -511,12 +511,12 @@ public class Syllogism implements Validator {
         boolean isValid = invalid.isEmpty();
         String message;
         if (isValid) {
-            if(this.language.equals("English "))
+            if(this.language.equals("English"))
                 message = "Every rules chosen are validated";
             else
                 message="Toutes les régles sont valides";
         }else{
-            if(this.language.equals("English "))
+            if(this.language.equals("English"))
                 message = "The rules that are not validated are: ";
             else
                 message = "les régles qui sont invalides sont :  ";
@@ -536,7 +536,7 @@ public class Syllogism implements Validator {
      * @return returns true if the syllogism is not interesting, and false otherwise.
      * **/
 
-    public boolean estIninteressant() {
+    public boolean isUninteresting() {
         if (major.isUniversal() && minor.isUniversal() && !conclusion.isUniversal()) {
             return true;
         } else {
@@ -548,7 +548,7 @@ public class Syllogism implements Validator {
      * Method that returns an interesting conclusion if it is not interesting by default.
      * **/
     public Proposition convertConclusion() {
-        if(estIninteressant()) {
+        if(isUninteresting()) {
             return new Proposition(conclusion.getFirstTermString(), conclusion.getSecondTermString(),
                     major.getQuantificator(), conclusion.isAffirmative());
         }

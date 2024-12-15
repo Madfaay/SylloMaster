@@ -443,7 +443,7 @@ class SyllogismTest {
 
         syllogism.setFigureNum(1);
 
-        assertTrue(syllogism.estIninteressant(), "The syllogism should be considered uninteresting.");
+        assertTrue(syllogism.isUninteresting(), "The syllogism should be considered uninteresting.");
 
     }
     /**

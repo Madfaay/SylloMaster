@@ -102,31 +102,9 @@ public class PolyOrSyllogismeController {
      */
     @FXML
     void initialize() {
-        try {
-            // Load the FXML for the mode selection view
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SyllogismeRedactionSimple.fxml"));
-            modeContent = fxmlLoader.load();
-
-            // Load the FXML for the syllogism view
-            fxmlLoader = new FXMLLoader(getClass().getResource("PremissePage.fxml"));
-            syllogismeContent = fxmlLoader.load();
-
-        } catch (IOException e) {
-            e.printStackTrace(); // Print error if FXML files cannot be loaded
-        }
-
-        try {
-            // Load the FXML for the main view
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-            acceuilContent = fxmlLoader.load();
-
-        } catch (IOException e) {
-            e.printStackTrace(); // Print error if the main view FXML cannot be loaded
-        }
-
         // Set the background image using the relative file path
         Path relativePath = Paths.get("src", "IMAGES", "backgroundlight.jpg");
-        setBackgroundImage(relativePath.toAbsolutePath().toString());
+        HelloApplication.getPageManager().setBackgroundImage(relativePath.toAbsolutePath().toString());
 
         // Add zoom effects to labels for hover animations
         addZoomEffect(this.syllogismeLeft);
@@ -195,14 +173,7 @@ public class PolyOrSyllogismeController {
      * all anchor constraints to 0.
      */
     private void recoverAcceuil() {
-        // Clear the current content and set the home content in the AnchorPane
-        archor.getChildren().setAll(acceuilContent);
-
-        // Ensure the content stretches to fill the AnchorPane
-        AnchorPane.setTopAnchor(acceuilContent, 0.0);
-        AnchorPane.setBottomAnchor(acceuilContent, 0.0);
-        AnchorPane.setLeftAnchor(acceuilContent, 0.0);
-        AnchorPane.setRightAnchor(acceuilContent, 0.0);
+        HelloApplication.getPageManager().goBack();
     }
 
     /**
@@ -213,14 +184,7 @@ public class PolyOrSyllogismeController {
      * `AnchorPane` by setting all anchor constraints to 0.
      */
     private void setMode() {
-        // Replace the current content with the mode selection content
-        archor.getChildren().setAll(modeContent);
-
-        // Adjust the content to fit the AnchorPane entirely
-        AnchorPane.setTopAnchor(modeContent, 0.0);
-        AnchorPane.setBottomAnchor(modeContent, 0.0);
-        AnchorPane.setLeftAnchor(modeContent, 0.0);
-        AnchorPane.setRightAnchor(modeContent, 0.0);
+        HelloApplication.getPageManager().goToPage("mode");
     }
 
     /**
@@ -231,13 +195,6 @@ public class PolyOrSyllogismeController {
      * `AnchorPane` by setting all anchor constraints to 0.
      */
     private void setSyllogisme() {
-        // Replace the current content with the syllogism content
-        archor.getChildren().setAll(syllogismeContent);
-
-        // Adjust the content to fit the AnchorPane entirely
-        AnchorPane.setTopAnchor(syllogismeContent, 0.0);
-        AnchorPane.setBottomAnchor(syllogismeContent, 0.0);
-        AnchorPane.setLeftAnchor(syllogismeContent, 0.0);
-        AnchorPane.setRightAnchor(syllogismeContent, 0.0);
+        HelloApplication.getPageManager().goToPage("poly");
     }
 }

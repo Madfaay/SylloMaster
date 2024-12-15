@@ -21,10 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -71,6 +68,18 @@ public class SettingsController {
     private ToggleGroup group;
 
     private final File languageFile = new File("language.json");
+
+    private void reloadFPages() {
+
+        try {
+            HelloApplication.getPageManager().reloadPage("mode", "SyllogismeRedactionSimple.fxml");
+            HelloApplication.getPageManager().reloadPage("mode2", "SyllogismeRedaction.fxml");
+            HelloApplication.getPageManager().reloadPage("poly", "PremissePage.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     /**
@@ -247,6 +256,22 @@ public class SettingsController {
             System.out.println("Erreur lors de la sauvegarde de la langue et de l'effet.");
         }
 
+        Map<String, String> fxmlPaths = new HashMap<>();
+        fxmlPaths.put("home", "hello-view.fxml");
+        fxmlPaths.put("settings", "quantificateurs.fxml");
+        fxmlPaths.put("selection", "poly-or-syllogisme.fxml");
+        fxmlPaths.put("first_redaction", "SyllogismeRedactionSimple.fxml");
+        fxmlPaths.put("mode", "SyllogismeRedactionSimple.fxml");
+        fxmlPaths.put("mode2", "SyllogismeRedaction.fxml");
+        fxmlPaths.put("poly", "PremissePage.fxml");
+
+        try {
+            // Rechargement de toutes les pages en passant le HashMap contenant les chemins FXML
+            HelloApplication.getPageManager().reloadAllPages(fxmlPaths);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Call a method to perform additional actions after saving the data
         recoverAcceuil();
     }
@@ -406,6 +431,8 @@ public class SettingsController {
 
         // Save the updated list back to the file
         mapper.writeValue(file, dataList);
+        reloadFPages();
+
 
         // Update the UI with the new data
         this.nouveau.setText(quantif);  // Set the new quantifier text in the label
@@ -655,35 +682,12 @@ public class SettingsController {
      * and sets up the interface with the appropriate layout.
      */
     private void recoverAcceuil() {
-        try {
             // Stop the heartbeat sound before switching to the new screen
             if (heartbeatClip != null && heartbeatClip.isRunning()) {
                 heartbeatClip.stop();  // Stop the heartbeat audio clip if it is running
             }
 
-            // Load the FXML file for the home screen interface
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-            Parent acceuilContent = fxmlLoader.load();  // Load the FXML content
-
-            // Clear the current content in the AnchorPane and add the home screen content
-            anchorPane.getChildren().setAll(acceuilContent);
-
-            // Access the controller for the loaded FXML and set the effect
-            HelloController controller = fxmlLoader.getController();
-            controller.setEffect(true);  // Optionally, apply a special effect to the new screen
-
-            // Set the layout of the new content to fill the entire AnchorPane
-            AnchorPane.setTopAnchor(acceuilContent, 0.0);
-            AnchorPane.setBottomAnchor(acceuilContent, 0.0);
-            AnchorPane.setLeftAnchor(acceuilContent, 0.0);
-            AnchorPane.setRightAnchor(acceuilContent, 0.0);
-
-            // Optionally hide the back button (or other UI elements) after screen transition
-            this.back.setVisible(false);
-
-        } catch (IOException e) {
-            e.printStackTrace();  // Print the stack trace if there's an error loading the screen
-        }
+            HelloApplication.getPageManager().goBack();
     }
 
     /**
@@ -705,6 +709,7 @@ public class SettingsController {
             // Save the updated list back to the JSON file
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("data.json"), dataList);
+            reloadFPages();
 
             // Update the UI by removing the quantifier label from the grid
             removeQuantifFromGrid(quantifToDelete);

@@ -1,17 +1,6 @@
 package traitement;
 
 
-import SyllogismeInterface.HelloController;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +65,7 @@ public class Generator256 {
 
                         // Vérifications supplémentaires
                         boolean isValidSyllo = nouveau.valider().getResult();
-                        boolean isIninteressant = nouveau.estIninteressant();
+                        boolean isIninteressant = nouveau.isUninteresting();
 
 
                         nombre++;

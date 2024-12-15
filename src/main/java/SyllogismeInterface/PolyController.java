@@ -630,23 +630,7 @@ public class PolyController {
 
         else
         {
-            try {
-                // Charge le fichier FXML de l'interface des paramètres
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("poly-or-syllogisme.fxml"));
-                Parent polyorsylloContent = fxmlLoader.load();
-
-                // Efface le contenu actuel de l'AnchorPane et ajoute le contenu des paramètres
-                anchor.getChildren().setAll(polyorsylloContent);
-
-                // Optionnel : ajustez la position et la taille du contenu ajouté
-                AnchorPane.setTopAnchor(polyorsylloContent, 0.0);
-                AnchorPane.setBottomAnchor(polyorsylloContent, 0.0);
-                AnchorPane.setLeftAnchor(polyorsylloContent, 0.0);
-                AnchorPane.setRightAnchor(polyorsylloContent, 0.0);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            HelloApplication.getPageManager().goBack();
         }
     }
 }
