@@ -530,7 +530,7 @@ public class Polysyllogism implements Validator {
      *
      * @return {@code true} if the syllogism is uninteresting, {@code false} otherwise.
      */
-    public boolean estIninteressant() {
+    public boolean isUninteresting() {
         int i = 0;
         for(Proposition a : premises){
             if(a.isA()){
@@ -552,7 +552,7 @@ public class Polysyllogism implements Validator {
      * @return a new {@link Proposition} object for the conclusion, or {@code null} if no change is needed.
      */
     public Proposition convertConclusion() {
-        if(estIninteressant()) { // If the syllogism is uninteresting, we need to change the conclusion.
+        if(isUninteresting()) { // If the syllogism is uninteresting, we need to change the conclusion.
             return new Proposition(conclusion.getFirstTermString(), conclusion.getSecondTermString(),
                     premises.getFirst().getQuantificator(), conclusion.isAffirmative()); //< We return the new conclusion.
         }
