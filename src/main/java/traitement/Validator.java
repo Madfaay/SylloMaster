@@ -1,5 +1,7 @@
 package traitement;
 
+import java.util.ArrayList;
+
 /**
  * Interface for validating logical rules in a syllogism.
  * This interface defines methods to apply various logical rules and validate the syllogism.
@@ -59,5 +61,12 @@ public interface Validator {
      *
      * @return a response indicating whether the syllogism is valid or not.
      */
-    Response valider();
+    Response validate();
+
+    /**
+     * Validates the syllogism by applying all the rules in a given list and returns the result.
+     * @param check list of rules
+     * @return a response indicating whether the syllogism is valid or not.
+     */
+    Response validRule(ArrayList<String> check);
 }

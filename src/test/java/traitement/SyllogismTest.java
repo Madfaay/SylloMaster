@@ -409,7 +409,7 @@ class SyllogismTest {
      * All rhinoceroses with coarse fur resemble foxes with rough fur.
      */
     @Test
-    void valider() {
+    void validate() {
 
         Syllogism syllogism = new Syllogism();
         Quantifier tout = new Quantifier("All", true);
@@ -420,7 +420,7 @@ class SyllogismTest {
 
         syllogism.setConclusion("rhinoceros with coarse fur", "fox with rough fur", tout, true);
 
-        Response response = syllogism.valider();
+        Response response = syllogism.validate();
 
         assertTrue(response.isValid(), "The syllogism should be valid.");
 
@@ -468,7 +468,7 @@ class SyllogismTest {
     }
 
     @Test
-    void validerForRules() {
+    void validateForRules() {
         /*
          * Validate a syllogism with specific rules applied:
          * All lions with short fur resemble foxes with rough fur.
@@ -508,7 +508,7 @@ class SyllogismTest {
                 1,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -528,7 +528,7 @@ class SyllogismTest {
                 1,
                 "English"// Figure 1
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -548,7 +548,7 @@ class SyllogismTest {
                 1,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -568,7 +568,7 @@ class SyllogismTest {
                 1,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -589,7 +589,7 @@ class SyllogismTest {
                 2 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
 
 
         boolean isValid = r.isValid();
@@ -610,7 +610,7 @@ class SyllogismTest {
                 2,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -630,7 +630,7 @@ class SyllogismTest {
                 2,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
 
 
         boolean isValid = r.isValid();
@@ -652,7 +652,7 @@ class SyllogismTest {
                 2 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -673,7 +673,7 @@ class SyllogismTest {
                 3 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -693,7 +693,7 @@ class SyllogismTest {
                 3 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -713,7 +713,7 @@ class SyllogismTest {
                 3,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -733,7 +733,7 @@ class SyllogismTest {
                 3,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -753,7 +753,7 @@ class SyllogismTest {
                 3 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -773,7 +773,7 @@ class SyllogismTest {
                 3,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -795,7 +795,7 @@ class SyllogismTest {
                 4 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -815,7 +815,7 @@ class SyllogismTest {
                 4 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -835,7 +835,7 @@ class SyllogismTest {
                 4 ,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -855,7 +855,7 @@ class SyllogismTest {
                 4,
                 "English"
         );
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
@@ -876,11 +876,35 @@ class SyllogismTest {
                 "English"
         );
 
-        Response r = syllo.valider();
+        Response r = syllo.validate();
         boolean isValid = r.isValid();
 
         assertTrue(isValid, "It must be valid.");
         assertEquals(7,syllo.getValidRules().size(), "It must be valid.");
     }
+
+    @Test
+    void testUninteresing() {
+        // Quantificateurs
+        Quantifier aucun = new Quantifier("No", true); // Universelle négative
+        Quantifier certains = new Quantifier("Some", false); // Particulière affirmative
+
+        // EIO-4 : Majeure universelle négative, mineure particulière affirmative, conclusion particulière négative
+        Syllogism syllo = new Syllogism(
+                aucun, aucun, certains,     // Quantificateurs
+                "subject", "predicate", "medium term", // Termes
+                false, true, false,            // Affirmativité
+                4 ,
+                "English"
+        );
+
+        Response r = syllo.validate();
+        boolean isValid = r.isValid();
+
+        assertTrue(isValid, "It must be valid.");
+        assertTrue(r.isUninteresting(), "It must be valid.");
+    }
+
+
 
 }

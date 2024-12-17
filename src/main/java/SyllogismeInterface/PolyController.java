@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -375,7 +373,7 @@ public class PolyController {
      */
     @FXML
     private void handleValidation() {
-        Response rep = this.poly.valider();
+        Response rep = this.poly.validate();
         this.resultStruct.setText(rep.getMessage());
         this.resultStruct.setLayoutX(this.resultStruct.getLayoutX() +100.);
 

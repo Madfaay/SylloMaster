@@ -81,6 +81,7 @@ public class SyllogismeRedactionController {
     @FXML
     void initialize()
     {
+        myTextValid.setWrapText(true);
         loadLanguageFromJson();
         if(!this.language.equals("English")) {
             System.out.println("laaaaaaaaaaa");
@@ -92,42 +93,54 @@ public class SyllogismeRedactionController {
 
     }
     /**
-     * Checks for duplicate subject-predicate pairs in the premises.
-     * This method ensures that the subject-predicate pairs in the two premises are distinct.
+     * Checks for duplicate values among four given strings.
+     * Specifically:
+     * - Returns {@code true} if any string appears more than twice.
+     * - Returns {@code false} if exactly two strings appear with a frequency of 2.
+     * - Returns {@code true} in all other cases.
      *
-     * @param subject1 the subject of the first premise
-     * @param predicate1 the predicate of the first premise
-     * @param subject2 the subject of the second premise
-     * @param predicate2 the predicate of the second premise
-     * @return true if there are duplicate subject-predicate pairs between the two premises, false otherwise
-     *
+     * @param subject1   The first subject string.
+     * @param predicate1 The first predicate string.
+     * @param subject2   The second subject string.
+     * @param predicate2 The second predicate string.
+     * @return {@code true} if any string appears more than twice or the duplicate
+     *         condition is not met; {@code false} if exactly two strings appear
+     *         with a frequency of 2.
      */
     private boolean hasDuplicatePremiseCouples(String subject1, String predicate1, String subject2, String predicate2) {
-        HashMap<String, Integer> frequencyMap = new HashMap<>();
+        Map<String, Integer> frequencyMap = new HashMap<>();
 
-        frequencyMap.put(subject1, 0);
-        frequencyMap.put(predicate1, 0);
-        frequencyMap.put(subject2, 0);
-        frequencyMap.put(predicate2, 0);
+        // Comptage des occurrences des 4 termes
+        frequencyMap.put(subject1, frequencyMap.getOrDefault(subject1, 0) + 1);
+        frequencyMap.put(predicate1, frequencyMap.getOrDefault(predicate1, 0) + 1);
+        frequencyMap.put(subject2, frequencyMap.getOrDefault(subject2, 0) + 1);
+        frequencyMap.put(predicate2, frequencyMap.getOrDefault(predicate2, 0) + 1);
 
-        frequencyMap.put(subject1, frequencyMap.get(subject1)+1);
-        frequencyMap.put(predicate1, frequencyMap.get(predicate1)+1);
-        frequencyMap.put(subject2, frequencyMap.get(subject2)+1);
-        frequencyMap.put(predicate2, frequencyMap.get(predicate2)+1);
+        int countFrequency1 = 0;
+        int countFrequency2 = 0;
+        int countFrequencyMore = 0;
 
-        boolean twoEquals = false;
-
-        for (int frequency : frequencyMap.values()) {
-            if(frequency == 2) {
-                twoEquals = true;
-            } else if(frequency > 2) {
-                return true;
+        // Comptage des fréquences
+        for (int freq : frequencyMap.values()) {
+            if (freq == 1) {
+                countFrequency1++;
+            } else if (freq == 2) {
+                countFrequency2++;
+            } else if (freq > 2) {
+                countFrequencyMore++;
             }
         }
-        return !(twoEquals && (frequencyMap.size() == 3));
 
-
+        // Schéma autorisé : 1 terme avec fréquence 2, 2 termes avec fréquence 1 et aucun terme > 2
+        // soit countFrequency2 == 1, countFrequency1 == 2, countFrequencyMore == 0
+        if (countFrequency2 == 1 && countFrequency1 == 2 && countFrequencyMore == 0) {
+            return false; // Le schéma (AA B C) est respecté, pas de problème
+        } else {
+            return true;  // Tous les autres schémas sont interdits
+        }
     }
+
+
 
     /**
      * Method to populate quantifier menu items
@@ -388,21 +401,16 @@ public class SyllogismeRedactionController {
 
         if (hasDuplicatePremiseCouples(subjectPremise1, predicatPremise1, subjectPremise2, predicatPremise2)) {
             if (language.equals("English")) {
-                myTextValid.setText("Error : The subject-predicate pairs in the premises cannot be identical.");
+                myTextValid.setText("Error: The subject, predicate, and middle term must be different.");
                 myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             } else {
-                myTextValid.setText("Erreur : Les couples de sujet-prédicat dans les prémisses ne peuvent pas être identiques.");
+                myTextValid.setText("Erreur : Le sujet, le prédicat et le terme moyen doivent être différents.");
                 myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             }
 
             return;
         }
 
-
-        System.out.println("Verif ");
-        System.out.println("Premise 1 " + quantifPremise1 + " " + subjectPremise1 + " " + predicatPremise1 + " " + negatifPremise1);
-        System.out.println("Premise 2 " + quantifPremise2 + " " + subjectPremise2 + " " + predicatPremise2 + " " + negatifPremise2);
-        System.out.println("Conclusion " + quantifConclusion + " " + subjectConclusion + " " + predicatConclusion + " " + negatifConclusion);
 
         if(myregleMediumTerm.isSelected()) {
             reglelist.add("regleMoyenTerme");
@@ -463,11 +471,19 @@ public class SyllogismeRedactionController {
 
         this.syllogism = syllo;
         Response r = syllo.validRule(reglelist);
-        if (r.getConclusion() == null)
+        if ((r.isUninteresting() && syllo.getInvalid().size() == 1 && syllo.getInvalid().contains("rUU"))) {
+            if(language.equals("English")) {
+                myTextValid.setText("Uninteresting conclusion try this conclusion :" + r.getConclusion());
+            } else {
+                myTextValid.setText("Conclusion inintéressant essayez cette conclusion :" + r.getConclusion());
+            }
+
+        } else {
             myTextValid.setText(r.getMessage());
-        else
-            myTextValid.setText(r.getMessage() + " " + r.getConclusion());
+        }
         myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+
+
     }
 
     /**

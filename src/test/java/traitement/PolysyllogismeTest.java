@@ -583,7 +583,7 @@ public class PolysyllogismeTest {
     }
 
     @Test
-    void testValider() {
+    void testValidate() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("il n'existe", true);
@@ -596,7 +596,7 @@ public class PolysyllogismeTest {
         polysyllogism.addPremise(tout,"mini-vélo", "vélo",true); //< Tout mini-vélo est un vélo
         polysyllogism.addConclusion(aucun,"mini-vélo", "fox à poil dur",false); //< Aucun mini-vélo n’est un fox à poil durs
 
-        Response r = polysyllogism.valider();
+        Response r = polysyllogism.validate();
 
         for (String rules : polysyllogism.getInvalid() ) {
             System.out.println(rules);

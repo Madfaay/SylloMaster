@@ -130,12 +130,7 @@ public class Proposition {
     }
 
     @Override
-    public String toString()
-    {
-        return ("First Term : " + this.getFirstTermString()
-                + " Second Term : " + this.getSecondTermString() +
-                " Quantificator : " + this.getQuantificator().getName()
-
-        );
+    public String toString() {
+        return this.getQuantificator().getName() + " " + this.getFirstTermString() + " ...  " + this.getSecondTermString();
     }
 }

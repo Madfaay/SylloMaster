@@ -37,7 +37,7 @@ public class Polysyllogism implements Validator {
 
         System.out.println(poly.conclusionRespected());
 
-        System.out.println(poly.valider().getMessage());
+        System.out.println(poly.validate().getMessage());
 
 
 
@@ -567,7 +567,7 @@ public class Polysyllogism implements Validator {
      */
     // STOP
     @Override
-    public Response valider() {
+    public Response validate() {
         invalid.clear();
 
         // We apply all the rules.
@@ -601,15 +601,16 @@ public class Polysyllogism implements Validator {
                     }
             }
     }
-        return new Response(message, isValid, newConclusion);
+        return new Response(message, isValid, newConclusion, isUninteresting());
     }
 
     /**
      * Allows choosing the rule that we want to submit for validation.
      */
+    @Override
     public Response validRule(ArrayList<String> check){
         if(check.isEmpty()) {
-            return new Response("No rules selected", true, null);
+            return new Response("No rules selected", true, null,false);
         }
         invalid.clear();
         Proposition newConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
@@ -645,7 +646,7 @@ public class Polysyllogism implements Validator {
                 message += s + "; ";
             }
         }
-        return new Response(message, isValid, newConclusion);
+        return new Response(message, isValid, newConclusion, isUninteresting());
     }
 
     public Polysyllogism(String language) {

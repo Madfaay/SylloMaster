@@ -9,6 +9,7 @@ package traitement;
 public class Response {
     private String message;
     private boolean result;
+    private boolean isUninteresting;
     private Proposition conclusion;
 
     /**
@@ -17,10 +18,13 @@ public class Response {
      * @param message The message associated with the response, explaining or describing the result.
      * @param result The result of the response (true for valid, false for invalid).
      * @param conclusion The proposition concluding the response (can be null if no conclusion is provided).
+     * @param isUninteresting boolean true if the conclusion is not interesting
      */
-    public Response(String message, boolean result, Proposition conclusion) {
+    public Response(String message, boolean result, Proposition conclusion, boolean isUninteresting) {
         this.message = message;
         this.result = result;
+        this.conclusion = conclusion;
+        this.isUninteresting = isUninteresting;
     }
 
     /**
@@ -52,5 +56,13 @@ public class Response {
      */
     public boolean isValid() {
         return result;
+    }
+    /**
+     * Checks if the conclusion is interesting.
+     *
+     * @return true if conclusion is interesting, false otherwise.
+     */
+    public boolean isUninteresting() {
+        return isUninteresting;
     }
 }

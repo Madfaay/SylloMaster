@@ -446,7 +446,7 @@ public class Syllogism implements Validator {
      * Validates the syllogism by applying logical rules and determines if the conclusion is interesting.
      */
      @Override
-    public Response valider() {
+    public Response validate() {
         // The list of invalid rules is cleared (in case you want to test multiple times after modifications).
          invalid.clear();
 
@@ -473,16 +473,17 @@ public class Syllogism implements Validator {
                 message += s + "; ";
             }
         }
-        return new Response(message, isValid, newConclusion);
+        return new Response(message, isValid, newConclusion, isUninteresting());
 
     }
 /*****************************************************************************************************/
     /**
      * Allows choosing the rule that we want to submit for validation.
      */
+    @Override
     public Response validRule(ArrayList<String> check){
         if(check.isEmpty()) {
-            return new Response("No rules selected", true, null);
+            return new Response("No rules selected", true, null, false);
         }
         invalid.clear();
         Proposition newConclusion = convertConclusion(); //< The new conclusion if the previous one is not interesting.
@@ -525,7 +526,7 @@ public class Syllogism implements Validator {
                 message += s + "; ";
             }
         }
-        return new Response(message, isValid, newConclusion);
+        return new Response(message, isValid, newConclusion, isUninteresting());
     }
     //------------------------------------------------------------------//
     //---------------MANAGEMENT OF INTERESTING CONCLUSIONS--------------//

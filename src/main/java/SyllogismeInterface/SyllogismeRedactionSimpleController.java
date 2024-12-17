@@ -76,6 +76,7 @@ public class SyllogismeRedactionSimpleController {
      */
     @FXML
     void initialize() {
+        myTextValid.setWrapText(true);
         this.loadLanguageFromJson();
         if(!this.language.equals("English"))
             this.setLabelsToFrench();
@@ -383,10 +384,16 @@ public class SyllogismeRedactionSimpleController {
         this.syllogism = syllo;
 
         Response r = syllo.validRule(reglelist);
-        if (r.getConclusion() == null)
+        if ((r.isUninteresting() && syllo.getInvalid().size() == 1 && reglelist.contains("rUU"))) {
+            if(language.equals("English")) {
+                myTextValid.setText("Uninteresting conclusion try this conclusion :" + r.getConclusion());
+            } else {
+                myTextValid.setText("Conclusion inintéressant essayez cette conclusion :" + r.getConclusion());
+            }
+
+        } else {
             myTextValid.setText(r.getMessage());
-        else
-            myTextValid.setText(r.getMessage() + " " + r.getConclusion());
+        }
         myTextValid.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 
 

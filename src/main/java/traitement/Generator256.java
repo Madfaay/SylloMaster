@@ -64,7 +64,7 @@ public class Generator256 {
                         syllogismes.add(nouveau);
 
                         // Vérifications supplémentaires
-                        boolean isValidSyllo = nouveau.valider().getResult();
+                        boolean isValidSyllo = nouveau.validate().getResult();
                         boolean isIninteressant = nouveau.isUninteresting();
 
 
