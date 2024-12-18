@@ -23,57 +23,373 @@ import java.util.Map;
 import java.util.HashMap;
 
 
+/**Controller of fst mode syllgosim validaiton */
+
 public class SyllogismeRedactionController {
-    public Label labelTitle,premisse1;
-    public Button btnBack, btnSwitch;
+    /**
+     * Label for the main title.
+     */
+    public Label labelTitle;
 
-    @FXML private AnchorPane pane;
+    /**
+     * Label for the first premise.
+     */
+    public Label premisse1;
 
+    /**
+     * Button to navigate back in the application.
+     */
+    public Button btnBack;
+
+    /**
+     * Button to switch views or modes.
+     */
+    public Button btnSwitch;
+
+    /**
+     * AnchorPane for organizing UI components, linked to FXML.
+     */
+    @FXML
+    private AnchorPane pane;
+
+    /**
+     * Instance of the Syllogism class representing the current syllogism.
+     */
     Syllogism syllogism;
-    String quantifPremise1, subjectPremise1, predicatPremise1;
+
+    /**
+     * Quantifier for the first premise.
+     */
+    String quantifPremise1;
+
+    /**
+     * Subject of the first premise.
+     */
+    String subjectPremise1;
+
+    /**
+     * Predicate of the first premise.
+     */
+    String predicatPremise1;
+
+    /**
+     * Boolean flag indicating whether the first premise is negative.
+     */
     Boolean negatifPremise1;
 
-    String quantifPremise2, subjectPremise2, predicatPremise2;
+    /**
+     * Quantifier for the second premise.
+     */
+    String quantifPremise2;
+
+    /**
+     * Subject of the second premise.
+     */
+    String subjectPremise2;
+
+    /**
+     * Predicate of the second premise.
+     */
+    String predicatPremise2;
+
+    /**
+     * Boolean flag indicating whether the second premise is negative.
+     */
     Boolean negatifPremise2;
 
-    String quantifConclusion, subjectConclusion, predicatConclusion;
+    /**
+     * Quantifier for the conclusion.
+     */
+    String quantifConclusion;
+
+    /**
+     * Subject of the conclusion.
+     */
+    String subjectConclusion;
+
+    /**
+     * Predicate of the conclusion.
+     */
+    String predicatConclusion;
+
+    /**
+     * Boolean flag indicating whether the conclusion is negative.
+     */
     Boolean negatifConclusion;
 
-    RadioButton buttonSubject, buttonPredicat;
+    /**
+     * RadioButton for selecting the subject option.
+     */
+    RadioButton buttonSubject;
 
+    /**
+     * RadioButton for selecting the predicate option.
+     */
+    RadioButton buttonPredicat;
+
+    /**
+     * Boolean flag indicating the state of a hypothesis.
+     */
     Boolean hypothesis;
 
+    /**
+     * List of strings representing existential quantifiers.
+     */
     List<String> quantiflistExist = new ArrayList<>();
+
+    /**
+     * List of strings representing universal quantifiers.
+     */
     List<String> quantiflistUniv = new ArrayList<>();
+
+    /**
+     * ArrayList containing rules for validation or processing.
+     */
     ArrayList<String> reglelist = new ArrayList<>();
 
-    @FXML MenuButton myquantifPremise1;
-    @FXML TextField mysubjectPremise1, mypredicatPremise1;
-    @FXML CheckBox mynegatifPremise1;
-    @FXML HBox myHBoxsubjectPremise1, myHBoxpredicatPremise1;
+    /**
+     * MenuButton for selecting the quantifier for the first premise, linked to FXML.
+     */
+    @FXML
+    MenuButton myquantifPremise1;
 
-    @FXML Label myTextValid;
+    /**
+     * TextField for entering the subject of the first premise, linked to FXML.
+     */
+    @FXML
+    TextField mysubjectPremise1;
 
-    @FXML MenuButton myquantifPremise2;
-    @FXML RadioButton mysubjectPremise2Subject, mysubjectPremise2Predicat, mysubjectPremise2New, mypredicatPremise2Subject, mypredicatPremise2Predicat, mypredicatPremise2New;
-    @FXML TextField mysubjectPremise2, mypredicatPremise2;
-    @FXML CheckBox mynegatifPremise2;
-    @FXML HBox myHBoxquantifPremise2, myHBoxsubjectPremise2, myHBoxpredicatPremise2;
-    @FXML ToggleGroup subject, predicat;
+    /**
+     * TextField for entering the predicate of the first premise, linked to FXML.
+     */
+    @FXML
+    TextField mypredicatPremise1;
 
-    @FXML MenuButton myquantifConclusion;
-    @FXML TextField mysubjectConclusion, mypredicatConclusion;
-    @FXML CheckBox mynegatifConclusion;
-    @FXML HBox myHBoxquantifConclusion, myHBoxsubjectConclusion, myHBoxpredicatConclusion;
+    /**
+     * CheckBox to indicate negativity of the first premise, linked to FXML.
+     */
+    @FXML
+    CheckBox mynegatifPremise1;
 
-    @FXML Button myverif;
-    @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU;
+    /**
+     * HBox container for managing the subject of the first premise, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxsubjectPremise1;
 
-    @FXML Button btnArray;
+    /**
+     * HBox container for managing the predicate of the first premise, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxpredicatPremise1;
 
+    /**
+     * Label to display validation messages, linked to FXML.
+     */
+    @FXML
+    Label myTextValid;
+
+    /**
+     * MenuButton for selecting the quantifier for the second premise, linked to FXML.
+     */
+    @FXML
+    MenuButton myquantifPremise2;
+
+    /**
+     * RadioButton for selecting "subject" as the type of the second premise, linked to FXML.
+     */
+    @FXML
+    RadioButton mysubjectPremise2Subject;
+
+    /**
+     * RadioButton for selecting "predicate" as the type of the second premise, linked to FXML.
+     */
+    @FXML
+    RadioButton mysubjectPremise2Predicat;
+
+    /**
+     * RadioButton for selecting "new term" as the type of the second premise, linked to FXML.
+     */
+    @FXML
+    RadioButton mysubjectPremise2New;
+
+    /**
+     * RadioButton for selecting "subject" as the predicate of the second premise, linked to FXML.
+     */
+    @FXML
+    RadioButton mypredicatPremise2Subject;
+
+    /**
+     * RadioButton for selecting "predicate" as the predicate of the second premise, linked to FXML.
+     */
+    @FXML
+    RadioButton mypredicatPremise2Predicat;
+
+    /**
+     * RadioButton for selecting "new term" as the predicate of the second premise, linked to FXML.
+     */
+    @FXML
+    RadioButton mypredicatPremise2New;
+
+    /**
+     * TextField for entering the subject of the second premise, linked to FXML.
+     */
+    @FXML
+    TextField mysubjectPremise2;
+
+    /**
+     * TextField for entering the predicate of the second premise, linked to FXML.
+     */
+    @FXML
+    TextField mypredicatPremise2;
+
+    /**
+     * CheckBox to indicate negativity of the second premise, linked to FXML.
+     */
+    @FXML
+    CheckBox mynegatifPremise2;
+
+    /**
+     * HBox container for managing the quantifier of the second premise, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxquantifPremise2;
+
+    /**
+     * HBox container for managing the subject of the second premise, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxsubjectPremise2;
+
+    /**
+     * HBox container for managing the predicate of the second premise, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxpredicatPremise2;
+
+    /**
+     * ToggleGroup for managing radio button selections for the subject, linked to FXML.
+     */
+    @FXML
+    ToggleGroup subject;
+
+    /**
+     * ToggleGroup for managing radio button selections for the predicate, linked to FXML.
+     */
+    @FXML
+    ToggleGroup predicat;
+
+    /**
+     * MenuButton for selecting the quantifier for the conclusion, linked to FXML.
+     */
+    @FXML
+    MenuButton myquantifConclusion;
+
+    /**
+     * TextField for entering the subject of the conclusion, linked to FXML.
+     */
+    @FXML
+    TextField mysubjectConclusion;
+
+    /**
+     * TextField for entering the predicate of the conclusion, linked to FXML.
+     */
+    @FXML
+    TextField mypredicatConclusion;
+
+    /**
+     * CheckBox to indicate negativity of the conclusion, linked to FXML.
+     */
+    @FXML
+    CheckBox mynegatifConclusion;
+
+    /**
+     * HBox container for managing the quantifier of the conclusion, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxquantifConclusion;
+
+    /**
+     * HBox container for managing the subject of the conclusion, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxsubjectConclusion;
+
+    /**
+     * HBox container for managing the predicate of the conclusion, linked to FXML.
+     */
+    @FXML
+    HBox myHBoxpredicatConclusion;
+
+    /**
+     * Button to verify the correctness of the syllogism, linked to FXML.
+     */
+    @FXML
+    Button myverif;
+
+    /**
+     * CheckBox for validating the medium term rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myregleMediumTerm;
+
+    /**
+     * CheckBox for validating the latus rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myregleLatus;
+
+    /**
+     * CheckBox for validating the rNN rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrNN;
+
+    /**
+     * CheckBox for validating the rN rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrN;
+
+    /**
+     * CheckBox for validating the rAA rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrAA;
+
+    /**
+     * CheckBox for validating the rPP rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrPP;
+
+    /**
+     * CheckBox for validating the rP rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrP;
+
+    /**
+     * CheckBox for validating the rUU rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrUU;
+
+    /**
+     * Button for managing arrays, linked to FXML.
+     */
+    @FXML
+    Button btnArray;
+
+    /**
+     * File object pointing to the language configuration file (language.json).
+     */
     private final File languageFile = new File("language.json");
 
-    private String language ;
+    /**
+     * String representing the current language.
+     */
+    private String language;
 
     /**
      * Method to initialize the controller and load the language settings

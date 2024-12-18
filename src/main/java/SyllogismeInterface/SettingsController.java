@@ -27,46 +27,134 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 
+/**Controller to add quantifiers and changing language*/
 
 public class SettingsController {
+    /**
+     * Text element for displaying the title.
+     */
     public Text titleText;
+
+    /**
+     * Menu for selecting quantifiers.
+     */
     public Menu quantiMenu;
+
+    /**
+     * ComboBox for selecting a language, linked to FXML.
+     */
     @FXML
     private ComboBox<String> languageComboBox;
+
+    /**
+     * TextField for user input.
+     */
     public TextField champ;
+
+    /**
+     * Button for performing an action, such as validation or submission.
+     */
     public Button button;
+
+    /**
+     * RadioButton for selecting the "universal" option.
+     */
     public RadioButton universel;
+
+    /**
+     * RadioButton for selecting the "existential" option.
+     */
     public RadioButton existentiel;
+
+    /**
+     * GridPane for organizing UI components in a grid layout.
+     */
     public GridPane grid;
+
+    /**
+     * Menu for selecting the language, linked to FXML.
+     */
     @FXML
     private Menu languageMenu;
+
+    /**
+     * Menu for accessing help options, linked to FXML.
+     */
     @FXML
     private Menu helpMenu;
 
+    /**
+     * Label for displaying output or feedback, linked to FXML.
+     */
     @FXML
-    private Label sortie ;
-    @FXML
-    private Button deleteButton; // Bouton Supprimer
+    private Label sortie;
 
+    /**
+     * Button for deleting an item, labeled "Delete" in the UI.
+     */
     @FXML
-    public Label back ;
+    private Button deleteButton;
 
-    public AnchorPane anchorPane ;
+    /**
+     * Label for navigating back in the application, linked to FXML.
+     */
+    @FXML
+    public Label back;
+
+    /**
+     * AnchorPane for organizing the main layout.
+     */
+    public AnchorPane anchorPane;
+
+    /**
+     * GridPane for managing dynamic grid movements or layouts.
+     */
     public GridPane gridmove;
+
+    /**
+     * Label for displaying a new element or status.
+     */
     public Label nouveau;
+
+    /**
+     * ImageView for displaying an ear icon or related image.
+     */
     public ImageView ear;
+
+    /**
+     * Audio clip for playing a heartbeat sound.
+     */
     private Clip heartbeatClip;
 
+    /**
+     * String representing the selected quantifier.
+     */
     private String selectedQuantif;
 
-    int rowCountExist = 1 ;
-    int rowCountUniv = 1 ;
+    /**
+     * Counter for rows associated with existential quantifiers, initialized to 1.
+     */
+    int rowCountExist = 1;
 
-    private String langue ;
+    /**
+     * Counter for rows associated with universal quantifiers, initialized to 1.
+     */
+    int rowCountUniv = 1;
 
+    /**
+     * String representing the current language.
+     */
+    private String langue;
+
+    /**
+     * ToggleGroup for managing radio button selections, linked to FXML.
+     */
     @FXML
     private ToggleGroup group;
 
+    /**
+     * File object pointing to the language configuration file (language.json).
+     */
     private final File languageFile = new File("language.json");
 
     private void reloadFPages() {

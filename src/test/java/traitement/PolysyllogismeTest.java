@@ -30,7 +30,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code null}.
      */
     @Test
-    void dynamicTestGetIsolatedTermNoIsolated() {
+    public void dynamicTestGetIsolatedTermNoIsolated() {
         Polysyllogism poly = new Polysyllogism("English");
         Proposition p1 = new Proposition("terme", "terme2", new Quantifier("quantif", true), true);
         Proposition p2 = new Proposition("terme3", "terme4", new  Quantifier("quantif", true), true);
@@ -42,7 +42,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code false}.
      */
     @Test
-    void fonctionalTestTermeEgauxFalse() {
+    public void fonctionalTestTermeEgauxFalse() {
         Polysyllogism poly = new Polysyllogism("English");
         assertFalse(poly.EqualTerms("mm", "nn"));
     }
@@ -52,7 +52,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code true}.
      */
     @Test
-    void fonctionalTestTermeEgauxTrue() {
+    public void fonctionalTestTermeEgauxTrue() {
         Polysyllogism poly = new Polysyllogism("English");
         assertTrue(poly.EqualTerms("mm", "mm"));
     }
@@ -62,7 +62,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code true} for valid inputs.
      */
     @Test
-    void fonctionalPropValidAllTermsPos() {
+    public void fonctionalPropValidAllTermsPos() {
         Polysyllogism poly = new Polysyllogism("English");
         // Test with various valid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
@@ -77,7 +77,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code false} for invalid inputs.
      */
     @Test
-    void fonctionalPropInvalidAllTermsPos() {
+    public void fonctionalPropInvalidAllTermsPos() {
         Polysyllogism poly = new Polysyllogism("English");
         // Test with various invalid configurations of propositions
         Proposition p1 = new Proposition("commun", "commun2", new Quantifier("commun", true), true);
@@ -92,7 +92,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code true} when the conclusion respects the premises.
      */
     @Test
-    void fonctionalTestConclusionRespected() {
+    public void fonctionalTestConclusionRespected() {
         Polysyllogism poly = new Polysyllogism("English");
         // Setup valid premises and conclusion
         Proposition prop1 = new Proposition("a", "b", new Quantifier("", true), true);
@@ -115,7 +115,7 @@ public class PolysyllogismeTest {
      * Ensures that the method returns {@code false} when the conclusion does not respect the premises.
      */
     @Test
-    void fonctionalTestConclusionUnRespected() {
+    public void fonctionalTestConclusionUnRespected() {
         Polysyllogism poly = new Polysyllogism("English");
         // Setup premises and an invalid conclusion
         Proposition prop1 = new Proposition("mammifère", "animal", new Quantifier("", true), true);
@@ -151,7 +151,7 @@ public class PolysyllogismeTest {
  * and conclusions are provided. It checks that no invalid results are returned.
  */
     @Test
-    void testMediumTerm() {
+    public void testMediumTerm() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
@@ -177,7 +177,7 @@ public class PolysyllogismeTest {
      * or conclusions are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testMediumTermInvalid() {
+    public void testMediumTermInvalid() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
@@ -209,7 +209,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that no invalid results are returned.
      */
     @Test
-    void testLatius() {
+    public void testLatius() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
@@ -240,7 +240,7 @@ public class PolysyllogismeTest {
      * conclusions are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testLatiusInvalid() {
+    public void testLatiusInvalid() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
 
         Quantifier tout = new Quantifier("Tout", true);
@@ -273,7 +273,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that no invalid results are returned.
      */
     @Test
-    void testRnn() {
+    public void testRnn() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -297,7 +297,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testRnnInvalid() {
+    public void testRnnInvalid() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -352,7 +352,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testrNInvalid() {
+    public void testrNInvalid() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("Tout", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -383,7 +383,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that no invalid results are returned.
      */
     @Test
-    void testrAA() {
+    public void testrAA() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("Aucun", true);
@@ -408,7 +408,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testrAAInvalid() {
+    public void testrAAInvalid() {
         // Toutes les premises sont universelles mais la conclusion est particulière.
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
@@ -435,7 +435,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that no invalid results are returned.
      */
     @Test
-    void testrPP() {
+    public void testrPP() {
 
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
@@ -461,7 +461,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testrPPInvalid() {
+    public void testrPPInvalid() {
         // Toutes les premises sont particulières.
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier aucun = new Quantifier("il n'existe", false);
@@ -510,7 +510,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testrPInvalid(){
+    public void testrPInvalid(){
         // Toutes les premises sont particulières.
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
@@ -537,7 +537,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that no invalid results are returned.
      */
     @Test
-    void testRuu(){
+    public void testRuu(){
         // Toutes les premises sont particulières.
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
@@ -563,7 +563,7 @@ public class PolysyllogismeTest {
      * are provided. It checks that one invalid result is returned.
      */
     @Test
-    void testRuuInvalid(){
+    public void testRuuInvalid(){
         // Toutes les premises sont particulières.
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
@@ -583,7 +583,7 @@ public class PolysyllogismeTest {
     }
 
     @Test
-    void testValidate() {
+    public void testValidate() {
         Polysyllogism polysyllogism = new Polysyllogism("English");
         Quantifier tout = new Quantifier("TouT", true);
         Quantifier aucun = new Quantifier("il n'existe", true);

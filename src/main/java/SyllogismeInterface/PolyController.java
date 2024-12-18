@@ -21,72 +21,190 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**Polysyllogism controller e */
+
 public class PolyController {
+    /**
+     * AnchorPane for organizing UI components.
+     */
     public AnchorPane anchor;
+
+    /**
+     * CheckBox for selecting a negative option.
+     */
     public CheckBox Negative;
+
+    /**
+     * Button to navigate back.
+     */
     public Button btnBack;
+
+    /**
+     * Label for the second term or concept.
+     */
     public Label labelDeuxieme;
+
+    /**
+     * Label for the first term or concept.
+     */
     public Label labelPremier;
+
+    /**
+     * Button to navigate to the last step, linked to FXML.
+     */
     @FXML
     private Button goToLastOne;
+
+    /**
+     * Button for handling the premise step, linked to FXML.
+     */
     @FXML
     private Button premisse;
+
+    /**
+     * Button to navigate back to the previous step, linked to FXML.
+     */
     @FXML
     private Button goToBack;
+
+    /**
+     * Button to navigate back to the summary, linked to FXML.
+     */
     @FXML
     private Button goToBackSum;
+
+    /**
+     * Button to validate the structure of the syllogism, linked to FXML.
+     */
     @FXML
     private Button structureValid;
+
+    /**
+     * Button to indicate that the action is completed, linked to FXML.
+     */
     @FXML
     private Button doneButton;
+
+    /**
+     * Button to validate the entire structure, linked to FXML.
+     */
     @FXML
     private Button validateStructure;
+
+    /**
+     * Label for displaying the main title, linked to FXML.
+     */
     @FXML
     private Label titre;
 
+    /**
+     * Label to display the result of the structure validation, linked to FXML.
+     */
     @FXML
-    private Label resultStruct ;
+    private Label resultStruct;
 
+    /**
+     * TextField for entering the first term of the syllogism.
+     */
     @FXML
     private TextField premierterme;
+
+    /**
+     * TextField for entering the second term of the syllogism.
+     */
     @FXML
     private TextField deuxiemeterme;
+
+    /**
+     * ComboBox for selecting quantifiers.
+     */
     @FXML
-    private ComboBox<String> quantificateurs ;
+    private ComboBox<String> quantificateurs;
+
+    /**
+     * TextField for entering the first part of the conclusion.
+     */
     @FXML
     private TextField firstConclusion;
+
+    /**
+     * TextField for entering the second part of the conclusion.
+     */
     @FXML
     private TextField secondConclusion;
+
+    /**
+     * ComboBox for selecting quantifiers for the conclusion.
+     */
     @FXML
     private ComboBox<String> quantifConclusion;
+
+    /**
+     * VBox container for displaying the premises dynamically.
+     */
     @FXML
-    private VBox premissesContainer = new VBox(); // Conteneur pour afficher les prémisses
+    private VBox premissesContainer = new VBox();
+
+    /**
+     * Label to display the current number of premises.
+     */
     @FXML
     private Label number;
 
+    /**
+     * Counter for the number of premises, initialized to 1.
+     */
     private int nbpremise = 1;
 
-
-
-
+    /**
+     * List of strings representing the first set of terms in the syllogism.
+     */
     private ArrayList<String> first = new ArrayList<>();
+
+    /**
+     * List of strings representing the second set of terms in the syllogism.
+     */
     private ArrayList<String> second = new ArrayList<>();
+
+    /**
+     * List of strings representing quantifiers.
+     */
     private ArrayList<String> quant = new ArrayList<>();
+
+    /**
+     * List of booleans representing specific conditions or states for the syllogism.
+     */
     private ArrayList<Boolean> booleans = new ArrayList<>();
 
-    private ArrayList<String> quantiflistUniv  = new ArrayList<>();
+    /**
+     * List of strings representing universal quantifiers.
+     */
+    private ArrayList<String> quantiflistUniv = new ArrayList<>();
 
-    private ArrayList<String> quantiflistExist  = new ArrayList<>();
+    /**
+     * List of strings representing existential quantifiers.
+     */
+    private ArrayList<String> quantiflistExist = new ArrayList<>();
 
-
+    /**
+     * Counter for the current page, initialized to 1.
+     */
     private int pageCounter = 1;
 
+    /**
+     * File pointing to the language configuration file (language.json).
+     */
     private final File languageFile = new File("language.json");
 
-    private String language ;
+    /**
+     * Current language as a string.
+     */
+    private String language;
 
-    private Polysyllogism poly ;
-
+    /**
+     * Instance of the Polysyllogism class to manage complex syllogisms.
+     */
+    private Polysyllogism poly;
 
     /**
      * This method is called when the controller is initialized.

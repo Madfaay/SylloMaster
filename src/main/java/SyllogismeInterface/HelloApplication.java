@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**Allows us to start application */
 public class HelloApplication extends Application {
     private static PageManager pageManager;
     @Override

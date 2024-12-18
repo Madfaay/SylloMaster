@@ -13,29 +13,102 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/** Generator controller */
 public class TableauController {
 
+    /**
+     * TableView to display lists of strings in a tabular format.
+     */
     @FXML
     private TableView<ObservableList<String>> tableView;
 
-    @FXML private TableColumn<ObservableList<String>, String> number;
-    @FXML private TableColumn<ObservableList<String>, String> Figure;
-    @FXML private TableColumn<ObservableList<String>, String> Form;
-    @FXML private TableColumn<ObservableList<String>, String> MiddleTermRule;
-    @FXML private TableColumn<ObservableList<String>, String> LatiusRule;
-    @FXML private TableColumn<ObservableList<String>, String> rNN;
-    @FXML private TableColumn<ObservableList<String>, String> rN;
-    @FXML private TableColumn<ObservableList<String>, String> rAA;
-    @FXML private TableColumn<ObservableList<String>, String> rPP;
-    @FXML private TableColumn<ObservableList<String>, String> rP;
-    @FXML private TableColumn<ObservableList<String>, String> Valide;
-    @FXML private TableColumn<ObservableList<String>, String> Interssant;
+    /**
+     * TableColumn for displaying the number associated with an entry in the TableView.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> number;
 
+    /**
+     * TableColumn for displaying the figure type in the TableView.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> Figure;
+
+    /**
+     * TableColumn for displaying the form of the syllogism in the TableView.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> Form;
+
+    /**
+     * TableColumn for displaying the validation result of the middle term rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> MiddleTermRule;
+
+    /**
+     * TableColumn for displaying the validation result of the latus rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> LatiusRule;
+
+    /**
+     * TableColumn for displaying the validation result of the rNN rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> rNN;
+
+    /**
+     * TableColumn for displaying the validation result of the rN rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> rN;
+
+    /**
+     * TableColumn for displaying the validation result of the rAA rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> rAA;
+
+    /**
+     * TableColumn for displaying the validation result of the rPP rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> rPP;
+
+    /**
+     * TableColumn for displaying the validation result of the rP rule.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> rP;
+
+    /**
+     * TableColumn for displaying whether the entry is valid.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> Valide;
+
+    /**
+     * TableColumn for displaying whether the entry is considered interesting.
+     */
+    @FXML
+    private TableColumn<ObservableList<String>, String> Interssant;
+
+    /**
+     * File object pointing to the language configuration file (language.json).
+     */
     private final File languageFile = new File("language.json");
-    public String language ;
 
-    // Liste des données pour le TableView
+    /**
+     * String representing the current language of the application.
+     */
+    public String language;
+
+    /**
+     * ObservableList containing the data to populate the TableView.
+     */
     private final ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+
 
     @FXML
     void initialize() {

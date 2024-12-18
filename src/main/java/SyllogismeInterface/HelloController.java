@@ -30,46 +30,115 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-
+/**Principal controller of reception page */
 public class HelloController {
     public Label settings;
+
+    /**
+     * Label for the credits section.
+     */
     public Label credits;
+
+    /**
+     * Label for the start button or section.
+     */
     public Label start;
+
+    /**
+     * Label for the "What is syllogism" section.
+     */
     public Label whatsyllo;
+
+    /**
+     * Label for the quit button or section.
+     */
     public Label quit;
 
+    /**
+     * Label for the syllogism course section.
+     */
     public Label syllogismeCours;
+
+    /**
+     * Label for the polysyllogism course section.
+     */
     public Label polysyllogismeCours;
+
+    /**
+     * Label for the propositions section.
+     */
     public Label propos;
+
+    /**
+     * Label for the course on syllogism rules.
+     */
     public Label reglescours;
+
+    /**
+     * Label for the course on quality aspects of syllogism.
+     */
     public Label qualiteCours;
+
+    /**
+     * Label for the course on quantity aspects of syllogism.
+     */
     public Label quantiteCours;
+
+    /**
+     * Label for the course on syllogism figures.
+     */
     public Label FiguresCours;
 
+    /**
+     * Text field to display or interact with the syllogism master concept.
+     */
     public Text sylloMaster;
+
+    /**
+     * Text field to help users understand syllogism.
+     */
     public Text sylloUnderstand;
 
-    public String language ;
+    /**
+     * Current selected language as a string.
+     */
+    public String language;
 
-    public boolean effect ;
+    /**
+     * Boolean flag indicating whether an effect is active.
+     */
+    public boolean effect;
 
+    /**
+     * Label for the back button or navigation option, linked to FXML.
+     */
     @FXML
-    public Label back ;
+    public Label back;
 
+    /**
+     * AnchorPane element for organizing UI components, linked to FXML.
+     */
     @FXML
     private AnchorPane archor;
 
+    /**
+     * ImageView element for displaying images in the UI, linked to FXML.
+     */
     @FXML
     private ImageView imageView;
 
+    /**
+     * File object pointing to the language configuration file (language.json).
+     */
     private final File languageFile = new File("language.json");
 
+/******     Pour les langues        *********/
 
-    /******     Pour les langues        *********/
-
+    /**
+     * ComboBox for selecting the language, initialized with an empty ComboBox.
+     */
     @FXML
-    private ComboBox<String> languageComboBox = new ComboBox<>(); // ComboBox pour la sélection de la langue
-
+    private ComboBox<String> languageComboBox = new ComboBox<>();
     //Getters
 
     /**

@@ -12,16 +12,47 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
+/**Start adventure controller */
+
 public class PolyOrSyllogismeController {
 
+    /**
+     * AnchorPane for organizing the main layout of the application.
+     */
     public AnchorPane archor;
+
+    /**
+     * Label to display information or content related to the left part of the syllogism.
+     */
     public Label syllogismeLeft;
+
+    /**
+     * Label to display information or content related to the right part of the syllogism.
+     */
     public Label syllogismeRight;
+
+    /**
+     * Label for displaying or interacting with the polysyllogism section.
+     */
     public Label poly;
 
-    Parent modeContent;
-    Parent acceuilContent;
-    Parent syllogismeContent;
+    /**
+     * Parent node for the mode selection view.
+     */
+    public Parent modeContent;
+
+    /**
+     * Parent node for the main welcome (acceuil) view.
+     */
+    public Parent acceuilContent;
+
+    /**
+     * Parent node for the syllogism-related content view.
+     */
+    public Parent syllogismeContent;
+
+    /** Button to navigate back to the previous step, linked to FXML.*/
 
     @FXML
     public Label back;

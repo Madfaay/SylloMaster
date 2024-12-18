@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class SyllogismTest {
+public class SyllogismTest {
 
     /**
      * Test to detect the figure of a syllogism.

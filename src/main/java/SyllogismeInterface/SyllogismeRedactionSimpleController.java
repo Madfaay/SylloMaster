@@ -21,49 +21,306 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+/**Controller of second mode of syllogism validation */
 public class SyllogismeRedactionSimpleController {
+    /**
+     * Main container for the interface layout.
+     */
     public AnchorPane pane;
-    public Label labelTitle, labelTypeFigure, labelSubject, labelConclusion, labelPremise2, labelPremise1;
-    public Button actionVerif, btnBack, btnSwitch, btnArray;
-    public MenuItem menuItemConclusion_2,menuItemConclusion_1, menuItemPremise2_2, menuItemPremise2_1, menuItemPremise1_1, menuItemPremise1_2;
+
+    /**
+     * Label displaying the main title.
+     */
+    public Label labelTitle;
+
+    /**
+     * Label for indicating the type of figure.
+     */
+    public Label labelTypeFigure;
+
+    /**
+     * Label for displaying the subject term.
+     */
+    public Label labelSubject;
+
+    /**
+     * Label for the conclusion.
+     */
+    public Label labelConclusion;
+
+    /**
+     * Label for the second premise.
+     */
+    public Label labelPremise2;
+
+    /**
+     * Label for the first premise.
+     */
+    public Label labelPremise1;
+
+    /**
+     * Button for verifying the syllogism.
+     */
+    public Button actionVerif;
+
+    /**
+     * Button to navigate back to the previous screen.
+     */
+    public Button btnBack;
+
+    /**
+     * Button to switch views or modes.
+     */
+    public Button btnSwitch;
+
+    /**
+     * Button to manage arrays.
+     */
+    public Button btnArray;
+
+    /**
+     * MenuItem for selecting the first part of the conclusion.
+     */
+    public MenuItem menuItemConclusion_1;
+
+    /**
+     * MenuItem for selecting the second part of the conclusion.
+     */
+    public MenuItem menuItemConclusion_2;
+
+    /**
+     * MenuItem for selecting the first part of the second premise.
+     */
+    public MenuItem menuItemPremise2_1;
+
+    /**
+     * MenuItem for selecting the second part of the second premise.
+     */
+    public MenuItem menuItemPremise2_2;
+
+    /**
+     * MenuItem for selecting the first part of the first premise.
+     */
+    public MenuItem menuItemPremise1_1;
+
+    /**
+     * MenuItem for selecting the second part of the first premise.
+     */
+    public MenuItem menuItemPremise1_2;
+
+    /**
+     * Label for displaying the predicate of the conclusion.
+     */
     public Label mypredicateConclusionLabel;
+
+    /**
+     * Label for the medium term used in the syllogism.
+     */
     public Label mymediumTermLabel;
+
+    /**
+     * Button for interacting with the figure type.
+     */
     public Button mytypeFigureLabel;
 
+    /**
+     * Quantifier for the first premise.
+     */
     String quantifPremise1;
+
+    /**
+     * Quantifier for the second premise.
+     */
     String quantifPremise2;
+
+    /**
+     * Quantifier for the conclusion.
+     */
     String quantifConclusion;
+
+    /**
+     * Subject term of the syllogism.
+     */
     String subject;
+
+    /**
+     * Predicate term of the conclusion.
+     */
     String predicatConclusion;
+
+    /**
+     * Medium term used in the syllogism.
+     */
     String mediumTerm;
+
+    /**
+     * Type of figure used in the syllogism.
+     */
     int typeFigure;
+
+    /**
+     * Boolean indicating if the first premise is negative.
+     */
     Boolean negatifPremise1;
+
+    /**
+     * Boolean indicating if the second premise is negative.
+     */
     Boolean negatifPremise2;
+
+    /**
+     * Boolean indicating if the conclusion is negative.
+     */
     Boolean negatifConclusion;
+
+    /**
+     * Boolean representing the hypothesis state of the syllogism.
+     */
     Boolean hypothesis;
 
+    /**
+     * Instance of the Syllogism class representing the current syllogism.
+     */
     Syllogism syllogism;
+
+    /**
+     * List of universal quantifiers.
+     */
     List<String> quantiflistUniv = new ArrayList<>();
+
+    /**
+     * List of existential quantifiers.
+     */
     List<String> quantiflistExist = new ArrayList<>();
 
+    /**
+     * List of rules for validating or processing the syllogism.
+     */
     ArrayList<String> reglelist = new ArrayList<>();
 
-    @FXML MenuButton textPremise1;
-    @FXML MenuButton textPremise2;
-    @FXML MenuButton textConclusion;
-    @FXML TextField mysubject;
-    @FXML TextField mypredicatConclusion;
-    @FXML TextField mymediumTerm;
-    @FXML TextField mytypeFigure;
-    @FXML CheckBox mynegatifPremise1;
-    @FXML CheckBox mynegatifPremise2;
-    @FXML CheckBox mynegatifConclusion;
-    //@FXML CheckBox myhypothesis;
-    @FXML Label myTextValid;
-    @FXML CheckBox myregleMediumTerm, myregleLatus, myrNN, myrN, myrAA, myrPP, myrP, myrUU;
+    /**
+     * MenuButton for selecting text related to the first premise, linked to FXML.
+     */
+    @FXML
+    MenuButton textPremise1;
 
-    public String language ;
+    /**
+     * MenuButton for selecting text related to the second premise, linked to FXML.
+     */
+    @FXML
+    MenuButton textPremise2;
 
+    /**
+     * MenuButton for selecting text related to the conclusion, linked to FXML.
+     */
+    @FXML
+    MenuButton textConclusion;
+
+    /**
+     * TextField for entering the subject term, linked to FXML.
+     */
+    @FXML
+    TextField mysubject;
+
+    /**
+     * TextField for entering the predicate of the conclusion, linked to FXML.
+     */
+    @FXML
+    TextField mypredicatConclusion;
+
+    /**
+     * TextField for entering the medium term, linked to FXML.
+     */
+    @FXML
+    TextField mymediumTerm;
+
+    /**
+     * TextField for specifying the type of figure, linked to FXML.
+     */
+    @FXML
+    TextField mytypeFigure;
+
+    /**
+     * CheckBox to indicate negativity of the first premise, linked to FXML.
+     */
+    @FXML
+    CheckBox mynegatifPremise1;
+
+    /**
+     * CheckBox to indicate negativity of the second premise, linked to FXML.
+     */
+    @FXML
+    CheckBox mynegatifPremise2;
+
+    /**
+     * CheckBox to indicate negativity of the conclusion, linked to FXML.
+     */
+    @FXML
+    CheckBox mynegatifConclusion;
+
+    /**
+     * Label to display validation messages, linked to FXML.
+     */
+    @FXML
+    Label myTextValid;
+
+    /**
+     * CheckBox for validating the medium term rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myregleMediumTerm;
+
+    /**
+     * CheckBox for validating the latus rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myregleLatus;
+
+    /**
+     * CheckBox for validating the rNN rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrNN;
+
+    /**
+     * CheckBox for validating the rN rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrN;
+
+    /**
+     * CheckBox for validating the rAA rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrAA;
+
+    /**
+     * CheckBox for validating the rPP rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrPP;
+
+    /**
+     * CheckBox for validating the rP rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrP;
+
+    /**
+     * CheckBox for validating the rUU rule, linked to FXML.
+     */
+    @FXML
+    CheckBox myrUU;
+
+    /**
+     * String representing the current language.
+     */
+    public String language;
+
+    /**
+     * File object pointing to the language configuration file (language.json).
+     */
     private final File languageFile = new File("language.json");
 
     /**
