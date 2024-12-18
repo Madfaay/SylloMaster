@@ -120,9 +120,9 @@ public class Generator256 {
     }
 
     /**
-     * Méthode pour afficher les 256 syllogismes générés dans le terminal
-     * Affiche le nombre total de syllogismes, le nombre de syllogismes valides et intéressants,
-     * ainsi que les détails de chaque syllogisme généré.
+     * Method for displaying the 256 syllogisms generated in the terminal
+     *      * Displays the total number of syllogisms, the number of valid and interesting syllogisms,
+     *      * as well as the details of each syllogism generated.
      */
     public void afficherSyllogismes() {
 
@@ -144,12 +144,12 @@ public class Generator256 {
     }
 
 
-    /** * Méthode pour créer une proposition en fonction de son type. * * @param type Le type de la proposition ("A", "E", "I", "O"). * @return Une nouvelle proposition. */
+    /** Method for creating a statement according to its type. * The type of the statement (‘A’, ‘E’, ‘I’, ‘O’). * @return A new statement. */
     /**
-     * Méthode pour créer une proposition en fonction de son type.
+     * Method for creating a statement according to its type.
      *
-     * @param type Le type de la proposition ("A", "E", "I", "O").
-     * @return Une nouvelle proposition.
+     * @param type The type of the statement (‘A’, ‘E’, ‘I’, ‘O’).
+     * @return A new statement.
      */
     private Proposition createProposition(String type, Term premierTerme, Term deuxiemeTerme) {
         Proposition p = null;
@@ -220,6 +220,7 @@ public class Generator256 {
             index++; // Increment index for next sublist
         }
     }
+
 
     public static void main(String[] args) {
         // Création des quantificateurs
