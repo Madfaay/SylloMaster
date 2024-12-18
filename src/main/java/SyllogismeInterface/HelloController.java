@@ -231,7 +231,11 @@ public class HelloController {
             hideParams(); // Hide the parameters
             hideTitle();  // Hide the title
             // Set the background image for credits
-            relativePath = Paths.get("src", "IMAGES", "Credits.jpg");
+            if(this.language.equals("English"))
+                relativePath = Paths.get("src", "IMAGES", "Credits.jpg");
+            else
+                relativePath = Paths.get("src", "IMAGES", "CreditsFr.jpg");
+
             setBackgroundImage(relativePath.toAbsolutePath().toString());
             back.setVisible(true); // Show the back button
         }
@@ -240,6 +244,7 @@ public class HelloController {
             System.out.println("WhatSyllo label clicked!");
             relativePath = Paths.get("src", "IMAGES", "syllocours.jpg");
             setBackgroundImage(relativePath.toAbsolutePath().toString());
+
             // Show various course-related elements
             syllogismeCours.setVisible(true);
             polysyllogismeCours.setVisible(true);

@@ -124,7 +124,7 @@ public class Generator256 {
      *      * Displays the total number of syllogisms, the number of valid and interesting syllogisms,
      *      * as well as the details of each syllogism generated.
      */
-    public void afficherSyllogismes() {
+    public void printSyllogismes() {
 
         System.out.println("Nombre total de syllogismes : " + syllogismes.size());
         System.out.println("Nombre de syllogismes valides : " + valideCount);
