@@ -238,18 +238,45 @@ public class Syllogism implements Validator {
         }
     }
 
+
+    /**
+     * Checks if the subject and predicate expressions are different.
+     *
+     * This method compares the subject and predicate expressions of the proposition.
+     * If they are the same, it returns false; otherwise, it returns true.
+     *
+     * @return true if the subject and predicate expressions are different, false otherwise.
+     */
     public Boolean isPdiffS(){
         if(getSujet().getExpression().equals(getPredicat().getExpression())){
             return false;
         }
         return true;
     }
+
+    /**
+     * Checks if the predicate and minor middle term expressions are different.
+     *
+     * This method compares the predicate expression with the minor middle term expression.
+     * If they are the same, it returns false; otherwise, it returns true.
+     *
+     * @return true if the predicate and minor middle term expressions are different, false otherwise.
+     */
     public Boolean isPdiffM(){
         if(getPredicat().getExpression().equals(getMinorMiddleterm().getExpression())){
             return false;
         }
         return true;
     }
+
+    /**
+     * Checks if the subject and minor middle term expressions are different.
+     *
+     * This method compares the subject expression with the minor middle term expression.
+     * If they are the same, it returns false; otherwise, it returns true.
+     *
+     * @return true if the subject and minor middle term expressions are different, false otherwise.
+     */
     public Boolean isSdiffM(){
         if(getSujet().getExpression().equals(getMinorMiddleterm().getExpression())){
             return false;

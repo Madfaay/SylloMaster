@@ -156,31 +156,31 @@ public class Generator256 {
         Quantifier quantificateur;
 
 
-        // On initialise les quantificateurs et les termes en fonction du type de syllogisme
+        // Initialize quantifiers and terms based on the syllogism type
         switch (type) {
             case "A":
-                // Quantificateur pour "Tous les" (universel affirmatif)
+                // Quantifier for "Tous les" (universal affirmative)
                 quantificateur = new Quantifier("Tous les ", true);
                 premierTerme.setUniversal(true);  // Le premier terme est universel
                 p = new Proposition(premierTerme.toString(), deuxiemeTerme.toString(), quantificateur, true);
                 break;
 
             case "E":
-                // Quantificateur pour "Aucun" (universel négatif)
+                // Quantifier for "Aucun" (universal negative)
                 quantificateur = new Quantifier("Aucun ", true);
                 premierTerme.setUniversal(true);  // Le premier terme est universel
                 p = new Proposition(premierTerme.toString(), deuxiemeTerme.toString(), quantificateur, false);
                 break;
 
             case "I":
-                // Quantificateur pour "Certains" (existentiel affirmatif)
+                // Quantifier for "Certains" (existential affirmative)
                 quantificateur = new Quantifier("Certains ", false);
                 premierTerme.setUniversal(false);  // Le premier terme n'est pas universel
                 p = new Proposition(premierTerme.toString(), deuxiemeTerme.toString(), quantificateur, true);
                 break;
 
             case "O":
-                // Quantificateur pour "Certains" (existentiel négatif)
+                // Quantifier for "Certains" (existential negative)
                 quantificateur = new Quantifier("Certains ", false);
                 premierTerme.setUniversal(false);  // Le premier terme n'est pas universel
                 p = new Proposition(premierTerme.toString(), deuxiemeTerme.toString(), quantificateur, false);
@@ -195,7 +195,19 @@ public class Generator256 {
     }
 
 
-    public void afficherSyllogismesDetails() {
+
+/**
+ * Prints the details of the syllogisms stored in the `syllogismesDetails` list.
+ *
+ * This method:
+ * - Checks if the `syllogismesDetails` list is empty. If so, it prints a message indicating that the list is empty and exits.
+ * - If the list is not empty, it iterates through each sublist of syllogisms and prints its content.
+ * - Each sublist represents a syllogism, and its elements are displayed in a formatted way:
+ *   - The index of the syllogism is shown (e.g., "Syllogisme 1").
+ *   - Elements in the sublist are printed inside square brackets `[]`, separated by commas.
+ */
+
+ public void printSyllogismesDetails() {
         // Check if the list is empty
         if (syllogismesDetails.isEmpty()) {
             System.out.println("La liste des syllogismes est vide.");
@@ -256,7 +268,7 @@ public class Generator256 {
 
         // Initialisation du générateur
         Generator256 g = new Generator256(syllogisme1);
-        g.afficherSyllogismesDetails();
+        g.printSyllogismesDetails();
 
 
 

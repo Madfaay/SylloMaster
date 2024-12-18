@@ -68,21 +68,52 @@ public class TableauController {
 
     // Méthode pour ajouter des données de test
 
-    // Méthode pour ajouter une ligne
+    /**
+     * Adds a new row of values to the table.
+     *
+     * This method adds a new row to the `data` list, which is a list of observable lists representing the rows of the table.
+     * It ensures that the new row contains exactly 12 values, corresponding to the 12 columns in the table. If the number of values
+     * is not 12, an `IllegalArgumentException` is thrown.
+     *
+     * @param values An array of strings representing the values for the new row. This array must contain exactly 12 elements.
+     *
+     * @throws IllegalArgumentException if the number of values is not 12.
+     */
     public void addRow(String[] values) {
-        if (values.length != 12) { // 12 colonnes dans votre tableau
+        if (values.length != 12) { // 12 columns in the table
             throw new IllegalArgumentException("Chaque ligne doit contenir exactement 12 valeurs.");
         }
         data.add(FXCollections.observableArrayList(values));
     }
 
+
+    /**
+     * Adds a new row of values to the table.
+     *
+     * This method adds a new row to the `data` list, which is a list of observable lists representing the rows of the table.
+     * It ensures that the new row contains exactly 12 values, corresponding to the 12 columns in the table. If the number of values
+     * is not 12, an `IllegalArgumentException` is thrown.
+     *
+     * @param values A list of strings representing the values for the new row. This list must contain exactly 12 elements.
+     *
+     * @throws IllegalArgumentException if the number of values is not 12.
+     */
     public void addRow(List<String> values) {
-        if (values.size() != 12) { // 12 colonnes dans votre tableau
+        if (values.size() != 12) { // 12 columns in the table
             throw new IllegalArgumentException("Chaque ligne doit contenir exactement 12 valeurs.");
         }
         data.add(FXCollections.observableArrayList(values));
     }
 
+
+    /**
+     * Loads the language setting from a JSON file.
+     *
+     * This method attempts to load the language preference from a JSON file (`language.json`). If the file exists, it reads the data
+     * and retrieves the language setting. If the language is found in the file, it is stored in the `language` variable.
+     * If an error occurs while reading the file, an error message is printed.
+     *
+     */
     private void loadLanguageFromJson() {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -103,9 +134,19 @@ public class TableauController {
     }
 
 
+    /**
+     * Translates the column headers of a table to French.
+     *
+     * This method iterates through all the columns of the table (`tableView`), retrieves the text of the column headers,
+     * and translates them into French based on predefined cases. If a column header matches one of the specified values,
+     * it is replaced with the corresponding French translation.
+     *
+     *
+     * If the header text does not match any of the predefined values, no change is made.
+     */
     public void translateTableColumnsToFrench() {
         for (TableColumn<?, ?> column : tableView.getColumns()) {
-            String headerText = column.getText(); // Récupère le texte de l'en-tête
+            String headerText = column.getText(); // Retrieve the column header text
             if (headerText != null) {
                 switch (headerText) {
                     case "Number of syllo":
@@ -145,10 +186,11 @@ public class TableauController {
                         column.setText("Intéressant");
                         break;
                     default:
-                        // Si aucun cas ne correspond, ne rien changer
+                        // If no match, do nothing
                         break;
                 }
             }
         }
     }
+
 }

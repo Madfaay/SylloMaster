@@ -150,6 +150,24 @@ public class PolyController {
         }
     }
 
+    /**
+     * Loads data from the JSON file "data.json" and returns it as a list of maps.
+     * Each map represents a set of key-value pairs from the JSON data.
+     *
+     * If the file does not exist or is empty, an empty list is returned.
+     *
+     * @return a List of Maps where each map contains key-value pairs representing the data.
+     *         Returns an empty list if the file is missing or contains no data.
+     *
+     * @throws IOException if an error occurs while reading the file.
+     *
+     * This method performs the following steps:
+     * 1. Checks if the file "data.json" exists and has content (non-zero length).
+     * 2. If the file is valid, uses Jackson's ObjectMapper to parse the JSON content
+     *    into a list of maps.
+     * 3. If the file does not exist or is empty, returns an empty list.
+     */
+
     private void loadLanguageFromJson() {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -381,6 +399,20 @@ public class PolyController {
     }
 
 
+
+    /**
+     * Handles input validation and processes data from the form fields.
+     *
+     * This method checks if all input fields are valid:
+     * - Ensures the first term, second term, and quantifier fields are not empty.
+     * - Highlights invalid fields with a specific border style.
+     *
+     * If all inputs are valid:
+     * - Adds the input data to respective lists (`first`, `second`, `quant`).
+     * - Stores the negation status based on the `Negative` checkbox.
+     * - Clears the input fields and enables the "structureValid" button.
+     */
+
     private void handle() {
         // Flag to check if all inputs are valid
         boolean valid = true;
@@ -433,6 +465,15 @@ public class PolyController {
 
     }
 
+
+    /**
+     * Checks if the given quantifier is in the list of universal quantifiers.
+     *
+     * @param quantif the quantifier to check.
+     * @return true if the quantifier exists in the universal quantifiers list, false otherwise.
+     *
+     * This method also prints the universal quantifiers list for debugging purposes.
+     */
 
     public boolean universel(String quantif)
     {
@@ -530,61 +571,95 @@ public class PolyController {
 
 
     }
+
+    /**
+     * Creates a new label below the specified position and adds it to the given AnchorPane.
+     *
+     * @param parentPane the parent AnchorPane to which the label will be added.
+     * @param layoutX the horizontal position of the label.
+     * @param layoutY the vertical position above which the label will be placed slightly below.
+     * @param text the text to display in the label.
+     *
+     * This method:
+     * - Creates a label with the specified text.
+     * - Positions the label slightly below the provided Y-coordinate.
+     * - Applies styles for better visibility (white text, larger font, bold).
+     * - Adds the label to the parent AnchorPane.
+     */
     public void createLabelBelow(AnchorPane parentPane, double layoutX, double layoutY, String text) {
-        // Crée un nouveau label avec le texte spécifié
+        // Create a new label with the specified text
         Label newLabel = new Label(text);
 
-        // Définit la position du label
-        newLabel.setLayoutX(layoutX); // Même position horizontale
-        newLabel.setLayoutY(layoutY + 10); // Position verticale légèrement en dessous
+        // Set the label's position
+        newLabel.setLayoutX(layoutX); // Same horizontal position
+        newLabel.setLayoutY(layoutY + 10); // Slightly below the vertical position
 
-        // Applique des styles pour améliorer la visibilité
-        newLabel.setTextFill(javafx.scene.paint.Color.WHITE); // Texte en blanc
-        newLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;"); // Texte plus grand et gras
+        // Apply styles to enhance visibility
+        newLabel.setTextFill(javafx.scene.paint.Color.WHITE); // White text
+        newLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;"); // Larger and bold text
 
-        // Ajoute le label au conteneur parent
+        // Add the label to the parent container
         parentPane.getChildren().add(newLabel);
     }
 
+
+    /**
+     * Retrieves data from the JSON file and categorizes it into two lists based on the quantifier type.
+     *
+     * This method:
+     * - Reads data from the JSON file using the `loadData` method.
+     * - Iterates through the data and sorts quantifiers into two lists: `quantiflistUniv` for universal quantifiers
+     *   and `quantiflistExist` for existential quantifiers.
+     * - Handles quantifier classification based on the current language setting (English or French).
+     *
+     * If an error occurs while reading the file, the stack trace is printed for debugging purposes.
+     */
     private void retrieve() {
         try {
-            // Lire les données depuis le fichier JSON
+            // Read data from the JSON file
             List<Map<String, String>> dataList = loadData();
 
-            // Deux listes pour stocker les données classées
-
-            // Parcourir les données et les classer
+            // Iterate through the data and classify quantifiers
             for (Map<String, String> data : dataList) {
                 String selectedQuantif = data.get("selectedQuantif");
                 String quantif = data.get("quantif");
 
-                if(this.language.equals("English")) {
+                if (this.language.equals("English")) {
                     if ("Universal".equals(selectedQuantif)) {
                         quantiflistUniv.add(quantif);
-                    }  if ("Existential".equals(selectedQuantif)) {
+                    }
+                    if ("Existential".equals(selectedQuantif)) {
                         quantiflistExist.add(quantif);
                     }
-                }
-
-                else {
+                } else {
                     if ("Universel".equals(selectedQuantif)) {
                         quantiflistUniv.add(quantif);
-
-                    }  if ("Existentiel".equals(selectedQuantif)) {
+                    }
+                    if ("Existentiel".equals(selectedQuantif)) {
                         quantiflistExist.add(quantif);
-
-
                     }
                 }
-
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+
+    /**
+     * Handles the "Back" button action to navigate to the previous state or page.
+     *
+     * This method:
+     * - Checks the number of premises (`nbpremise`) to determine whether to enable or disable the "Go to Last One" button.
+     * - If there are multiple premises, it restores the last entered values and adjusts the interface accordingly:
+     *   - Updates the fields (`premierterme`, `deuxiemeterme`, `quantificateurs`) and the negation state (`Negative`).
+     *   - Reverts the title from "Conclusion" to "Prémisse" and translates labels if the language is set to English.
+     *   - Decrements the premise counter (`nbpremise`) and updates the displayed number.
+     * - If there are no more premises, it navigates back to the previous page using `PageManager`.
+     *
+     * @param actionEvent the action event triggered by the button click.
+     */
     @FXML
     public void back(ActionEvent actionEvent) {
         if(this.nbpremise>=3)

@@ -129,6 +129,14 @@ public class Proposition {
         return !isAffirmative && !isUniversal();
     }
 
+    /**
+     * Returns a string representation of the proposition.
+     *
+     * This method generates a string that describes the proposition in a human-readable format,
+     * combining the quantifier name and the two terms involved in the proposition.
+     *
+     * @return A string representation of the proposition, including the quantifier and both terms.
+     */
     @Override
     public String toString() {
         return this.getQuantificator().getName() + " " + this.getFirstTermString() + " ...  " + this.getSecondTermString();

@@ -605,7 +605,16 @@ public class Polysyllogism implements Validator {
     }
 
     /**
-     * Allows choosing the rule that we want to submit for validation.
+     * Validates the selected rules for the syllogism.
+     *
+     * This method checks which rules have been selected for validation and applies them one by one. If the rule is valid, it is accepted;
+     * otherwise, it is added to the list of invalid rules. After checking all selected rules, a response is generated with information about
+     * the validation process.
+     *
+     * @param check An ArrayList of strings representing the rules to be validated. Each string corresponds to a specific rule (e.g., "regleMoyenTerme", "rNN").
+     *
+     * @return A Response object containing the validation result, including a message indicating which rules were validated or not,
+     *         the new conclusion (if applicable), and whether the syllogism is considered uninteresting.
      */
     @Override
     public Response validRule(ArrayList<String> check){
@@ -649,16 +658,32 @@ public class Polysyllogism implements Validator {
         return new Response(message, isValid, newConclusion, isUninteresting());
     }
 
+    /**
+     * Constructor for the Polysyllogism class.
+     *
+     * Initializes the `invalid` list and sets the `language` field.
+     *
+     * @param language The language to be set for the instance (e.g., "English", "French").
+     */
     public Polysyllogism(String language) {
-
         this.invalid = new ArrayList<>();
         this.language = language;
     }
 
+    /**
+     * Adds a premise to the list of premises.
+     *
+     * This method creates a new `Proposition` using the provided quantifier, terms, and affirmation status,
+     * and adds it to the `premises` list.
+     *
+     * @param quantifier The quantifier (e.g., "All", "Some") for the premise.
+     * @param firstTerm The first term of the premise.
+     * @param secondTerm The second term of the premise.
+     * @param isAffirmatif A boolean indicating whether the premise is affirmative (`true`) or negative (`false`).
+     */
     public void addPremise(Quantifier quantifier, String firstTerm, String secondTerm, boolean isAffirmatif) {
-        Proposition premise = new Proposition(firstTerm,secondTerm,quantifier, isAffirmatif);
+        Proposition premise = new Proposition(firstTerm, secondTerm, quantifier, isAffirmatif);
         premises.add(premise);
-
     }
 
     /**
